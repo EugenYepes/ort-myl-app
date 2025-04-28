@@ -1,7 +1,7 @@
 # Mitos y Leyendas - App Android
 
 Bienvenido al repositorio del frontend de la aplicación para Android de *Mitos y Leyendas*.  
-Esta app permite a los usuarios explorar cartas, construir mazos personalizados, aprender las reglas básicas del juego y simular partidas.
+Esta app permite a los usuarios explorar cartas, construir mazos personalizados y aprender las reglas básicas del juego.
 
 ## 📱 Tecnologías utilizadas
 
