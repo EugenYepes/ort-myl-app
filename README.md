@@ -35,7 +35,7 @@ Planeado en distintas etapas (Sprints) para ir liberando funcionalidades princip
 
 ## 🎨 Diseño (Figma)
 Puedes ver el diseño completo de la app en Figma aquí:  
-[🔗 Ver diseño en Figma](https://www.figma.com/design/vXUOJe0Nt56AKKzXVSPJPD/Mitos-y-Leyendas-APP?m=auto&t=uqhI1ymXEnLScWUX-1)
+🔗[ Ver diseño en Figma](https://www.figma.com/design/vXUOJe0Nt56AKKzXVSPJPD/Mitos-y-Leyendas-APP?m=auto&t=uqhI1ymXEnLScWUX-1)
 
 ## 💬 Contribuciones
 ¡Sugerencias y mejoras son bienvenidas!
