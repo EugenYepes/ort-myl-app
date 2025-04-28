@@ -8,7 +8,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -20,7 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.GoldLight
-import com.ar.mylapp.ui.theme.TransparentBlue
+import com.ar.mylapp.ui.theme.TransparentGreen
 
 @Preview
 @Composable
@@ -47,7 +46,7 @@ fun ButtonTertiary(
                 shape = RoundedCornerShape(size = 20.dp)
             ),
         colors = ButtonDefaults.buttonColors(
-            containerColor = TransparentBlue,
+            containerColor = TransparentGreen,
             contentColor = GoldDark),
         shape = RoundedCornerShape(20.dp)
     )
