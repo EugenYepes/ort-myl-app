@@ -1,4 +1,4 @@
-package com.ar.mylapp.screens
+package com.ar.mylapp.screens.guidebook
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,10 +9,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
-fun AccountScreen(){
+fun GuidebookScreen(navController: NavController){
     Box(
         modifier = Modifier.fillMaxSize()
     ){
@@ -24,7 +25,7 @@ fun AccountScreen(){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Account Screen",
+                text = "Guidebook Screen",
                 fontSize = 30.sp,
                 color = GoldDark
             )

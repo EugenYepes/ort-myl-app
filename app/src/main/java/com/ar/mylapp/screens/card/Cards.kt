@@ -1,4 +1,4 @@
-package com.ar.mylapp.screens
+package com.ar.mylapp.screens.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,10 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.ar.mylapp.components.buttons.ButtonPrimary
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
-fun GuidebookScreen(){
+fun CardsScreen(navController: NavController){
     Box(
         modifier = Modifier.fillMaxSize()
     ){
@@ -24,10 +27,11 @@ fun GuidebookScreen(){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Guidebook Screen",
+                text = "Cards Screen",
                 fontSize = 30.sp,
                 color = GoldDark
             )
+            ButtonPrimary(onClick = { navController.navigate(Screens.CardDetail.screen) }, "Ir a detalle")
         }
     }
 }

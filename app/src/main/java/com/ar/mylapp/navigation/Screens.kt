@@ -1,4 +1,4 @@
-package com.ar.mylapp
+package com.ar.mylapp.navigation
 
 /*
 * Definimos una clase sellada (sealed class) llamada "Screens" para contener todas las rutas de pantalla.
@@ -8,10 +8,10 @@ package com.ar.mylapp
 *
 * Por ejemplo cuando en ButtomAppBar utilicemos Screens.Account.screen == "account"
 */
-
 sealed class Screens (val screen: String) {
     data object Account: Screens("account")
     data object Cards: Screens("cards")
+    data object CardDetail: Screens("cardDetail")
     data object Decks: Screens("decks")
     data object Guidebook: Screens("guidebook")
     data object Hand: Screens("hand")

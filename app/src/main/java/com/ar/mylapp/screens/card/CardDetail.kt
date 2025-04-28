@@ -1,4 +1,4 @@
-package com.ar.mylapp.screens
+package com.ar.mylapp.screens.card
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -9,14 +9,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
-fun HomeScreen(){
-
+fun CardDetail(navController: NavController){
     Box(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ){
         Column(
             modifier = Modifier
@@ -26,7 +25,7 @@ fun HomeScreen(){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Home Screen",
+                text = "Card Detail Screen",
                 fontSize = 30.sp,
                 color = GoldDark
             )
