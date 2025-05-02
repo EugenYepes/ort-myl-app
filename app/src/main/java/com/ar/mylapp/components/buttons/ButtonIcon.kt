@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
 
+@Preview
 @Composable
 fun ButtonIconPreview() {
     ButtonIcon(
