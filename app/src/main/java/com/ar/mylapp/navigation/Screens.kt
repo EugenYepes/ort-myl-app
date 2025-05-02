@@ -9,12 +9,27 @@ package com.ar.mylapp.navigation
 * Por ejemplo cuando en ButtomAppBar utilicemos Screens.Account.screen == "account"
 */
 sealed class Screens (val screen: String) {
+    // Account
     data object Account: Screens("account")
+
+    // Cards
     data object Cards: Screens("cards")
-    data object CardDetail: Screens("cardDetail")
+    data object CardDetail: Screens("cardDetail") {
+        fun withArgs(cardId: Int): String = "cardDetail/$cardId"
+    }
+
+    // Decks
     data object Decks: Screens("decks")
+
+    // Guidebook
     data object Guidebook: Screens("guidebook")
+
+    // Hand
     data object Hand: Screens("hand")
+
+    // Home
     data object Home: Screens("home")
+
+    // Stores
     data object Stores: Screens("stores")
 }

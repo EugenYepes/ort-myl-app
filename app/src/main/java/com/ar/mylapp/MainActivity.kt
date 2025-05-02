@@ -15,11 +15,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.ar.mylapp.components.bottonBar.MyBottomAppBar
+import com.ar.mylapp.mock.sampleCards
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.navigation.getSectionForRoute
 import com.ar.mylapp.screens.account.AccountScreen
@@ -68,7 +71,14 @@ class MainActivity : ComponentActivity() {
                         ) {
                             composable(Screens.Home.screen) { HomeScreen(navController) }
                             composable(Screens.Cards.screen) { CardsScreen(navController) }
-                            composable(Screens.CardDetail.screen) { CardDetail(navController) }
+                            composable(
+                                route = "${Screens.CardDetail.screen}/{cardId}",
+                                arguments = listOf(navArgument("cardId") { type = NavType.IntType })
+                            ) { backStackEntry ->
+                                val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
+                                val card = sampleCards.find { it.cardId == cardId }
+                                CardDetail(card)
+                            }
                             composable(Screens.Decks.screen) { DecksScreen(navController) }
                             composable(Screens.Account.screen) { AccountScreen(navController) }
                             composable(Screens.Hand.screen) { HandScreen(navController) }
