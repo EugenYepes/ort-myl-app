@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.textComponent
+package com.ar.mylapp.components.tittle
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,22 +15,22 @@ import com.ar.mylapp.ui.theme.Beige
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Text3Preview(){
-    Text3(
-        text = "Texto #4"
+fun Tittle3Preview(){
+    Tittle3(
+        tittle = "Tittle #3"
     )
 }
 
 @Composable
-fun Text3(
-    text: String,
+fun Tittle3(
+    tittle: String,
     modifier: Modifier = Modifier
 ){
     Text(
-        text = text,
+        text = tittle,
         modifier = modifier,
         style = TextStyle(
-            fontSize = 12.sp,
+            fontSize = 32.sp,
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),

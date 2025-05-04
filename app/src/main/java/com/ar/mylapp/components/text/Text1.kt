@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.tittleComponent
+package com.ar.mylapp.components.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -8,34 +8,36 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.ar.mylapp.ui.theme.GoldDark
+import com.ar.mylapp.ui.theme.Beige
 import com.ar.mylapp.R
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Tittle2Preview(){
-    Tittle2(
-        tittle = "Tittle #2"
+fun Text1Preview(){
+    Text1(
+        text = "Texto #4"
     )
 }
 
 @Composable
-fun Tittle2(
-    tittle: String,
+fun Text1(
+    text: String,
     modifier: Modifier = Modifier
-){
+) {
     Text(
-        text = tittle,
+        text = text,
         modifier = modifier,
         style = TextStyle(
-            fontSize = 32.sp,
+            fontSize = 16.sp,
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
-            color = GoldDark,
+            color = Beige,
             textAlign = TextAlign.Center,
+            textDecoration = TextDecoration.Underline,
         )
     )
 }

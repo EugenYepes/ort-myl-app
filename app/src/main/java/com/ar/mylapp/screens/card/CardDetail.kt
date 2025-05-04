@@ -14,8 +14,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ar.mylapp.components.tittleComponent.Tittle1
-import com.ar.mylapp.mock.Card
+import com.ar.mylapp.components.tittle.Tittle1
+import com.ar.mylapp.models.Card
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.ar.mylapp.components.card.CardDetailImage
@@ -38,7 +38,7 @@ fun CardDetail(card: Card?) {
         ) {
             if (card != null) {
                 Spacer(modifier = Modifier.size(22.dp))
-                Tittle1(card.cardName)
+                Tittle1(capitalizeTitle(card.cardName))
                 Spacer(modifier = Modifier.size(22.dp))
                 CardDetailImage(card)
                 Spacer(modifier = Modifier.size(22.dp))
@@ -49,4 +49,18 @@ fun CardDetail(card: Card?) {
             }
         }
     }
+}
+
+fun capitalizeTitle(input: String): String {
+    val exceptions = setOf("de", "la", "el", "los", "las", "y", "en", "del")
+    return input
+        .split(" ")
+        .mapIndexed { index, word ->
+            if (word.lowercase() in exceptions && index != 0) {
+                word.lowercase()
+            } else {
+                word.lowercase().replaceFirstChar { it.titlecase() }
+            }
+        }
+        .joinToString(" ")
 }

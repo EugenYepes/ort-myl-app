@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.textComponent
+package com.ar.mylapp.components.text
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

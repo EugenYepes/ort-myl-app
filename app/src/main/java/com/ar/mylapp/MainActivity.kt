@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -22,7 +23,6 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.ar.mylapp.components.bottonBar.MyBottomAppBar
-import com.ar.mylapp.mock.sampleCards
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.navigation.getSectionForRoute
 import com.ar.mylapp.screens.account.AccountScreen
@@ -34,6 +34,7 @@ import com.ar.mylapp.screens.hand.HandScreen
 import com.ar.mylapp.screens.home.HomeScreen
 import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.ui.theme.MYLAPPTheme
+import com.ar.mylapp.viewmodel.CardViewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,6 +44,9 @@ class MainActivity : ComponentActivity() {
             MYLAPPTheme {
                 // Creas el NavController en el Activity
                 val navController = rememberNavController()
+
+                // Crear una instancia del ViewModel
+                val cardViewModel: CardViewModel = viewModel()
 
                 Box(
                     modifier = Modifier.fillMaxSize()
@@ -70,14 +74,16 @@ class MainActivity : ComponentActivity() {
                             modifier = Modifier.padding(paddingValues)
                         ) {
                             composable(Screens.Home.screen) { HomeScreen(navController) }
-                            composable(Screens.Cards.screen) { CardsScreen(navController) }
+                            composable(Screens.Cards.screen) { CardsScreen(navController, cardViewModel) }
                             composable(
                                 route = "${Screens.CardDetail.screen}/{cardId}",
                                 arguments = listOf(navArgument("cardId") { type = NavType.IntType })
                             ) { backStackEntry ->
                                 val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
-                                val card = sampleCards.find { it.cardId == cardId }
-                                CardDetail(card)
+                                val card = cardViewModel.cards.find { it.cardId == cardId }
+                                if (card != null) {
+                                    CardDetail(card)
+                                }
                             }
                             composable(Screens.Decks.screen) { DecksScreen(navController) }
                             composable(Screens.Account.screen) { AccountScreen(navController) }

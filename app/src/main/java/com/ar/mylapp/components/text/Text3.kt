@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.textComponent
+package com.ar.mylapp.components.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -15,14 +15,14 @@ import com.ar.mylapp.ui.theme.Beige
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Text5Preview(){
-    Text5(
+fun Text3Preview(){
+    Text3(
         text = "Texto #4"
     )
 }
 
 @Composable
-fun Text5(
+fun Text3(
     text: String,
     modifier: Modifier = Modifier
 ){
@@ -30,7 +30,7 @@ fun Text5(
         text = text,
         modifier = modifier,
         style = TextStyle(
-            fontSize = 18.sp,
+            fontSize = 12.sp,
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),

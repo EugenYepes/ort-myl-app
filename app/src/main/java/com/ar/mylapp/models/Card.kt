@@ -1,6 +1,4 @@
-package com.ar.mylapp.mock
-
-import androidx.annotation.DrawableRes
+package com.ar.mylapp.models
 
 data class Collection(
     val collectionId: Int,
@@ -35,7 +33,7 @@ data class KeyWord(
 
 data class Card(
     val cardId: Int,
-    @DrawableRes val imageResId: Int, // Imagen local
+    val imageUrl: String,
     val cardName: String,
     val ability: String?,
     val cost: Int?,
