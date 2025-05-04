@@ -1,11 +1,9 @@
 package com.ar.mylapp.components.card
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -15,7 +13,9 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.ar.mylapp.mock.Card
+import coil3.compose.AsyncImage
+import com.ar.mylapp.R
+import com.ar.mylapp.models.Card
 import com.ar.mylapp.navigation.Screens
 
 @Composable
@@ -24,10 +24,10 @@ fun CardGrid(
     cards: List<Card>
 ) {
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 100.dp), // Tamaño mínimo de cada celda
-        contentPadding = PaddingValues(8.dp), // Espacio alrededor de la cuadrícula
-        verticalArrangement = Arrangement.spacedBy(8.dp), // Espacio vertical entre las filas
-        horizontalArrangement = Arrangement.spacedBy(8.dp) // Espacio horizontal entre las columnas
+        columns = GridCells.Adaptive(minSize = 100.dp),
+        contentPadding = PaddingValues(8.dp),
+        verticalArrangement = Arrangement.spacedBy(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         items(cards) {
             CardGridImage(
@@ -43,13 +43,14 @@ fun CardGridImage(
     card: Card,
     onClick: () -> Unit
 ) {
-    Image(
-        painter = painterResource(id = card.imageResId),
+    AsyncImage(
+        model = card.imageUrl,
         contentDescription = card.cardName,
         contentScale = ContentScale.FillBounds,
+        placeholder = painterResource(id = R.drawable.placeholder),
+        error = painterResource(id = R.drawable.error),
         modifier = Modifier
-            .width(105.dp)
-            .height(151.dp)
+            .aspectRatio(512f / 734f)
             .clickable { onClick() }
     )
 }

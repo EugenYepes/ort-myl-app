@@ -36,11 +36,17 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
 dependencies {
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation (libs.retrofit)
+    implementation (libs.converter.gson)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
     implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)

@@ -1,6 +1,5 @@
 package com.ar.mylapp.components.card
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -37,7 +36,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
-import com.ar.mylapp.mock.Card
+import com.ar.mylapp.models.Card
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.PopoutColor
 import com.ar.mylapp.ui.theme.White
