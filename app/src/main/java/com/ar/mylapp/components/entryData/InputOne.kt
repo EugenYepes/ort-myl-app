@@ -40,8 +40,8 @@ fun InputOne() {
         textStyle = customTextStyle,
         shape = RoundedCornerShape(15.dp),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedBorderColor = GoldDark,    // Color cuando está enfocado (activo)
-            unfocusedBorderColor = GoldDark  // Color cuando no está enfocado
+            focusedBorderColor = GoldDark,    // Color cuando esta enfocado (activo)
+            unfocusedBorderColor = GoldDark  // Color cuando no esta enfocado
         )
     )}
 
