@@ -40,7 +40,6 @@ import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.Gray
 import com.ar.mylapp.ui.theme.TransparentBlue
 import androidx.compose.material3.Icon
-import androidx.compose.ui.text.style.TextAlign
 
 @Preview
 @Composable
@@ -54,6 +53,7 @@ fun SearchBarPreview() {
         searchResults = searchResults
     )
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
