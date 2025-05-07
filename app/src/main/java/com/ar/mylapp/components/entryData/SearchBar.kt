@@ -1,4 +1,5 @@
 package com.ar.mylapp.components.entryData
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -38,8 +39,12 @@ import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.Gray
-import com.ar.mylapp.ui.theme.TransparentBlue
 import androidx.compose.material3.Icon
+import androidx.compose.material3.TextField
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import com.ar.mylapp.ui.theme.Black
 
 @Preview
 @Composable
@@ -53,7 +58,6 @@ fun SearchBarPreview() {
         searchResults = searchResults
     )
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -74,49 +78,63 @@ fun SearchBar(
             modifier = Modifier
                 .padding(10.dp)
                 .align(Alignment.TopCenter)
-                .semantics { traversalIndex = 0f }
-                .border(
-                    width = 4.dp,
-                    color = GoldDark,
-                    shape = RoundedCornerShape(50.dp)
-                ),
+                .semantics { traversalIndex = 0f },
             colors = SearchBarDefaults.colors(
-                containerColor = TransparentBlue
+                containerColor = Color.Transparent,
             ),
             inputField = {
-                SearchBarDefaults.InputField(
-                    query = textFieldState.text.toString(),
-                    onQueryChange = { textFieldState.edit { replace(0, length, it) } },
-                    onSearch = {
-                        onSearch(textFieldState.text.toString())
-                        expanded = false
+                TextField(
+                    value = textFieldState.text.toString(),
+                    onValueChange = {
+                        textFieldState.edit {
+                            replace(0, length, it)
+                        }
                     },
-
-                    expanded = expanded,
-                    onExpandedChange = { expanded = it },
                     placeholder = {
                         Text(
                             "Buscar...",
                             style = TextStyle(
                                 fontSize = 20.sp,
-                                lineHeight = 12.sp,
                                 fontFamily = FontFamily(Font(R.font.patua_one_regular)),
                                 fontWeight = FontWeight(400),
-                                color = Gray,
+                                color = Gray
                             )
-                        ) },
+                        )
+                    },
                     leadingIcon = {
                         Icon(
                             painter = painterResource(id = R.drawable.search),
-                            contentDescription = "image description",
-                            modifier = Modifier.size(24.dp),
-                            tint = Gray
+                            contentDescription = "search",
+                            tint = Gray,
+                            modifier = Modifier.padding(start = 10.dp).size(24.dp)
                         )
-                    }
+                    },
+                    colors = TextFieldDefaults.colors(
+                        focusedTextColor = Gray,
+                        unfocusedTextColor = Gray,
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                        cursorColor = GoldDark
+                    ),
+                    textStyle = TextStyle(
+                        fontSize = 20.sp,
+                        fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+                        fontWeight = FontWeight(400),
+                        color = Gray
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Black, shape = RoundedCornerShape(50.dp))
+                        .clip(RoundedCornerShape(50.dp)) // Asegura que el contenido quede dentro
+                        .border(
+                            width = 4.dp,
+                            color = GoldDark,
+                            shape = RoundedCornerShape(50.dp)
+                        )
                 )
             },
             expanded = expanded,
-            onExpandedChange = { expanded = it },
+            onExpandedChange = { expanded = it }
         ) {
             Column(Modifier.verticalScroll(rememberScrollState())) {
                 searchResults.forEach { result ->
@@ -124,7 +142,9 @@ fun SearchBar(
                         headlineContent = { Text(result) },
                         modifier = Modifier
                             .clickable {
-                                textFieldState.edit { replace(0, length, result) }
+                                textFieldState.edit {
+                                    replace(0, length, result)
+                                }
                                 expanded = false
                             }
                             .fillMaxWidth()
