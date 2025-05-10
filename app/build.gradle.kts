@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.hilt)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -54,7 +55,6 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(project(":ort-myl-dtos"))
 
-
     //Lifecycle
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata.ktx)
@@ -80,4 +80,8 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 }
