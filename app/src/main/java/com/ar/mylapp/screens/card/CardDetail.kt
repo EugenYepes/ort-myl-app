@@ -15,16 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.ar.mylapp.components.tittle.Tittle1
-import com.ar.mylapp.models.Card
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
+import com.ar.mylapp.models.Card
 
 
 @Composable
-fun CardDetail(card: Card?) {
+fun CardDetail(card: Card) {
     var showPopup by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {

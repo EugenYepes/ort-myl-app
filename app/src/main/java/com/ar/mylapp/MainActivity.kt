@@ -35,7 +35,9 @@ import com.ar.mylapp.screens.home.HomeScreen
 import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.ui.theme.MYLAPPTheme
 import com.ar.mylapp.viewmodel.CardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
