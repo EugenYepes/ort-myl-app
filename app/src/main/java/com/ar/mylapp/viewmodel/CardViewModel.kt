@@ -6,11 +6,15 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ar.mylapp.models.Card
-import com.ar.mylapp.repository.CardRepository
+import com.ar.mylapp.repository.GetServiceCardRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CardViewModel : ViewModel() {
-    private val repository = CardRepository()
+@HiltViewModel
+class CardViewModel @Inject constructor(
+    private val cardRepository: GetServiceCardRepository
+) : ViewModel() {
 
     var cards by mutableStateOf<List<Card>>(emptyList())
         private set
@@ -29,7 +33,7 @@ class CardViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 isLoading = true
-                cards = repository.fetchCards()
+                cards = cardRepository.fetchCards() ?: emptyList()
             } catch (e: Exception) {
                 errorMessage = e.message
             } finally {
