@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.navigation.Screens
-import com.ar.mylapp.components.buttons.ButtonPrimary
+import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
@@ -34,14 +34,19 @@ fun HomeScreen(
                 fontSize = 30.sp,
                 color = GoldDark
             )
-            ButtonPrimary(
+            Button1(
                 onClick = { navController.navigate(Screens.Cards.screen) },
                 text = "Go to Cards Screen"
             )
-            ButtonPrimary(
+            Button1(
                 onClick = { navController.navigate(Screens.Account.screen) },
                 text = "Go to Account Screen"
             )
+            //Para testear patalla de Welcome (Login y Register)
+            /*Button1(
+                onClick = { navController.navigate(Screens.Welcome.screen) },
+                text = "Go to Welcome Screen"
+            )*/
         }
     }
 }

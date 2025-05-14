@@ -1,5 +1,7 @@
 package com.ar.mylapp.components.buttons
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -22,25 +24,24 @@ import com.ar.mylapp.ui.theme.TransparentGreen
 
 @Preview
 @Composable
-fun ButtonPrimaryPreview() {
-    ButtonPrimary(
+fun Button1Preview() {
+    Button1(
         onClick = {},
         text = "Botón #1"
     )
 }
 
 @Composable
-fun ButtonPrimary(
+fun Button1(
     onClick: () -> Unit,
     text: String
 ) {
     Button(
         onClick = onClick,
-        //contentPadding = PaddingValues(horizontal = 50.dp, vertical = 40.dp),
         modifier = Modifier
             .size(width = 270.dp, height = 85.dp)
             .border(
-                width = 4.dp, // Originalmente en 1.dp
+                width = 4.dp,
                 color = GoldLight,
                 shape = RoundedCornerShape(size = 20.dp)),
         colors = ButtonDefaults.buttonColors(
@@ -48,18 +49,25 @@ fun ButtonPrimary(
             contentColor = GoldDark),
         shape = RoundedCornerShape(20.dp))
     {
+        /*Tittle1(
+            tittle = text,
+            modifier = Modifier
+        )*/
+
+        //Modificación de tamaño de Tittle1 a 30.sp y padding a 2.p (en vez de 32.dp y 16.dp)
         Text(
-            //modifier = Modifier.size(width = 268.dp, height = 18.dp),
-            //modifier = Modifier.fillMaxSize(),
             text = text,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 2.dp),
             style = TextStyle(
-                fontSize = 32.sp,
-                lineHeight = 36.sp,
+                fontSize = 30.sp,
                 fontFamily = FontFamily(Font(R.font.patua_one_regular)),
                 fontWeight = FontWeight(400),
                 color = GoldDark,
                 textAlign = TextAlign.Center,
-            )
+            ),
+            maxLines = 2, // Mostrará hasta 2 líneas
         )
     }
 }

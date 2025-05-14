@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -12,8 +11,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavType
@@ -23,6 +20,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.ar.mylapp.components.bottonBar.MyBottomAppBar
+import com.ar.mylapp.components.image.ImageBackground
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.navigation.getSectionForRoute
 import com.ar.mylapp.screens.account.AccountScreen
@@ -33,6 +31,12 @@ import com.ar.mylapp.screens.guidebook.GuidebookScreen
 import com.ar.mylapp.screens.hand.HandScreen
 import com.ar.mylapp.screens.home.HomeScreen
 import com.ar.mylapp.screens.store.StoresScreen
+import com.ar.mylapp.screens.welcome.WelcomeScreen
+import com.ar.mylapp.screens.welcome.login.LoginScreen
+import com.ar.mylapp.screens.welcome.register.RegisterScreen
+import com.ar.mylapp.screens.welcome.register.RegisterTiendaScreen
+import com.ar.mylapp.screens.welcome.register.RegisterUsuarioScreen
+import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.ui.theme.MYLAPPTheme
 import com.ar.mylapp.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,12 +57,7 @@ class MainActivity : ComponentActivity() {
                 Box(
                     modifier = Modifier.fillMaxSize()
                 ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.background),
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
+                    ImageBackground()
                     // Usamos Scaffold para gestionar la BottomAppBar y el contenido
                     Scaffold(
                         containerColor = Color.Transparent,
@@ -92,6 +91,12 @@ class MainActivity : ComponentActivity() {
                             composable(Screens.Hand.screen) { HandScreen(navController) }
                             composable(Screens.Stores.screen) { StoresScreen(navController) }
                             composable(Screens.Guidebook.screen) { GuidebookScreen(navController) }
+                            composable(Screens.Welcome.screen) { WelcomeScreen(navController) }
+                            composable(Screens.Login.screen) { LoginScreen(navController) }
+                            composable(Screens.Register.screen) { RegisterScreen(navController) }
+                            composable(Screens.RestorePassword.screen) { RestorePasswordScreen(navController) }
+                            composable(Screens.RegisterUsuario.screen) { RegisterUsuarioScreen(navController) }
+                            composable(Screens.RegisterTienda.screen) { RegisterTiendaScreen(navController) }
                         }
                     }
                 }
@@ -105,6 +110,6 @@ class MainActivity : ComponentActivity() {
         val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
         val currentSection = getSectionForRoute(currentRoute)
         // Listar las secciones donde NO queremos mostrar la BottomAppBar
-        return currentSection !in listOf("Account" /* o cualquier otra sección */)
+        return currentSection !in listOf("Account", "Welcome", "Login", "Register", "RegisterTienda" /* o cualquier otra sección */)
     }
 }
