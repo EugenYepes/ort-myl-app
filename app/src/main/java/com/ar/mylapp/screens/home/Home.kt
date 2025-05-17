@@ -3,13 +3,19 @@ package com.ar.mylapp.screens.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.components.buttons.ButtonPrimary
 import com.ar.mylapp.ui.theme.GoldDark
@@ -18,6 +24,8 @@ import com.ar.mylapp.ui.theme.GoldDark
 fun HomeScreen(
     navController: NavController
 ){
+    val context = LocalContext.current
+
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -42,6 +50,18 @@ fun HomeScreen(
                 onClick = { navController.navigate(Screens.Account.screen) },
                 text = "Go to Account Screen"
             )
+            Spacer(modifier = Modifier.height(24.dp))
+            // Se agregar boton de logout para pruebas
+            Button(
+                onClick = {
+                    FirebaseAuthManager.logout(context)
+                    navController.navigate("login") {
+                        popUpTo("home") { inclusive = true }
+                    }
+                }
+            ) {
+                Text("Cerrar sesión")
+            }
         }
     }
 }

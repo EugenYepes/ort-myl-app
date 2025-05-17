@@ -72,5 +72,6 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
 }
