@@ -22,7 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldLight
-import com.ar.mylapp.ui.theme.TransparentGreen
+import com.ar.mylapp.ui.theme.GreenDark
 import com.ar.mylapp.ui.theme.White
 
 @Preview
@@ -54,7 +54,7 @@ fun Button6(
                 shape = RoundedCornerShape(size = 20.dp)
             ),
         colors = ButtonDefaults.buttonColors(
-            containerColor = TransparentGreen,
+            containerColor = GreenDark,
             contentColor = White
         ),
     ){

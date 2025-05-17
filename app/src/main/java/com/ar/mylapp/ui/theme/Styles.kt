@@ -81,8 +81,8 @@ fun outlinedTextFieldOneStyle() = OutlinedTextFieldDefaults.colors(
 @Composable
 fun outlinedTextFieldTwoThreeStyle() = OutlinedTextFieldDefaults.colors(
     focusedContainerColor = Gray,
-    unfocusedContainerColor = DarkGray,
-    disabledContainerColor = DarkGray,
+    unfocusedContainerColor = Gray,
+    disabledContainerColor = Gray,
     focusedBorderColor = GoldDark,
     unfocusedBorderColor = Black,
     focusedLabelColor = GoldDark,

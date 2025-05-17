@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.R
-import com.ar.mylapp.ui.theme.TransparentDark
+import com.ar.mylapp.ui.theme.BlackLight
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
@@ -36,7 +36,7 @@ fun Text4(
     Box(
         modifier = modifier
             .border(width = 2.dp, color = GoldDark)
-            .background(color = TransparentDark)
+            .background(color = BlackLight)
             .width(366.dp)
             .height(48.dp)
             .padding(horizontal = 8.dp, vertical = 14.dp)

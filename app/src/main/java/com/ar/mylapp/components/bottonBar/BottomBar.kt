@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.navigation.getBottomMenuContent
 import com.ar.mylapp.ui.theme.GoldLight
-import com.ar.mylapp.ui.theme.TransparentGray
+import com.ar.mylapp.ui.theme.Gray
 import com.ar.mylapp.viewmodel.BottomBarViewModel
 
 @Composable
@@ -55,12 +55,12 @@ fun MyBottomAppBar(
                             imageVector = item.icon,
                             contentDescription = null,
                             modifier = Modifier.size(20.dp),
-                            tint = if (currentSection == item.section) GoldLight else TransparentGray
+                            tint = if (currentSection == item.section) GoldLight else Gray
                         )
                         Text(
                             text = item.label,
                             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
-                            color = if (currentSection == item.section) GoldLight else TransparentGray,
+                            color = if (currentSection == item.section) GoldLight else Gray,
                             fontSize = 12.sp
                         )
                     }

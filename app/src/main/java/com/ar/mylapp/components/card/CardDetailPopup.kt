@@ -37,8 +37,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.models.Card
+import com.ar.mylapp.ui.theme.BlackLight
 import com.ar.mylapp.ui.theme.GoldDark
-import com.ar.mylapp.ui.theme.PopoutColor
 import com.ar.mylapp.ui.theme.White
 
 @Composable
@@ -46,10 +46,10 @@ fun CardDetailPopup(onDismiss: () -> Unit, card: Card) {
     Dialog(onDismissRequest = onDismiss) {
         Card(
             colors = CardColors(
-                containerColor = PopoutColor,
+                containerColor = BlackLight,
                 contentColor = White,
                 disabledContentColor = GoldDark,
-                disabledContainerColor = PopoutColor,
+                disabledContainerColor = BlackLight,
             ),
             modifier = Modifier
                 .width(400.dp)
