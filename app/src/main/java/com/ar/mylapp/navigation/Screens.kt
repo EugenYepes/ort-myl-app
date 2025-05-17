@@ -32,4 +32,20 @@ sealed class Screens (val screen: String) {
 
     // Stores
     data object Stores: Screens("stores")
+
+    // Welcome
+    data object Welcome: Screens("welcome")
+
+    // Login
+    data object Login: Screens("login")
+
+    // Register
+    data object Register: Screens("register")
+    data object RegisterUsuario: Screens("registerUsuario")
+    data object RegisterTienda: Screens("registerTienda")
+
+    // RestorePassword
+    data object RestorePassword: Screens("restorePassword")
+
+
 }
