@@ -52,7 +52,7 @@ fun SearchBarPreview() {
     val textFieldState = rememberTextFieldState()
     val searchResults = listOf("Result 1", "Result 2", "Result 3")
     val onSearch: (String) -> Unit = {}
-    SearchBar(
+    SearchBarAlternative(
         textFieldState = textFieldState,
         onSearch = onSearch,
         searchResults = searchResults
@@ -61,7 +61,7 @@ fun SearchBarPreview() {
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchBar(
+fun SearchBarAlternative(
     textFieldState: TextFieldState,
     onSearch: (String) -> Unit,
     searchResults: List<String>,

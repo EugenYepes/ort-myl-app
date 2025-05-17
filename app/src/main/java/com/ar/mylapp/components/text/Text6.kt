@@ -11,31 +11,32 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
-import com.ar.mylapp.ui.theme.GoldBeige
+import com.ar.mylapp.ui.theme.GoldDark
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Text5Preview(){
-    Text5(
-        text = "Texto #4"
+fun Text6Preview(){
+    Text6(
+        text = "Texto #6",
+        modifier = Modifier
     )
 }
 
 @Composable
-fun Text5(
+fun Text6(
     text: String,
     modifier: Modifier = Modifier
-){
+) {
     Text(
         text = text,
-        modifier = modifier,
+        modifier = Modifier,
         style = TextStyle(
-            fontSize = 18.sp,
+            fontSize = 20.sp,
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
-            color = GoldBeige,
-            textAlign = TextAlign.Center,
+            color = GoldDark,
+            textAlign = TextAlign.Center
         )
     )
 }

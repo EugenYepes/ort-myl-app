@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
-import com.ar.mylapp.ui.theme.Beige
+import com.ar.mylapp.ui.theme.GoldBeige
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
@@ -34,7 +34,7 @@ fun Tittle3(
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
-            color = Beige,
+            color = GoldBeige,
             textAlign = TextAlign.Center,
         )
     )

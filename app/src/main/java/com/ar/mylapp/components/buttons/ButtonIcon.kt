@@ -44,10 +44,3 @@ fun ButtonIcon(
         )
     }
 }
-
-val icons = listOf(
-    R.drawable.search,
-    R.drawable.folder_plus,
-    R.drawable.x_square,
-    R.drawable.check_square
-)

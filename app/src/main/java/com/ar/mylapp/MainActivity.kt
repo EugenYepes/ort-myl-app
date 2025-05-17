@@ -4,23 +4,21 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.ar.mylapp.components.bottonBar.MyBottomAppBar
 import com.ar.mylapp.navigation.Screens
-import com.ar.mylapp.navigation.getSectionForRoute
-import com.ar.mylapp.auth.LoginScreen
 import com.ar.mylapp.screens.account.AccountScreen
 import com.ar.mylapp.screens.card.CardDetail
 import com.ar.mylapp.screens.card.CardsScreen
@@ -29,89 +27,91 @@ import com.ar.mylapp.screens.guidebook.GuidebookScreen
 import com.ar.mylapp.screens.hand.HandScreen
 import com.ar.mylapp.screens.home.HomeScreen
 import com.ar.mylapp.screens.store.StoresScreen
+import com.ar.mylapp.screens.welcome.WelcomeScreen
+import com.ar.mylapp.screens.welcome.login.LoginScreen
+import com.ar.mylapp.screens.welcome.register.RegisterScreen
+import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
+import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
+import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.ui.theme.MYLAPPTheme
+import com.ar.mylapp.viewmodel.BottomBarViewModel
 import com.ar.mylapp.viewmodel.CardViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.image.ImageBackground
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             MYLAPPTheme {
+                // Creas el NavController en el Activity
                 val navController = rememberNavController()
-                val cardViewModel: CardViewModel = viewModel()
                 val userAuthenticationViewModel: UserAuthenticationViewModel = viewModel()
+                // Crear una instancia del ViewModel
+                val cardViewModel: CardViewModel = viewModel()
+                val bottomBarViewModel: BottomBarViewModel = viewModel()
 
-                Box(modifier = Modifier.fillMaxSize()) {
-                    Image(
-                        painter = painterResource(id = R.drawable.background),
-                        contentDescription = null,
-                        modifier = Modifier.fillMaxSize(),
-                        contentScale = ContentScale.Crop
-                    )
+                LaunchedEffect(navController) {
+                    navController.currentBackStackEntryFlow.collect { entry ->
+                        val route = entry.destination.route
+                        bottomBarViewModel.updateSectionFromRoute(route)
+                    }
+                }
+
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                ) {
+
+                    ImageBackground()
 
                     Scaffold(
                         containerColor = Color.Transparent,
                         bottomBar = {
-                            if (shouldShowBottomAppBar(navController)) {
-                                MyBottomAppBar(navController)
-                            }
+                            MyBottomAppBar(navController, bottomBarViewModel)
                         }
                     ) { paddingValues ->
+                        // El NavHost gestiona la navegación entre pantallas
                         NavHost(
                             navController = navController,
-                            startDestination = Screens.Login.screen,
+                            startDestination = Screens.Home.screen,
                             modifier = Modifier.padding(paddingValues)
                         ) {
-                            // Login Screen
-                            composable(Screens.Login.screen) {
-                                LoginScreen(navController = navController, userAuthenticationViewModel = userAuthenticationViewModel)
-                            }
-
-                            // App Screens
-                            composable(Screens.Home.screen) {
-                                HomeScreen(navController)
-                            }
+                            composable(Screens.Home.screen) { HomeScreen(navController) }
                             composable(Screens.Cards.screen) {
-                                CardsScreen(navController, cardViewModel)
+                                CardsScreen(
+                                    navController,
+                                    cardViewModel
+                                )
                             }
                             composable(
                                 route = "${Screens.CardDetail.screen}/{cardId}",
                                 arguments = listOf(navArgument("cardId") { type = NavType.IntType })
                             ) { backStackEntry ->
-                                val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
+                                val cardId =
+                                    backStackEntry.arguments?.getInt("cardId") ?: return@composable
                                 val card = cardViewModel.cards.find { it.cardId == cardId }
                                 if (card != null) {
                                     CardDetail(card)
                                 }
                             }
-                            composable(Screens.Decks.screen) {
-                                DecksScreen(navController)
-                            }
-                            composable(Screens.Account.screen) {
-                                AccountScreen(navController)
-                            }
-                            composable(Screens.Hand.screen) {
-                                HandScreen(navController)
-                            }
-                            composable(Screens.Stores.screen) {
-                                StoresScreen(navController)
-                            }
-                            composable(Screens.Guidebook.screen) {
-                                GuidebookScreen(navController)
-                            }
+                            composable(Screens.Decks.screen) { DecksScreen(navController) }
+                            composable(Screens.Account.screen) { AccountScreen(navController) }
+                            composable(Screens.Hand.screen) { HandScreen(navController) }
+                            composable(Screens.Stores.screen) { StoresScreen(navController) }
+                            composable(Screens.Guidebook.screen) { GuidebookScreen(navController) }
+                            composable(Screens.Welcome.screen) { WelcomeScreen(navController) }
+                            composable(Screens.Login.screen) { LoginScreen(navController) }
+                            composable(Screens.Register.screen) { RegisterScreen(navController) }
+                            composable(Screens.RestorePassword.screen) { RestorePasswordScreen(navController) }
+                            composable(Screens.RegisterUsuario.screen) { RegisterUserScreen(navController) }
+                            composable(Screens.RegisterTienda.screen) { RegisterStoreScreen(navController) }
                         }
                     }
                 }
             }
         }
-    }
-
-    @Composable
-    private fun shouldShowBottomAppBar(navController: NavController): Boolean {
-        val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-        val currentSection = getSectionForRoute(currentRoute)
-        return currentSection !in listOf("Account", "login")
     }
 }

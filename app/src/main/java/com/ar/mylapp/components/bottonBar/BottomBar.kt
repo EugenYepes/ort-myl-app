@@ -19,20 +19,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ar.mylapp.R
 import com.ar.mylapp.navigation.getBottomMenuContent
-import com.ar.mylapp.navigation.getSectionForRoute
 import com.ar.mylapp.ui.theme.GoldLight
-import com.ar.mylapp.ui.theme.TransparentGray
+import com.ar.mylapp.ui.theme.Gray
+import com.ar.mylapp.viewmodel.BottomBarViewModel
 
 @Composable
 fun MyBottomAppBar(
-    navController: NavController
+    navController: NavController,
+    bottomBarViewModel: BottomBarViewModel
 ) {
     val navItems = getBottomMenuContent()
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-    val currentSection = getSectionForRoute(currentRoute)
+    val currentSection = bottomBarViewModel.currentSection.value
 
     BottomAppBar(
         containerColor = Color.Transparent,
@@ -56,12 +55,12 @@ fun MyBottomAppBar(
                             imageVector = item.icon,
                             contentDescription = null,
                             modifier = Modifier.size(20.dp),
-                            tint = if (currentSection == item.section) GoldLight else TransparentGray
+                            tint = if (currentSection == item.section) GoldLight else Gray
                         )
                         Text(
                             text = item.label,
                             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
-                            color = if (currentSection == item.section) GoldLight else TransparentGray,
+                            color = if (currentSection == item.section) GoldLight else Gray,
                             fontSize = 12.sp
                         )
                     }

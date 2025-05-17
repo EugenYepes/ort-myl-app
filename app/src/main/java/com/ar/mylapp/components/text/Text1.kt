@@ -11,7 +11,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.ar.mylapp.ui.theme.Beige
+import com.ar.mylapp.ui.theme.GoldBeige
 import com.ar.mylapp.R
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
@@ -35,7 +35,7 @@ fun Text1(
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
-            color = Beige,
+            color = GoldBeige,
             textAlign = TextAlign.Center,
             textDecoration = TextDecoration.Underline,
         )
