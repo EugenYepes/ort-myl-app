@@ -9,6 +9,12 @@ fun getSectionForRoute(route: String?): String? {
         route == Screens.Stores.screen -> "Stores"
         route == Screens.Hand.screen -> "Hand"
         route == Screens.Guidebook.screen -> "Guidebook"
+        route == Screens.Welcome.screen -> "Welcome"
+        route == Screens.Login.screen -> "Login"
+        route == Screens.Register.screen -> "Register"
+        route == Screens.RestorePassword.screen -> "RestorePassword"
+        route == Screens.RegisterUsuario.screen -> "RegisterUsuario"
+        route == Screens.RegisterTienda.screen -> "RegisterTienda"
         else -> null
     }
 }
