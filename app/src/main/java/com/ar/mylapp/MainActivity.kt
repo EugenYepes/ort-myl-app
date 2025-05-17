@@ -34,8 +34,8 @@ import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.screens.welcome.WelcomeScreen
 import com.ar.mylapp.screens.welcome.login.LoginScreen
 import com.ar.mylapp.screens.welcome.register.RegisterScreen
-import com.ar.mylapp.screens.welcome.register.RegisterTiendaScreen
-import com.ar.mylapp.screens.welcome.register.RegisterUsuarioScreen
+import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
+import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.ui.theme.MYLAPPTheme
 import com.ar.mylapp.viewmodel.CardViewModel
@@ -95,8 +95,8 @@ class MainActivity : ComponentActivity() {
                             composable(Screens.Login.screen) { LoginScreen(navController) }
                             composable(Screens.Register.screen) { RegisterScreen(navController) }
                             composable(Screens.RestorePassword.screen) { RestorePasswordScreen(navController) }
-                            composable(Screens.RegisterUsuario.screen) { RegisterUsuarioScreen(navController) }
-                            composable(Screens.RegisterTienda.screen) { RegisterTiendaScreen(navController) }
+                            composable(Screens.RegisterUsuario.screen) { RegisterUserScreen(navController) }
+                            composable(Screens.RegisterTienda.screen) { RegisterStoreScreen(navController) }
                         }
                     }
                 }

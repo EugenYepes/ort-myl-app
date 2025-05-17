@@ -12,7 +12,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ar.mylapp.components.buttons.Button1
-import com.ar.mylapp.components.image.ImageBackground
 import com.ar.mylapp.components.image.ImageLogoMyl
 
 @Composable
@@ -22,7 +21,6 @@ fun RegisterScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        ImageBackground()
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally,

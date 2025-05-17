@@ -33,7 +33,7 @@ fun Button3(
         modifier = Modifier
             .size(width = 160.dp, height = 50.dp)
             .border(
-                width = 2.dp,
+                width = 1.dp,
                 color = GoldLight,
                 shape = RoundedCornerShape(size = 20.dp)
             ),

@@ -13,7 +13,6 @@ import androidx.navigation.NavController
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
 import com.ar.mylapp.components.entryData.InputOne
-import com.ar.mylapp.components.image.ImageBackground
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.navigation.Screens
@@ -37,9 +36,8 @@ fun LoginScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        ImageBackground()
         Column(
-            verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(top = 20.dp)
@@ -50,9 +48,8 @@ fun LoginScreen(
                     .align(Alignment.CenterHorizontally)
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(12.dp, Alignment.CenterVertically),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = 10.dp)
             ) {
                 InputOne(
                     label = "Correo Electrónico"
@@ -68,15 +65,14 @@ fun LoginScreen(
                     onClick = {},
                     text = "INICIAR SESIÓN"
                 )
-                Text3(
-                    text = "¿No tienes una cuenta?"
-                )
-                Button5(
-                    onClick = {},
-                    text = "REGISTRARSE"
-                )
+                Column(
+                    verticalArrangement = Arrangement.spacedBy((-10).dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text3(text = "¿No tienes una cuenta?")
+                    Button5(onClick = {navController.navigate(Screens.Register.screen)}, text = "REGISTRARSE")
+                }
             }
-
         }
     }
 }

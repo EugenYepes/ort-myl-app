@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.entryData.InputOne
-import com.ar.mylapp.components.image.ImageBackground
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.components.tittle.Tittle2
@@ -25,7 +24,6 @@ fun RestorePasswordScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        ImageBackground()
         Column(
             verticalArrangement = Arrangement.spacedBy(10.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally,

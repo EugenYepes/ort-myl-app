@@ -12,7 +12,6 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
-import com.ar.mylapp.components.image.ImageBackground
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.navigation.Screens
 
@@ -23,7 +22,6 @@ fun WelcomeScreen(
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
-        ImageBackground()
         Column(
             verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
             horizontalAlignment = Alignment.CenterHorizontally,

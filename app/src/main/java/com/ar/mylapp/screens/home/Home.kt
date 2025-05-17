@@ -43,10 +43,10 @@ fun HomeScreen(
                 text = "Go to Account Screen"
             )
             //Para testear patalla de Welcome (Login y Register)
-            /*Button1(
+            Button1(
                 onClick = { navController.navigate(Screens.Welcome.screen) },
                 text = "Go to Welcome Screen"
-            )*/
+            )
         }
     }
 }

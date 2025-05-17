@@ -41,7 +41,7 @@ fun Button1(
         modifier = Modifier
             .size(width = 270.dp, height = 85.dp)
             .border(
-                width = 4.dp,
+                width = 1.dp,
                 color = GoldLight,
                 shape = RoundedCornerShape(size = 20.dp)),
         colors = ButtonDefaults.buttonColors(
