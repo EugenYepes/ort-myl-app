@@ -1,15 +1,14 @@
-package com.ar.mylapp.viewmodel
+package com.ar.mylapp.auth
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.ar.mylapp.auth.FirebaseAuthManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor() : ViewModel() {
+class UserAuthenticationViewModel @Inject constructor() : ViewModel() {
 
     var email by mutableStateOf("")
     var password by mutableStateOf("")
@@ -17,6 +16,10 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     var token by mutableStateOf<String?>(null)
 
     fun onLoginClicked() {
+        if (email.isBlank() || password.isBlank()) {
+            error = "Completá email y contraseña"
+            return
+        }
         FirebaseAuthManager.login(
             email,
             password,
@@ -31,6 +34,11 @@ class LoginViewModel @Inject constructor() : ViewModel() {
     }
 
     fun onRegisterClicked() {
+        if (email.isBlank() || password.isBlank()) {
+            error = "Completá email y contraseña"
+            return
+        }
+
         FirebaseAuthManager.register(
             email,
             password,

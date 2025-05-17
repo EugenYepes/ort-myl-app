@@ -81,6 +81,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation("com.google.android.gms:play-services-auth:21.0.0")
 
 
     implementation(platform(libs.firebase.bom))

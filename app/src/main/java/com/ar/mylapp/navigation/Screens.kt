@@ -46,6 +46,4 @@ sealed class Screens (val screen: String) {
 
     // RestorePassword
     data object RestorePassword: Screens("restorePassword")
-
-
 }

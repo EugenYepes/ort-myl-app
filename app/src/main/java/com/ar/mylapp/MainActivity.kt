@@ -37,6 +37,7 @@ import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.ui.theme.MYLAPPTheme
 import com.ar.mylapp.viewmodel.BottomBarViewModel
 import com.ar.mylapp.viewmodel.CardViewModel
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
 
                 val cardViewModel: CardViewModel = viewModel()
+                val userAuthenticationViewModel: UserAuthenticationViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
 
                 LaunchedEffect(navController) {
@@ -63,7 +65,7 @@ class MainActivity : ComponentActivity() {
                 ) {
 
                     ImageBackground()
-                    
+
                     Scaffold(
                         containerColor = Color.Transparent,
                         bottomBar = {
@@ -72,7 +74,7 @@ class MainActivity : ComponentActivity() {
                     ) { paddingValues ->
                         NavHost(
                             navController = navController,
-                            startDestination = Screens.Home.screen,
+                            startDestination = Screens.Login.screen,
                             modifier = Modifier.padding(paddingValues)
                         ) {
                             composable(Screens.Home.screen) { HomeScreen(navController) }

@@ -1,6 +1,13 @@
 package com.ar.mylapp.auth
 
+import android.content.Context
 import com.google.firebase.auth.FirebaseAuth
+// Signin con Google
+/*
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+*/
 
 object FirebaseAuthManager {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
@@ -15,17 +22,26 @@ object FirebaseAuthManager {
 
     fun login(email: String, password: String, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
-            .addOnSuccessListener {
-                auth.currentUser?.getIdToken(true)?.addOnSuccessListener { result ->
-                    val token = result.token
-                    onSuccess(token ?: "")
+            .addOnSuccessListener { result ->
+                auth.currentUser?.getIdToken(true)?.addOnSuccessListener { tokenResult ->
+                    val idToken = tokenResult.token
+                    if (idToken != null) onSuccess(idToken)
+                    else onError("No se pudo obtener el token")
                 }
             }
             .addOnFailureListener { onError(it.message ?: "Login fallido") }
     }
 
-    fun logout() {
-        auth.signOut()
+    fun logout(context: Context) {
+        FirebaseAuth.getInstance().signOut()
+        // Cerrar sesión exclusivamente de Google
+        /* GoogleSignIn.getClient(
+            context,
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken("1055501727698-j0umm7kllbvpgoufnbvrnsfu1ap2mm5b.apps.googleusercontent.com")
+                .requestEmail()
+                .build()
+        ).signOut() */
     }
 
     fun getCurrentUserEmail(): String? = auth.currentUser?.email
