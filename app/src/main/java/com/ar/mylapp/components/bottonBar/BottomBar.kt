@@ -19,20 +19,19 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.ar.mylapp.R
 import com.ar.mylapp.navigation.getBottomMenuContent
-import com.ar.mylapp.navigation.getSectionForRoute
 import com.ar.mylapp.ui.theme.GoldLight
 import com.ar.mylapp.ui.theme.TransparentGray
+import com.ar.mylapp.viewmodel.BottomBarViewModel
 
 @Composable
 fun MyBottomAppBar(
-    navController: NavController
+    navController: NavController,
+    bottomBarViewModel: BottomBarViewModel
 ) {
     val navItems = getBottomMenuContent()
-    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
-    val currentSection = getSectionForRoute(currentRoute)
+    val currentSection = bottomBarViewModel.currentSection.value
 
     BottomAppBar(
         containerColor = Color.Transparent,
