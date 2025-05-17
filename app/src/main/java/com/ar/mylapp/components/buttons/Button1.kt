@@ -47,8 +47,8 @@ fun Button1(
         colors = ButtonDefaults.buttonColors(
             containerColor = TransparentGreen,
             contentColor = GoldDark),
-        shape = RoundedCornerShape(20.dp))
-    {
+        shape = RoundedCornerShape(20.dp)
+    ) {
         /*Tittle1(
             tittle = text,
             modifier = Modifier
