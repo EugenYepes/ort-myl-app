@@ -20,20 +20,24 @@ import com.ar.mylapp.ui.theme.outlinedTextFieldOneStyle
 @Preview(showBackground = true, backgroundColor = 0x000000)
 @Composable
 fun InputOnePreview() {
+    var text by remember { mutableStateOf("Texto de prueba") }
     InputOne(
-        label = "Input #1"
+        label = "Input #1",
+        value = text,
+        onValueChange = { text = it }
     )
 }
 
 @Composable
 fun InputOne(
-    label: String
+    label: String,
+    value: String,
+    onValueChange: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
 
     OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
+        value = value,
+        onValueChange = onValueChange,
         singleLine = true,
         label = {
             Text(

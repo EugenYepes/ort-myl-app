@@ -16,13 +16,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.auth.FirebaseAuthManager
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
 fun HomeScreen(
-    navController: NavController
+    navController: NavController,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ){
     val context = LocalContext.current
 
@@ -60,6 +62,9 @@ fun HomeScreen(
             Button(
                 onClick = {
                     FirebaseAuthManager.logout(context)
+                    // Limpiar la sesión del ViewModel
+                    // para que no rebote entre Home y Login
+                    userAuthenticationViewModel.clearSession()
                     navController.navigate("login") {
                         popUpTo("home") { inclusive = true }
                     }

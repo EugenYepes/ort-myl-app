@@ -77,7 +77,12 @@ class MainActivity : ComponentActivity() {
                             startDestination = Screens.Login.screen,
                             modifier = Modifier.padding(paddingValues)
                         ) {
-                            composable(Screens.Home.screen) { HomeScreen(navController) }
+                            composable(Screens.Home.screen) {
+                                HomeScreen(
+                                    navController,
+                                    userAuthenticationViewModel
+                                )
+                            }
                             composable(Screens.Cards.screen) {
                                 CardsScreen(
                                     navController,
@@ -101,11 +106,26 @@ class MainActivity : ComponentActivity() {
                             composable(Screens.Stores.screen) { StoresScreen(navController) }
                             composable(Screens.Guidebook.screen) { GuidebookScreen(navController) }
                             composable(Screens.Welcome.screen) { WelcomeScreen(navController) }
-                            composable(Screens.Login.screen) { LoginScreen(navController) }
+                            composable(Screens.Login.screen) {
+                                LoginScreen(
+                                    navController,
+                                    userAuthenticationViewModel
+                                )
+                            }
                             composable(Screens.Register.screen) { RegisterScreen(navController) }
                             composable(Screens.RestorePassword.screen) { RestorePasswordScreen(navController) }
-                            composable(Screens.RegisterUsuario.screen) { RegisterUserScreen(navController) }
-                            composable(Screens.RegisterTienda.screen) { RegisterStoreScreen(navController) }
+                            composable(Screens.RegisterUsuario.screen) {
+                                RegisterUserScreen(
+                                    navController,
+                                    userAuthenticationViewModel
+                                )
+                            }
+                            composable(Screens.RegisterTienda.screen) {
+                                RegisterStoreScreen(
+                                    navController,
+                                    userAuthenticationViewModel
+                                )
+                            }
                         }
                     }
                 }
