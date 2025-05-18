@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -14,23 +15,27 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
 import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
+import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.navigation.Screens
 
 @Preview
 @Composable
 fun RegisterStoreScreenPreview(){
     var navController = rememberNavController()
-    RegisterStoreScreen(navController)
+    var viewModel = UserAuthenticationViewModel()
+    RegisterStoreScreen(navController, viewModel)
 }
 
 @Composable
 fun RegisterStoreScreen(
-    navController: NavController
+    navController: NavController,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
@@ -49,14 +54,53 @@ fun RegisterStoreScreen(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                InputOne(label = "Nombre de la Tienda")
-                InputOne(label = "Dirección")
-                InputOne(label = "Teléfono")
-                InputOne(label = "Correo Electrónico")
-                InputOne(label = "Contraseña")
-                InputOne(label = "Confirmar Contraseña")
+                InputOne(
+                    label = "Nombre de la Tienda",
+                    value = userAuthenticationViewModel.storeName,
+                    onValueChange = { userAuthenticationViewModel.storeName = it }
+                )
+
+                InputOne(
+                    label = "Dirección",
+                    value = userAuthenticationViewModel.address,
+                    onValueChange = { userAuthenticationViewModel.address = it }
+                )
+
+                InputOne(
+                    label = "Teléfono",
+                    value = userAuthenticationViewModel.phone,
+                    onValueChange = { userAuthenticationViewModel.phone = it }
+                )
+
+                InputOne(
+                    label = "Correo Electrónico",
+                    value = userAuthenticationViewModel.email,
+                    onValueChange = { userAuthenticationViewModel.email = it }
+                )
+
+                InputOne(
+                    label = "Contraseña",
+                    value = userAuthenticationViewModel.password,
+                    onValueChange = { userAuthenticationViewModel.password = it }
+                )
+
+                InputOne(
+                    label = "Confirmar Contraseña",
+                    value = userAuthenticationViewModel.confirmPassword,
+                    onValueChange = { userAuthenticationViewModel.confirmPassword = it }
+                )
+
+                userAuthenticationViewModel.error?.let {
+                    Text5(
+                        text = it,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+
                 Spacer(modifier = Modifier.size(8.dp))
-                Button1(onClick = {}, text = "REGISTRARSE")
+                Button1(
+                    onClick = { userAuthenticationViewModel.onRegisterClicked(isStore = true) },
+                    text = "REGISTRARSE")
             }
             Column(
                 verticalArrangement = Arrangement.spacedBy((-10).dp),
