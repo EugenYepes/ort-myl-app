@@ -9,8 +9,8 @@ import javax.inject.Inject
 class GetServiceCardRepository @Inject constructor(
     private val cardRetrofit: CardRetrofit
 ) {
-    suspend fun fetchCards(): List<CardDTO>? = withContext(context = Dispatchers.IO) {
-        cardRetrofit.getCards()
+    suspend fun fetchCards(currentPage: Int, pageSize: Int): List<CardDTO>? = withContext(context = Dispatchers.IO) {
+        cardRetrofit.getCards(currentPage, pageSize)
         //return RetrofitInstance.provideCardApiClient().getCards()
     }
 }

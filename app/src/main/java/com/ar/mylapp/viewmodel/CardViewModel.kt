@@ -19,38 +19,33 @@ class CardViewModel @Inject constructor(
     var cards by mutableStateOf<List<CardDTO>>(emptyList())
         private set
 
-    var isLoading by mutableStateOf(true)
+    var isLoading by mutableStateOf(false)
         private set
 
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
+    private var currentPage = 1
+    private val pageSize = 15
+    private var endReached = false
+
     init {
-        getCards()
+        loadMoreCards()
     }
 
-    /*private fun getCards() {
-        viewModelScope.launch {
-            try {
-                isLoading = true
-                cards = cardRepository.fetchCards() ?: emptyList()
-            } catch (e: Exception) {
-                errorMessage = e.message
-            } finally {
-                isLoading = false
-            }
-        }
-    }*/
-    private fun getCards() {
+    fun loadMoreCards() {
+        if (isLoading || endReached) return
+
         viewModelScope.launch {
             isLoading = true
             try {
-                val result = cardRepository.fetchCards()
-                if (result != null) {
-                    cards = result
-                    errorMessage = null
+                val result = cardRepository.fetchCards(currentPage, pageSize)
+                if (result.isNullOrEmpty()) {
+                    endReached = true
                 } else {
-                    errorMessage = "Error: respuesta vacía del servidor"
+                    cards = cards + result
+                    currentPage++
+                    errorMessage = null
                 }
             } catch (e: Exception) {
                 errorMessage = "Error de red: ${e.localizedMessage ?: "desconocido"}"

@@ -36,16 +36,14 @@ fun CardDetail(card: CardDTO) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (card != null) {
-                Spacer(modifier = Modifier.size(22.dp))
-                Tittle1(capitalizeTitle(card.getName()))
-                Spacer(modifier = Modifier.size(22.dp))
-                CardDetailImage(card)
-                Spacer(modifier = Modifier.size(22.dp))
-                ShowButtons(onClick = { showPopup = true })
-                if (showPopup) {
-                    CardDetailPopup(onDismiss = { showPopup = false }, card)
-                }
+            Spacer(modifier = Modifier.size(22.dp))
+            Tittle1(capitalizeTitle(card.name))
+            Spacer(modifier = Modifier.size(22.dp))
+            CardDetailImage(card)
+            Spacer(modifier = Modifier.size(22.dp))
+            ShowButtons(onClick = { showPopup = true })
+            if (showPopup) {
+                CardDetailPopup(onDismiss = { showPopup = false }, card)
             }
         }
     }
