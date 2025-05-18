@@ -1,15 +1,13 @@
 package com.ar.mylapp.ui.theme
 
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 
@@ -49,7 +47,7 @@ val inputTwoThreeStyle = TextStyle(
 )
 
 val textDropdownMenuStyle = TextStyle(
-    fontSize = 18.sp,
+    fontSize = 14.sp,
     lineHeight = 16.sp,
     fontFamily = FontFamily(Font(R.font.patua_one_regular)),
     fontWeight = FontWeight(400),
@@ -61,7 +59,7 @@ val labelDropdownMenuStyle = TextStyle(
     lineHeight = 10.sp,
     fontFamily = FontFamily(Font(R.font.patua_one_regular)),
     fontWeight = FontWeight(400),
-    color = GoldDark
+    color = White
 )
 
 
@@ -92,15 +90,12 @@ fun outlinedTextFieldTwoThreeStyle() = OutlinedTextFieldDefaults.colors(
 )
 
 //ExposedDropdownMenu
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun exposedDropdownStyle() = ExposedDropdownMenuDefaults.textFieldColors(
+fun exposedDropdownStyle() = TextFieldDefaults.colors(
     focusedTextColor = White,
     unfocusedTextColor = White,
     focusedContainerColor = Black,
     unfocusedContainerColor = Black,
-    focusedLabelColor = GoldDark,
-    unfocusedLabelColor = GoldDark,
     focusedIndicatorColor = Color.Transparent,
     unfocusedIndicatorColor = Color.Transparent
 )

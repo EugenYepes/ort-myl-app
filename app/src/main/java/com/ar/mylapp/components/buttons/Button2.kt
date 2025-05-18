@@ -32,7 +32,7 @@ fun Button2(
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .size(width = 220.dp, height = 50.dp)
             .border(
                 width = 1.dp,
