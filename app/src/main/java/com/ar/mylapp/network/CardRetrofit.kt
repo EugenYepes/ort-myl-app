@@ -1,17 +1,19 @@
 package com.ar.mylapp.network
 
-import com.ar.mylapp.models.Card
+import ar.com.myldtos.cards.CardDTO
 import javax.inject.Inject
 
 class CardRetrofit
 @Inject
 constructor(private val service: CardApiService) : IServiceCards {
 
-    override suspend fun getCards(): List<Card>? {
-        val response = service.getCards()
+    override suspend fun getCards(): List<CardDTO>? {
+        //val response = service.getCards()
+
+        val response = service.getCards(page = 5, pageSize = 5 )
 
         return if (response.isSuccessful) {
-            response.body()?.map { it.toCard() }
+            response.body()
         } else {
             emptyList()
         }

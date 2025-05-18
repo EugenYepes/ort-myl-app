@@ -13,15 +13,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import ar.com.myldtos.cards.CardDTO
 import coil3.compose.AsyncImage
 import com.ar.mylapp.R
-import com.ar.mylapp.models.Card
 import com.ar.mylapp.navigation.Screens
 
 @Composable
 fun CardGrid(
     navController: NavController,
-    cards: List<Card>
+    cards: List<CardDTO>
 ) {
     LazyVerticalGrid(
         columns = GridCells.Adaptive(minSize = 100.dp),
@@ -32,7 +32,7 @@ fun CardGrid(
         items(cards) {
             CardGridImage(
                 card = it,
-                onClick = { navController.navigate(Screens.CardDetail.withArgs(it.cardId)) }
+                onClick = { navController.navigate(Screens.CardDetail.withArgs(it.id)) }
             )
         }
     }
@@ -40,12 +40,12 @@ fun CardGrid(
 
 @Composable
 fun CardGridImage(
-    card: Card,
+    card: CardDTO,
     onClick: () -> Unit
 ) {
     AsyncImage(
         model = card.imageUrl,
-        contentDescription = card.cardName,
+        contentDescription = card.name,
         contentScale = ContentScale.FillBounds,
         placeholder = painterResource(id = R.drawable.placeholder),
         error = painterResource(id = R.drawable.error),

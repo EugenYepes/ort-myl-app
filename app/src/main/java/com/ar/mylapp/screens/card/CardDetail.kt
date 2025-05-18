@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.components.tittle.Tittle1
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
-import com.ar.mylapp.models.Card
 
 
 @Composable
-fun CardDetail(card: Card) {
+fun CardDetail(card: CardDTO) {
     var showPopup by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -38,7 +38,7 @@ fun CardDetail(card: Card) {
         ) {
             if (card != null) {
                 Spacer(modifier = Modifier.size(22.dp))
-                Tittle1(capitalizeTitle(card.cardName))
+                Tittle1(capitalizeTitle(card.getName()))
                 Spacer(modifier = Modifier.size(22.dp))
                 CardDetailImage(card)
                 Spacer(modifier = Modifier.size(22.dp))
