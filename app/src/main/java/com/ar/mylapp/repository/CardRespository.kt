@@ -1,7 +1,7 @@
 package com.ar.mylapp.repository
 
+import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.network.CardRetrofit
-import com.ar.mylapp.models.Card
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
@@ -9,8 +9,8 @@ import javax.inject.Inject
 class GetServiceCardRepository @Inject constructor(
     private val cardRetrofit: CardRetrofit
 ) {
-    suspend fun fetchCards(): List<Card>? = withContext(context = Dispatchers.IO) {
-        cardRetrofit.getCards()
+    suspend fun fetchCards(currentPage: Int, pageSize: Int): List<CardDTO>? = withContext(context = Dispatchers.IO) {
+        cardRetrofit.getCards(currentPage, pageSize)
         //return RetrofitInstance.provideCardApiClient().getCards()
     }
 }
