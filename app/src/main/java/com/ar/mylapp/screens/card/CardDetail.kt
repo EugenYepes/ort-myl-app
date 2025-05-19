@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.components.tittle.Tittle1
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
-import com.ar.mylapp.models.Card
 
 
 @Composable
-fun CardDetail(card: Card) {
+fun CardDetail(card: CardDTO) {
     var showPopup by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -36,16 +36,14 @@ fun CardDetail(card: Card) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            if (card != null) {
-                Spacer(modifier = Modifier.size(22.dp))
-                Tittle1(capitalizeTitle(card.cardName))
-                Spacer(modifier = Modifier.size(22.dp))
-                CardDetailImage(card)
-                Spacer(modifier = Modifier.size(22.dp))
-                ShowButtons(onClick = { showPopup = true })
-                if (showPopup) {
-                    CardDetailPopup(onDismiss = { showPopup = false }, card)
-                }
+            Spacer(modifier = Modifier.size(22.dp))
+            Tittle1(capitalizeTitle(card.name))
+            Spacer(modifier = Modifier.size(22.dp))
+            CardDetailImage(card)
+            Spacer(modifier = Modifier.size(22.dp))
+            ShowButtons(onClick = { showPopup = true })
+            if (showPopup) {
+                CardDetailPopup(onDismiss = { showPopup = false }, card)
             }
         }
     }

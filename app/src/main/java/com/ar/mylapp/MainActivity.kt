@@ -97,7 +97,7 @@ class MainActivity : ComponentActivity() {
                             ) { backStackEntry ->
                                 val cardId =
                                     backStackEntry.arguments?.getInt("cardId") ?: return@composable
-                                val card = cardViewModel.cards.find { it.cardId == cardId }
+                                val card = cardViewModel.cards.find { it.id == cardId }
                                 if (card != null) {
                                     CardDetail(card)
                                 }

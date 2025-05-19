@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ar.mylapp.models.Card
+import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.repository.GetServiceCardRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,26 +16,39 @@ class CardViewModel @Inject constructor(
     private val cardRepository: GetServiceCardRepository
 ) : ViewModel() {
 
-    var cards by mutableStateOf<List<Card>>(emptyList())
+    var cards by mutableStateOf<List<CardDTO>>(emptyList())
         private set
 
-    var isLoading by mutableStateOf(true)
+    var isLoading by mutableStateOf(false)
         private set
 
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
+    private var currentPage = 1
+    private val pageSize = 15
+    private var endReached = false
+
     init {
-        getCards()
+        loadMoreCards()
     }
 
-    private fun getCards() {
+    fun loadMoreCards() {
+        if (isLoading || endReached) return
+
         viewModelScope.launch {
+            isLoading = true
             try {
-                isLoading = true
-                cards = cardRepository.fetchCards() ?: emptyList()
+                val result = cardRepository.fetchCards(currentPage, pageSize)
+                if (result.isNullOrEmpty()) {
+                    endReached = true
+                } else {
+                    cards = cards + result
+                    currentPage++
+                    errorMessage = null
+                }
             } catch (e: Exception) {
-                errorMessage = e.message
+                errorMessage = "Error de red: ${e.localizedMessage ?: "desconocido"}"
             } finally {
                 isLoading = false
             }
