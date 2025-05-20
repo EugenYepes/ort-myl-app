@@ -15,7 +15,6 @@ import com.ar.mylapp.screens.card.CardDetail
 import com.ar.mylapp.screens.card.CardsScreen
 import com.ar.mylapp.screens.deck.DecksScreen
 import com.ar.mylapp.screens.guidebook.GuidebookScreen
-import com.ar.mylapp.screens.hand.HandScreen
 import com.ar.mylapp.screens.home.HomeScreen
 import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.screens.welcome.WelcomeScreen
@@ -60,7 +59,7 @@ fun NavigationScreens(
         ) { backStackEntry ->
             val cardId =
                 backStackEntry.arguments?.getInt("cardId") ?: return@composable
-            val card = cardViewModel.cards.find { it.cardId == cardId }
+            val card = cardViewModel.cards.find { it.id == cardId }
             if (card != null) {
                 CardDetail(card)
             }
