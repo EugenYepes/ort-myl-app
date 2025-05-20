@@ -1,4 +1,4 @@
-package com.ar.mylapp.components
+package com.ar.mylapp.components.card
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -18,7 +18,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.carousel.HorizontalUncontainedCarousel
 import androidx.compose.material3.carousel.rememberCarouselState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -31,7 +31,14 @@ import com.ar.mylapp.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Carousel() {
+fun CardCarousel() { //cards: List<CardDTO>
+
+    /*data class CarouselItem(
+        val id: Int,
+        val imageUrl: String,
+        val contentDescription: String
+    )*/
+
     data class CarouselItem(
         val id: Int,
         @DrawableRes val imageResId: Int,
@@ -46,13 +53,27 @@ fun Carousel() {
         )
     }
 
-    val selectedIndex = remember { mutableStateOf(0) }
+    /*val carouselItems = cards.take(3).mapIndexed { index, card ->
+    CarouselItem(
+        id = index,
+        imageUrl = card.imageUrl,
+        contentDescription = card.name
+        )
+    }*/
+
+    val initialIndex = carouselItems.size / 2
+    val carouselState = rememberCarouselState(
+        initialItem = initialIndex, // Inicia en la carta del medio
+        itemCount = { carouselItems.size }
+    )
+
+    val selectedIndex = remember { mutableIntStateOf(initialIndex) }
 
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
         HorizontalUncontainedCarousel(
-            state = rememberCarouselState { carouselItems.count() },
+            state = carouselState,
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -78,12 +99,16 @@ fun Carousel() {
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
-            Row (
-                horizontalArrangement = Arrangement.spacedBy(8.dp, Alignment.CenterHorizontally),
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(
+                    8.dp,
+                    Alignment.CenterHorizontally
+                ),
                 verticalAlignment = Alignment.CenterVertically,
-            ){
+            ) {
                 repeat(carouselItems.size) { index ->
-                    val ellipse = if (index == selectedIndex.value) R.drawable.ellipse1 else R.drawable.ellipse3
+                    val ellipse =
+                        if (index == selectedIndex.value) R.drawable.ellipse1 else R.drawable.ellipse3
                     Image(
                         painter = painterResource(id = ellipse),
                         contentDescription = null,
