@@ -1,10 +1,11 @@
 plugins {
     id("kotlin-kapt")
+    id("org.jetbrains.kotlin.kapt")
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.kotlin.hilt)
     id("com.google.gms.google-services")
+    alias(libs.plugins.kotlin.hilt)
 }
 
 android {
@@ -45,6 +46,7 @@ android {
 
 dependencies {
 
+    // Coil
     implementation(libs.coil.compose)
 
     //Retrofit
@@ -58,6 +60,17 @@ dependencies {
     //Lifecycle
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // Firebase
+    implementation(libs.play.services.auth)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth.ktx)
 
     implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
@@ -81,7 +94,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
+    implementation(libs.play.services.auth.v2100)
 
 
     implementation(platform(libs.firebase.bom))

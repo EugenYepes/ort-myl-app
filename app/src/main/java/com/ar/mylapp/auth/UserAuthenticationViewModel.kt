@@ -91,12 +91,19 @@ class UserAuthenticationViewModel @Inject constructor() : ViewModel() {
         )
     }
 
-
     fun clearSession() {
         email = ""
         password = ""
         token = null
         error = null
+    }
+
+    fun isLoggedIn(): Boolean{
+        return this.token != null
+    }
+
+    fun resetRegistrationState(){
+        registrationSuccess = false
     }
 
 }

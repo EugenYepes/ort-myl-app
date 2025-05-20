@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.image.ImageLogoMyl
+import com.ar.mylapp.navigation.Screens
 
 @Composable
 fun RegisterScreen(
@@ -39,11 +40,11 @@ fun RegisterScreen(
                 modifier = Modifier.padding(top = 40.dp)
             ) {
                 Button1(
-                    onClick = { navController.navigate("registerUsuario") },
+                    onClick = { navController.navigate(Screens.RegisterUser.screen) },
                     text = "USUARIO"
                 )
                 Button1(
-                    onClick = { navController.navigate("registerTienda")},
+                    onClick = { navController.navigate(Screens.RegisterStore.screen)},
                     text = "TIENDA"
                 )
             }
