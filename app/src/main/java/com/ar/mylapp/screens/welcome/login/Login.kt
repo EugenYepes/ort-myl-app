@@ -6,23 +6,26 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
 import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
+import com.ar.mylapp.components.text.Text5
+import com.ar.mylapp.navigation.NavigateOnLogInSuccess
 import com.ar.mylapp.navigation.Screens
 
 
 @Composable
 fun LoginScreen(
-    navController: NavController
-    //Debería recibir LoginViewModel
-    //viewModel: LoginViewModel = viewModel()
+    navController: NavController,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 )
 // : ViewModel()
 {
@@ -32,6 +35,13 @@ fun LoginScreen(
     var error = viewModel.error
     var token = viewModel.token
     */
+
+    NavigateOnLogInSuccess(
+        navController = navController,
+        userAuthenticationViewModel = userAuthenticationViewModel,
+        popUpToScreen = Screens.Login.screen,
+        destinationScreen = Screens.Home.screen
+    )
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -52,17 +62,30 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 InputOne(
-                    label = "Correo Electrónico"
+                    label = "Correo Electrónico",
+                    value = userAuthenticationViewModel.email,
+                    onValueChange = { userAuthenticationViewModel.email = it }
                 )
                 InputOne(
-                    label = "Contraseña"
+                    label = "Contraseña",
+                    value = userAuthenticationViewModel.password,
+                    onValueChange = { userAuthenticationViewModel.password = it },
+                    isPassword = true
                 )
+
+                userAuthenticationViewModel.error?.let {
+                    Text5(
+                        text = it,
+                        modifier = Modifier.padding(top = 4.dp)
+                    )
+                }
+
                 Button5(
                     onClick = { navController.navigate(Screens.RestorePassword.screen)},
                     text = "Recuperar Contraseña"
                 )
                 Button1(
-                    onClick = {},
+                    onClick = { userAuthenticationViewModel.onLoginClicked() },
                     text = "INICIAR SESIÓN"
                 )
                 Column(
@@ -70,8 +93,12 @@ fun LoginScreen(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Text3(text = "¿No tienes una cuenta?")
-                    Button5(onClick = {navController.navigate(Screens.Register.screen)}, text = "REGISTRARSE")
+                    Button5(
+                        onClick = {navController.navigate(Screens.Register.screen)},
+                        text = "REGISTRARSE"
+                    )
                 }
+
             }
         }
     }
