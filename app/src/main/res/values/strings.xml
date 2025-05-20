@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">MYL APP</string>
-    <string name="myl_api_base_url">https://mitosyleyendas.free.beeceptor.com/</string>
+    <!--<string name="myl_api_base_url">https://mitosyleyendas.free.beeceptor.com/</string>-->
 </resources>

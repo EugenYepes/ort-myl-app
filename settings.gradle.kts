@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "MYL APP"
 include(":app")
+include(":ort-myl-dtos")

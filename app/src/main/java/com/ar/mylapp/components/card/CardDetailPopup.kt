@@ -35,14 +35,14 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.R
-import com.ar.mylapp.models.Card
 import com.ar.mylapp.ui.theme.BlackLight
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.White
 
 @Composable
-fun CardDetailPopup(onDismiss: () -> Unit, card: Card) {
+fun CardDetailPopup(onDismiss: () -> Unit, card: CardDTO) {
     Dialog(onDismissRequest = onDismiss) {
         Card(
             colors = CardColors(
@@ -69,15 +69,15 @@ fun CardDetailPopup(onDismiss: () -> Unit, card: Card) {
 }
 
 @Composable
-fun ShowInfo(card: Card) {
+fun ShowInfo(card: CardDTO) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        InfoRow(label = "Tipo", value = card.type?.typeName ?: "-")
+        InfoRow(label = "Tipo", value = card.type?.name ?: "-")
         InfoRow(label = "Fuerza", value = card.damage?.toString() ?: "-")
         InfoRow(label = "Coste de Oro", value = card.cost?.toString() ?: "-")
-        InfoRow(label = "Raza", value = card.race?.raceName ?: "-")
-        InfoRow(label = "Rareza", value = card.rarity?.rarityName ?: "-")
+        InfoRow(label = "Raza", value = card.race?.name ?: "-")
+        InfoRow(label = "Rareza", value = card.rarity?.name ?: "-")
         Spacer(modifier = Modifier.size(24.dp))
-        InfoAbility(label = "Habilidad", ability = card.ability ?: "-")
+        InfoAbility(label = "Habilidad", ability = card.description ?: "-")
     }
 }
 
