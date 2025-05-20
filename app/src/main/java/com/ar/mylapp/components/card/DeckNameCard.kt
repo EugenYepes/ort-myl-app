@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.runtime.Composable
@@ -25,8 +26,8 @@ import com.ar.mylapp.ui.theme.TransparentDark
 @Composable
 fun DeckNameCardPreview() {
     DeckNameCard(
-        title2 = "Ejemplo Nombre",
-        title3 = "n/50"
+        title2 = "Ejemplo Nombre de Carta",
+        title3 = "n/50" // Modificar según Issue 31
     )
 }
 
@@ -56,7 +57,8 @@ fun DeckNameCard(
             verticalAlignment = Alignment.CenterVertically
         ) {
             Tittle2(
-                tittle = title2
+                tittle = title2,
+                modifier = Modifier.widthIn(max = 250.dp)
             )
             Tittle3(
                 tittle = title3

@@ -33,7 +33,7 @@ fun StoreInfoCardPreview() {
     StoreInfoCard(
         title = "Tienda #1",
         text = "Av. Cabildo 1110",
-        buttonText = "BOTÓN #2"
+        buttonText = "Comunicarme por WhatsApp"
     )
 }
 
@@ -78,16 +78,14 @@ fun StoreInfoCard(
                 Text8(
                     text = text
                 )
-                //Usar Text 3 o 5, el tamaño está entre esos tamaños
             }
-
             Button2(
                 onClick = {},
                 text = buttonText,
-                modifier = Modifier.align(Alignment.End)
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .width(245.dp)
             )
-
         }
-
     }
 }
