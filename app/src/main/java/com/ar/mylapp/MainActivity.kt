@@ -49,9 +49,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         containerColor = Color.Transparent,
                         bottomBar = {
-                                MyBottomAppBar(navController, bottomBarViewModel)
-//                            if(userAuthenticationViewModel.isLoggedIn()){
-//                            }
+                            MyBottomAppBar(navController, bottomBarViewModel)
                         }
                     ) { paddingValues ->
                         NavigationScreens(

@@ -34,14 +34,12 @@ fun NavigationScreens(
 ){
     NavHost(
         navController = navController,
-        startDestination = Screens.Login.screen,
+        startDestination = Screens.Home.screen,
         modifier = Modifier.padding(paddingValues)
     ){
         val isLoggedIn = userAuthenticationViewModel.isLoggedIn()
 
-        //TODO: Cambiar la bottom bar por la version sin iniciar sesion y la top bar no mostrarla si la sesion no esta iniciada
         //? Pantallas accesibles para todos
-
         //* Home
         composable(Screens.Home.screen) {
             HomeScreen(navController, userAuthenticationViewModel)
@@ -52,7 +50,6 @@ fun NavigationScreens(
             CardsScreen(navController, cardViewModel)
         }
 
-        //TODO: Desahiblitar los botones de 'Marcar como obtenida' y 'Agregar a mis mazos' si la sesion no esta iniciada
         composable(
             route = "${Screens.CardDetail.screen}/{cardId}",
             arguments = listOf(navArgument("cardId") { type = NavType.IntType })

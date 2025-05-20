@@ -94,7 +94,7 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.play.services.auth.v2100)
+    implementation(libs.play.services.auth)
 
 
     implementation(platform(libs.firebase.bom))
