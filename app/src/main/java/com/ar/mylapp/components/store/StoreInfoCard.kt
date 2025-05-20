@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.card
+package com.ar.mylapp.components.store
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
