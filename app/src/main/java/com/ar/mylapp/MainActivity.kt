@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     Scaffold(
                         containerColor = Color.Transparent,
                         bottomBar = {
-                            MyBottomAppBar(navController, bottomBarViewModel)
+                            MyBottomAppBar(navController, bottomBarViewModel, userAuthenticationViewModel)
                         }
                     ) { paddingValues ->
                         NavigationScreens(

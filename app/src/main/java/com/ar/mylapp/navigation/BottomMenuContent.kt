@@ -13,14 +13,20 @@ data class BottomMenuContent(
 )
 
 @Composable
-fun getBottomMenuContent(): List<BottomMenuContent> {
+fun getLogInBottomMenuContent(): List<BottomMenuContent> {
     return listOf(
         BottomMenuContent(ImageVector.vectorResource(id = R.drawable.home_icon), "Inicio", Screens.Home.screen, "Home"),
         BottomMenuContent(ImageVector.vectorResource(id = R.drawable.cards_icon), "Cartas", Screens.Cards.screen, "Cards"),
         BottomMenuContent(ImageVector.vectorResource(id = R.drawable.decks_icon), "Mazos", Screens.Decks.screen, "Decks"),
         BottomMenuContent(ImageVector.vectorResource(id = R.drawable.store_icon), "Tiendas", Screens.Stores.screen, "Stores"),
-        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.hand_icon), "Mano", Screens.Hand.screen, "Hand"),
         BottomMenuContent(ImageVector.vectorResource(id = R.drawable.guide_icon), "Guia", Screens.Guidebook.screen, "Guidebook"),
-        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.account_icon), "Cuenta", Screens.Account.screen, "Account"),
+    )
+}
+
+@Composable
+fun getNoLogInBottomMenuContent(): List<BottomMenuContent> {
+    return listOf(
+        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.login_icon), "Iniciar Sesion", Screens.Login.screen, "Login"),
+        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.register_icon), "Registrarme", Screens.Register.screen, "Register"),
     )
 }
