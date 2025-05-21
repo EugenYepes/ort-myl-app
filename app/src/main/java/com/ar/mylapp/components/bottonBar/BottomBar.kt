@@ -20,7 +20,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.R
-import com.ar.mylapp.navigation.getBottomMenuContent
+import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.navigation.getLogInBottomMenuContent
+import com.ar.mylapp.navigation.getNoLogInBottomMenuContent
 import com.ar.mylapp.ui.theme.GoldLight
 import com.ar.mylapp.ui.theme.Gray
 import com.ar.mylapp.viewmodel.BottomBarViewModel
@@ -28,9 +30,10 @@ import com.ar.mylapp.viewmodel.BottomBarViewModel
 @Composable
 fun MyBottomAppBar(
     navController: NavController,
-    bottomBarViewModel: BottomBarViewModel
+    bottomBarViewModel: BottomBarViewModel,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ) {
-    val navItems = getBottomMenuContent()
+    val navItems = if(userAuthenticationViewModel.isLoggedIn()) getLogInBottomMenuContent() else getNoLogInBottomMenuContent()
     val currentSection = bottomBarViewModel.currentSection.value
 
     BottomAppBar(
