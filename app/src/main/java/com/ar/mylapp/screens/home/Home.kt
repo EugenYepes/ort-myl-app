@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -58,10 +57,9 @@ fun HomeScreen(
                 onClick = { navController.navigate(Screens.Welcome.screen) },
                 text = "Go to Welcome Screen"
             )
-
             Spacer(modifier = Modifier.height(24.dp))
             // Se agregar boton de logout para pruebas
-            Button1(
+            Button(
                 onClick = {
                     FirebaseAuthManager.logout(context)
                     // Limpiar la sesión del ViewModel
@@ -70,10 +68,10 @@ fun HomeScreen(
                     navController.navigate("login") {
                         popUpTo("home") { inclusive = true }
                     }
-                },
-                text = "Cerrar sesión"
-            )
-
+                }
+            ) {
+                Text("Cerrar sesión")
+            }
         }
     }
 }

@@ -4,16 +4,19 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
-fun AccountScreen(navController: NavController){
+fun AccountScreen(navController: NavController, userAuthenticationViewModel: UserAuthenticationViewModel){
     Box(
         modifier = Modifier.fillMaxSize()
     ){
@@ -26,6 +29,22 @@ fun AccountScreen(navController: NavController){
         ) {
             Text(
                 text = "Account Screen",
+                fontSize = 30.sp,
+                color = GoldDark,
+                modifier = Modifier.padding(bottom = 20.dp)
+            )
+            Text(
+                text = "Mail: " + if (userAuthenticationViewModel.email != "") userAuthenticationViewModel.email else "no hay nada",
+                fontSize = 30.sp,
+                color = GoldDark
+            )
+            Text(
+                text = "Contra: " + if (userAuthenticationViewModel.password != "") userAuthenticationViewModel.password else "no hay nada",
+                fontSize = 30.sp,
+                color = GoldDark
+            )
+            Text(
+                text = "Token: " + if (userAuthenticationViewModel.token != null) userAuthenticationViewModel.token else "no hay nada",
                 fontSize = 30.sp,
                 color = GoldDark
             )

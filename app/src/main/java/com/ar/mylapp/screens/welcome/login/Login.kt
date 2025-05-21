@@ -18,6 +18,7 @@ import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
+import com.ar.mylapp.navigation.NavigateOnLogInSuccess
 import com.ar.mylapp.navigation.Screens
 
 
@@ -34,6 +35,13 @@ fun LoginScreen(
     var error = viewModel.error
     var token = viewModel.token
     */
+
+    NavigateOnLogInSuccess(
+        navController = navController,
+        userAuthenticationViewModel = userAuthenticationViewModel,
+        popUpToScreen = Screens.Login.screen,
+        destinationScreen = Screens.Home.screen
+    )
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -61,8 +69,8 @@ fun LoginScreen(
                 InputOne(
                     label = "Contraseña",
                     value = userAuthenticationViewModel.password,
-                    onValueChange = { userAuthenticationViewModel.password = it }
-
+                    onValueChange = { userAuthenticationViewModel.password = it },
+                    isPassword = true
                 )
 
                 userAuthenticationViewModel.error?.let {
@@ -91,15 +99,6 @@ fun LoginScreen(
                     )
                 }
 
-                // Detecta login nuevo exitoso
-                // y envia al HOME de la app
-                LaunchedEffect(userAuthenticationViewModel.token) {
-                    if (!userAuthenticationViewModel.token.isNullOrEmpty()) {
-                        navController.navigate(Screens.Home.screen) {
-                            popUpTo(Screens.Login.screen) { inclusive = true }
-                        }
-                    }
-                }
             }
         }
     }

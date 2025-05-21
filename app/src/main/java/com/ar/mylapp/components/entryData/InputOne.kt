@@ -1,8 +1,13 @@
 package com.ar.mylapp.components.entryData
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,6 +18,12 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.vectorResource
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
+import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.inputOneStyle
 import com.ar.mylapp.ui.theme.labelStyle
 import com.ar.mylapp.ui.theme.outlinedTextFieldOneStyle
@@ -32,8 +43,10 @@ fun InputOnePreview() {
 fun InputOne(
     label: String,
     value: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    isPassword: Boolean = false
 ) {
+    var passwordVisible by remember { mutableStateOf(false) }
 
     OutlinedTextField(
         value = value,
@@ -50,6 +63,21 @@ fun InputOne(
             .height(60.dp),
         textStyle = inputOneStyle,
         shape = RoundedCornerShape(15.dp),
-        colors = outlinedTextFieldOneStyle()
+        colors = outlinedTextFieldOneStyle(),
+        visualTransformation = if (isPassword && !passwordVisible) PasswordVisualTransformation() else VisualTransformation.None,
+        trailingIcon = {
+            if (isPassword) {
+                val icon = if (passwordVisible) R.drawable.visibility_icon else R.drawable.visibility_off_icon
+                val description = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+
+                IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                    Image(
+                        painter = painterResource(id = icon),
+                        contentDescription = description,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        }
     )
 }

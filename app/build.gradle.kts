@@ -32,11 +32,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
     buildFeatures {
         compose = true
@@ -46,6 +46,7 @@ android {
 
 dependencies {
 
+    // Coil
     implementation(libs.coil.compose)
 
     //Retrofit
@@ -56,10 +57,20 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(project(":ort-myl-dtos"))
 
-
     //Lifecycle
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+
+    // Hilt
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // Firebase
+    implementation(libs.play.services.auth)
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
+    implementation(libs.firebase.auth.ktx)
 
     implementation (libs.androidx.navigation.compose)
     implementation(libs.androidx.core.ktx)
@@ -70,6 +81,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.firebase.auth.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -82,11 +94,9 @@ dependencies {
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.play.services.auth)
 
-    // Firebase
-    implementation("com.google.android.gms:play-services-auth:21.0.0")
-    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
-    implementation("com.google.firebase:firebase-analytics")
-    implementation(libs.firebase.auth.ktx)
 
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.analytics)
 }
