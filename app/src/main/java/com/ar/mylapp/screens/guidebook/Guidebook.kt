@@ -1,14 +1,44 @@
 package com.ar.mylapp.screens.guidebook
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.ar.mylapp.viewmodel.DropdownViewModel
+import com.ar.mylapp.ui.theme.GoldDark
+import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
 fun GuidebookScreen(
     navController: NavController,
-    viewModel: DropdownViewModel = viewModel()
+    topBarViewModel: TopBarViewModel
 ){
+    LaunchedEffect(Unit) {
+        topBarViewModel.setTopBar("¿COMÓ JUGAR?")
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Guidebook Screen",
+                fontSize = 30.sp,
+                color = GoldDark
+            )
+        }
+    }
 
 }

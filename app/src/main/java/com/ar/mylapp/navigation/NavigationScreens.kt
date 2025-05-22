@@ -26,51 +26,53 @@ import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
 import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.viewmodel.CardViewModel
+import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
 fun NavigationScreens(
     navController: NavHostController,
     paddingValues: PaddingValues,
     userAuthenticationViewModel: UserAuthenticationViewModel,
-    cardViewModel: CardViewModel
+    cardViewModel: CardViewModel,
+    topBarViewModel: TopBarViewModel,
+    isLoggedIn: Boolean
 ){
     NavHost(
         navController = navController,
         startDestination = Screens.Home.screen,
-        modifier = Modifier.padding(paddingValues)
+        modifier = Modifier.padding(paddingValues),
     ){
-        val isLoggedIn by derivedStateOf { userAuthenticationViewModel.token != null }
 
         //? Pantallas accesibles para todos
         //* Home
         composable(Screens.Home.screen) {
-            HomeScreen(navController, userAuthenticationViewModel)
+            HomeScreen(navController, userAuthenticationViewModel, topBarViewModel)
         }
 
         //* Cards
         composable(Screens.Cards.screen) {
-            CardsScreen(navController, cardViewModel)
+            CardsScreen(navController, cardViewModel, topBarViewModel)
         }
 
         composable(
             route = "${Screens.CardDetail.screen}/{cardId}",
             arguments = listOf(navArgument("cardId") { type = NavType.IntType })
         ) { backStackEntry ->
-            val cardId =
-                backStackEntry.arguments?.getInt("cardId") ?: return@composable
+            val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
             val card = cardViewModel.cards.find { it.id == cardId }
             if (card != null) {
-                CardDetail(card)
+                CardDetail(card, topBarViewModel)
             }
         }
 
         //* Stores
         composable(Screens.Stores.screen) {
-            StoresScreen(navController)
+            StoresScreen(navController, topBarViewModel)
         }
 
+        //* Guidebook
         composable(Screens.Guidebook.screen) {
-            GuidebookScreen(navController)
+            GuidebookScreen(navController, topBarViewModel)
         }
 
         //? Pantallas solo para usuarios sin sesion iniciada
@@ -78,7 +80,7 @@ fun NavigationScreens(
         composable(Screens.Welcome.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }
@@ -87,7 +89,7 @@ fun NavigationScreens(
         composable(Screens.Login.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = {  LoginScreen(navController, userAuthenticationViewModel) }
             )
         }
@@ -96,21 +98,21 @@ fun NavigationScreens(
         composable(Screens.Register.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = { RegisterScreen(navController) }
             )
         }
         composable(Screens.RegisterUser.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = { RegisterUserScreen(navController, userAuthenticationViewModel) }
             )
         }
         composable(Screens.RegisterStore.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = { RegisterStoreScreen(navController, userAuthenticationViewModel) }
             )
         }
@@ -119,23 +121,26 @@ fun NavigationScreens(
         composable(Screens.RestorePassword.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = { RestorePasswordScreen(navController) }
             )
         }
 
         //? Pantallas solo para usuarios con sesion iniciada
+        //* Decks
         composable(Screens.Decks.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { DecksScreen(navController) },
+                onAllowed = { DecksScreen(navController, topBarViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }
+
+        //* Account
         composable(Screens.Account.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { AccountScreen(navController, userAuthenticationViewModel) },
+                onAllowed = { AccountScreen(navController, userAuthenticationViewModel, topBarViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }

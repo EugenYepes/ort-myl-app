@@ -25,7 +25,7 @@ import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.text.Text8
 import com.ar.mylapp.components.tittle.Tittle2
 import com.ar.mylapp.ui.theme.GoldDark
-import com.ar.mylapp.ui.theme.TransparentDark
+import com.ar.mylapp.ui.theme.BlackLight
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
@@ -48,7 +48,7 @@ fun StoreInfoCard(
             .border(width = 1.dp, color = GoldDark)
             .width(366.dp)
             .height(153.dp)
-            .background(color = TransparentDark),
+            .background(color = BlackLight),
         colors = CardColors(
             containerColor = Color.Transparent,
             contentColor = Color.Transparent,
