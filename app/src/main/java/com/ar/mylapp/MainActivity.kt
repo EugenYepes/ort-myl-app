@@ -8,9 +8,11 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.ar.mylapp.components.bottonBar.MyBottomAppBar
 import com.ar.mylapp.ui.theme.MYLAPPTheme
@@ -19,7 +21,12 @@ import com.ar.mylapp.viewmodel.CardViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.image.ImageBackground
+import com.ar.mylapp.components.topBar.MyTopBar
 import com.ar.mylapp.navigation.NavigationScreens
+import com.ar.mylapp.viewmodel.TopBarViewModel
+import androidx.compose.runtime.getValue
+import com.ar.mylapp.navigation.showTopBar
+
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -28,12 +35,16 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MYLAPPTheme {
-
+                val topBarViewModel: TopBarViewModel = viewModel()
                 val navController = rememberNavController()
-
                 val userAuthenticationViewModel: UserAuthenticationViewModel = viewModel()
                 val cardViewModel: CardViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
+                val isLoggedIn by derivedStateOf { userAuthenticationViewModel.token != null }
+
+                // Ruta actual
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
 
                 LaunchedEffect(navController) {
                     navController.currentBackStackEntryFlow.collect { entry ->
@@ -48,15 +59,29 @@ class MainActivity : ComponentActivity() {
                     ImageBackground()
                     Scaffold(
                         containerColor = Color.Transparent,
+                        topBar = {
+                            if (showTopBar(currentRoute)) {
+                                MyTopBar(
+                                    topBarViewModel = topBarViewModel,
+                                    navController = navController
+                                )
+                            }
+                        },
                         bottomBar = {
-                            MyBottomAppBar(navController, bottomBarViewModel, userAuthenticationViewModel)
+                            MyBottomAppBar(
+                                navController = navController,
+                                bottomBarViewModel = bottomBarViewModel,
+                                userAuthenticationViewModel = userAuthenticationViewModel
+                            )
                         }
                     ) { paddingValues ->
                         NavigationScreens(
                             navController = navController,
                             paddingValues = paddingValues,
                             userAuthenticationViewModel = userAuthenticationViewModel,
-                            cardViewModel = cardViewModel
+                            cardViewModel = cardViewModel,
+                            topBarViewModel = topBarViewModel,
+                            isLoggedIn = isLoggedIn
                         )
                     }
                 }
