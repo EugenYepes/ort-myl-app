@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ar.mylapp.components.tittle.Tittle2
-import com.ar.mylapp.components.tittle.Tittle3
+import com.ar.mylapp.components.title.Title2
+import com.ar.mylapp.components.title.Title3
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.BlackLight
 
@@ -56,12 +56,12 @@ fun DeckNameCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Tittle2(
-                tittle = title2,
+            Title2(
+                title = title2,
                 modifier = Modifier.widthIn(max = 250.dp)
             )
-            Tittle3(
-                tittle = title3
+            Title3(
+                title = title3
             )
         }
     }
