@@ -76,7 +76,8 @@ fun StoreInfoCard(
                     contentScale = ContentScale.None,
                 )
                 Text8(
-                    text = text
+                    text = text,
+                    maxLines = 1
                 )
             }
             Button2(
