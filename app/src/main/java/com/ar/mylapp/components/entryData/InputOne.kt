@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -68,7 +69,7 @@ fun InputOne(
         trailingIcon = {
             if (isPassword) {
                 val icon = if (passwordVisible) R.drawable.visibility_icon else R.drawable.visibility_off_icon
-                val description = if (passwordVisible) "Ocultar contraseña" else "Mostrar contraseña"
+                val description = if (passwordVisible) stringResource(R.string.hide_password) else stringResource(R.string.show_password)
 
                 IconButton(onClick = { passwordVisible = !passwordVisible }) {
                     Image(

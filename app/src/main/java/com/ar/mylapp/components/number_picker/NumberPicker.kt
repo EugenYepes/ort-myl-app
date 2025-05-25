@@ -11,12 +11,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.PickerButton
 import com.ar.mylapp.viewmodel.NumberPickerViewModel
 
@@ -55,7 +57,7 @@ fun NumberPicker(
     ) {
 
         PickerButton(
-            icon = "-",
+            icon = stringResource(R.string.remove),
             modifier = Modifier.weight(1f),
             onClick = { viewModel.decrement(min) }
         )
@@ -70,7 +72,7 @@ fun NumberPicker(
         )
 
         PickerButton(
-            icon = "+",
+            icon = stringResource(R.string.add),
             modifier = Modifier.weight(1f),
             onClick = { viewModel.increment(max) }
         )

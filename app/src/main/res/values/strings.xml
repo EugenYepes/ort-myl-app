@@ -1,4 +1,47 @@
 <resources>
+    <!-- App general -->
     <string name="app_name">MYL APP</string>
-    <!--<string name="myl_api_base_url">https://mitosyleyendas.free.beeceptor.com/</string>-->
+    <string name="close">Close</string>
+    <string name="search">Search</string>
+    <string name="location">Location</string>
+    <string name="back">Volver</string>
+    <string name="account">Cuenta</string>
+    <string name="logo">Logo de la Aplicación</string>
+
+    <!-- Card Detail -->
+    <string name="card_type">Tipo</string>
+    <string name="card_damage">Fuerza</string>
+    <string name="card_cost">Coste</string>
+    <string name="card_race">Raza</string>
+    <string name="card_rarity">Rareza</string>
+    <string name="card_ability">Habilidad</string>
+    <string name="card_no_info">-</string>
+
+    <!-- Routes -->
+    <string name="bottom_menu_home_section">Home</string>
+    <string name="bottom_menu_cards_section">Cards</string>
+    <string name="bottom_menu_decks_section">Decks</string>
+    <string name="bottom_menu_store_section">Stores</string>
+    <string name="bottom_menu_guide_section">Guidebook</string>
+
+    <!-- Bottom Menu Content -->
+    <string name="bottom_menu_home_label">Inicio</string>
+    <string name="bottom_menu_cards_label">Cartas</string>
+    <string name="bottom_menu_decks_label">Mazos</string>
+    <string name="bottom_menu_store_label">Tiendas</string>
+    <string name="bottom_menu_guide_label">Guia</string>
+
+    <!-- Log In -->
+    <string name="login_label">Iniciar Sesion</string>
+    <string name="register_label">Login</string>
+    <string name="login_section">Registrarme</string>
+    <string name="register_section">Register</string>
+    <string name="show_password">Mostrar contraseña</string>
+    <string name="hide_password">Ocultar contraseña</string>
+
+    <!-- Number Picker -->
+    <string name="add">+</string>
+    <string name="remove">-</string>
+
+
 </resources>

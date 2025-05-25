@@ -77,16 +77,12 @@ fun CardGrid(
         }
     }
 
-    val context = LocalContext.current
-
     LaunchedEffect(shouldLoadMore.value) {
         if (shouldLoadMore.value && !isLoading) {
-            Toast.makeText(context, "Cargando más cartas...", Toast.LENGTH_SHORT).show()
             onLoadMore()
         }
     }
 }
-
 
 @Composable
 fun CardGridImage(

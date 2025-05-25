@@ -27,7 +27,7 @@ import com.ar.mylapp.ui.theme.BlackLight
 fun DeckNameCardPreview() {
     DeckNameCard(
         title2 = "Ejemplo Nombre de Carta",
-        title3 = "n/50" // Modificar según Issue 31
+        title3 = "n/50" //TODO Modificar según Issue 31
     )
 }
 
