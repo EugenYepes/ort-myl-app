@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.text.Text8
-import com.ar.mylapp.components.tittle.Tittle2
+import com.ar.mylapp.components.title.Title2
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.BlackLight
 
@@ -62,8 +62,8 @@ fun StoreInfoCard(
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.spacedBy(10.dp),
         ) {
-            Tittle2(
-                tittle = title
+            Title2(
+                title = title
             )
             Row(
                 modifier = Modifier.fillMaxWidth(),
