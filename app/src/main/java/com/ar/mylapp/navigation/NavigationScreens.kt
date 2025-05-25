@@ -16,6 +16,7 @@ import com.ar.mylapp.screens.card.CardsScreen
 import com.ar.mylapp.screens.deck.DecksScreen
 import com.ar.mylapp.screens.guidebook.GuidebookScreen
 import com.ar.mylapp.screens.home.HomeScreen
+import com.ar.mylapp.screens.store.StoreDetailScreen
 import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.screens.welcome.WelcomeScreen
 import com.ar.mylapp.screens.welcome.login.LoginScreen
@@ -66,6 +67,9 @@ fun NavigationScreens(
         //* Stores
         composable(Screens.Stores.screen) {
             StoresScreen(navController, topBarViewModel)
+        }
+        composable(Screens.StoreDetail.screen) {
+            StoreDetailScreen(navController, topBarViewModel)
         }
 
         //* Guidebook

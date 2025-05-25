@@ -12,6 +12,7 @@ fun getSectionForRoute(route: String?): String? {
         route == Screens.Decks.screen -> "Decks"
         route == Screens.Account.screen -> "Account"
         route == Screens.Stores.screen -> "Stores"
+        route == Screens.StoreDetail.screen -> "StoreDetail"
         route == Screens.Hand.screen -> "Hand"
         route == Screens.Guidebook.screen -> "Guidebook"
         route == Screens.Welcome.screen -> "Welcome"
