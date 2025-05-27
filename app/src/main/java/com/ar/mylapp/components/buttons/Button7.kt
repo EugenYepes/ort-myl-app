@@ -16,6 +16,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -42,7 +43,7 @@ fun Button7(
         modifier = Modifier
             .wrapContentWidth()
             .height(50.dp)
-            .padding(horizontal = 14.dp)
+            .padding(horizontal = 6.dp)
             .border(
                 width = 1.dp,
                 color = GoldDark,
@@ -63,7 +64,9 @@ fun Button7(
                 color = GoldDark,
                 textAlign = TextAlign.Center,
             ),
-            maxLines = 1
+            maxLines = 1,
+            softWrap = true,
+            overflow = TextOverflow.Ellipsis
         )
     }
 }

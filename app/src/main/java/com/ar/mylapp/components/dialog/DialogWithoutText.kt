@@ -5,7 +5,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -20,29 +19,23 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ar.mylapp.components.buttons.Button7
 import com.ar.mylapp.components.buttons.Button8
-import com.ar.mylapp.components.text.Text8
 import com.ar.mylapp.components.title.Title5
 import com.ar.mylapp.ui.theme.Black
 import com.ar.mylapp.ui.theme.GoldDark
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun DialogPreview() {
-    Dialog(
+fun DialogWithoutTextPreview() {
+    DialogWithoutText(
         title = "Title",
-        text = "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
-        button7Text = "Label",
         button8Text = "Label"
     )
 }
 
 @Composable
-fun Dialog(
+fun DialogWithoutText(
     title: String,
-    text: String,
-    button7Text: String,
     button8Text: String,
 ) {
     Card(
@@ -54,7 +47,7 @@ fun Dialog(
                 ambientColor = Color(0x47000000)
             )
             .width(385.dp)
-            .height(210.dp)
+            .height(140.dp)
             .background(color = Black, shape = RoundedCornerShape(20.dp))
             .padding(24.dp),
         colors = CardColors(
@@ -73,24 +66,11 @@ fun Dialog(
             Title5(
                 title = title
             )
-            Text8(
-                text = text,
-                maxLines = 3
-            )
-            Spacer(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .height(10.dp)
-            )
-
             Row(
-                horizontalArrangement = Arrangement.spacedBy(6.dp, Alignment.End),
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.End,
                 verticalAlignment = Alignment.Top,
             ) {
-                Button7(
-                    onClick = {},
-                    text = button7Text
-                )
                 Button8(
                     onClick = {},
                     text = button8Text
