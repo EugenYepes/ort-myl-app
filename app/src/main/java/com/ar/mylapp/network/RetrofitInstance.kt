@@ -15,37 +15,44 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitInstance {
 
-    val logging = HttpLoggingInterceptor().apply {
-        level = HttpLoggingInterceptor.Level.BODY
-    }
-    val client = OkHttpClient.Builder()
-        .addInterceptor(logging)
-        .build()
+    @Singleton
+    @Provides
+    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
+        HttpLoggingInterceptor().apply {
+            level = HttpLoggingInterceptor.Level.BODY
+        }
 
     @Singleton
     @Provides
-    fun provideRetrofit():Retrofit{
-        //Creo Retrofit
-        return Retrofit.Builder()
-            //Defino Url base
-            .baseUrl(Config.baseUrl)
-            //Defino canal de comunicación (Gson)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(client)
+    fun provideOkHttpClient(
+        logging: HttpLoggingInterceptor
+    ): OkHttpClient =
+        OkHttpClient.Builder()
+            .addInterceptor(logging)
             .build()
-    }
 
     @Singleton
     @Provides
-    //Se crea CardApiService y ya existe en todo el proyecto
-    fun provideCardApiClient(retrofit: Retrofit): CardApiService {
-        return retrofit.create(CardApiService::class.java)
-    }
+    fun provideRetrofit(
+        okHttpClient: OkHttpClient
+    ): Retrofit =
+        Retrofit.Builder()
+            .baseUrl(Config.baseUrl)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(okHttpClient)
+            .build()
 
     @Singleton
     @Provides
-    fun provideCardRepository(cardRetrofit: CardRetrofit): GetServiceCardRepository {
-        return GetServiceCardRepository(cardRetrofit)
-    }
+    fun provideCardApiClient(
+        retrofit: Retrofit
+    ): CardApiService =
+        retrofit.create(CardApiService::class.java)
 
+    @Singleton
+    @Provides
+    fun provideCardRepository(
+        cardRetrofit: CardRetrofit
+    ): GetServiceCardRepository =
+        GetServiceCardRepository(cardRetrofit)
 }

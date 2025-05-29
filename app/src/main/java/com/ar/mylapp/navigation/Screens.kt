@@ -17,6 +17,8 @@ sealed class Screens (val screen: String) {
     data object CardDetail: Screens("cardDetail") {
         fun withArgs(cardId: Int): String = "cardDetail/$cardId"
     }
+    data object AdvanceSearch: Screens("advanceSearch")
+    data object FilteredResults: Screens("filteredResults")
 
     // Decks
     data object Decks: Screens("decks")

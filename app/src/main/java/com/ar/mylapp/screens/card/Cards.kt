@@ -7,11 +7,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.ar.mylapp.R
+import com.ar.mylapp.components.buttons.Button5
 import com.ar.mylapp.components.card.CardGrid
-import com.ar.mylapp.components.text.Text4
+import com.ar.mylapp.components.entryData.MySearchBar
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.Red
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
@@ -23,19 +27,30 @@ fun CardsScreen(
     topBarViewModel: TopBarViewModel
 ) {
 
+    val title = stringResource(R.string.topbar_cards_title)
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("CARTAS")
+        topBarViewModel.setTopBar(title)
     }
 
     val cards = viewModel.cards
     val isLoading = viewModel.isLoading
     val error = viewModel.errorMessage
 
-    Column(modifier = Modifier.fillMaxSize()) {
-        Text4(
-            text = "Buscador de cartas", // TODO: Cambiar a SearchBar
-            modifier = Modifier.padding(8.dp)
-        )
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        Column(
+            modifier = Modifier
+                .padding(start = 16.dp, end = 16.dp)
+        ) {
+            MySearchBar(
+                placeholder = "Nombre de la carta..."
+            )
+            Button5(
+                onClick = { navController.navigate(Screens.AdvanceSearch.screen)},
+                text = stringResource(R.string.advance_search)
+            )
+        }
 
         if (error != null) {
             Text(

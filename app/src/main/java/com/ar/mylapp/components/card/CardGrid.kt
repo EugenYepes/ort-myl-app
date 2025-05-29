@@ -65,7 +65,6 @@ fun CardGrid(
                 )
             }
         }
-
     }
 
     val shouldLoadMore = remember {
@@ -73,7 +72,7 @@ fun CardGrid(
             val layoutInfo = listState.layoutInfo
             val totalItems = layoutInfo.totalItemsCount
             val lastVisible = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-            lastVisible >= totalItems -9
+            lastVisible >= totalItems - 1
         }
     }
 

@@ -25,12 +25,28 @@ class CardViewModel @Inject constructor(
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
+    var filteredCards by mutableStateOf<List<CardDTO>>(emptyList())
+    private var filters: Map<String, List<Int>> = emptyMap()
+
     private var currentPage = 1
     private val pageSize = 15
     private var endReached = false
 
+    var selectedCard by mutableStateOf<CardDTO?>(null)
+        private set
+
+    var isCardDetailLoading by mutableStateOf(false)
+        private set
+
+    var cardDetailError by mutableStateOf<String?>(null)
+        private set
+
     init {
         loadMoreCards()
+    }
+
+    init {
+        loadMoreFilteredCards()
     }
 
     fun loadMoreCards() {
@@ -49,6 +65,50 @@ class CardViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 errorMessage = "Error de red: ${e.localizedMessage ?: "desconocido"}"
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    fun loadCardById(id: Int) {
+        viewModelScope.launch {
+            isCardDetailLoading = true
+            cardDetailError = null
+            try {
+                selectedCard = cardRepository.fetchCardById(id)
+            } catch (e: Exception) {
+                cardDetailError = "No se pudo cargar la carta: ${e.localizedMessage}"
+            } finally {
+                isCardDetailLoading = false
+            }
+        }
+    }
+
+    fun loadFilteredCards(newFilters: Map<String, List<Int>>) {
+        filters = newFilters
+        currentPage = 1
+        endReached = false
+        filteredCards = emptyList()
+
+        loadMoreFilteredCards()
+    }
+
+    fun loadMoreFilteredCards() {
+        if (isLoading || endReached) return
+        viewModelScope.launch {
+            isLoading = true
+            try {
+                val result = cardRepository.fetchFilteredCards(currentPage, pageSize, filters)
+
+                if (result.isEmpty()) {
+                    endReached = true
+                } else {
+                    filteredCards += result
+                    currentPage++
+                }
+            } catch (e: Exception) {
+                errorMessage = e.message
             } finally {
                 isLoading = false
             }

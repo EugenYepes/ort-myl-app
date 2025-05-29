@@ -46,6 +46,9 @@ android {
 
 dependencies {
 
+    //HttpLoggingInterceptor
+    implementation(libs.logging.interceptor)
+
     // Coil
     implementation(libs.coil.compose)
 

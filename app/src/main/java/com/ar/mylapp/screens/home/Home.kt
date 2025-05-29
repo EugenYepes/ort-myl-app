@@ -13,9 +13,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.navigation.Screens
@@ -29,8 +31,10 @@ fun HomeScreen(
     userAuthenticationViewModel: UserAuthenticationViewModel,
     topBarViewModel: TopBarViewModel
 ){
+    val title = stringResource(R.string.topbar_home_title)
+    val subtitle = stringResource(R.string.topbar_home_subtitle)
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("INICIO", "\uD83D\uDC4BBienvenido a Mitos y Leyendas Companion")
+        topBarViewModel.setTopBar(title, subtitle)
     }
     val context = LocalContext.current
 
