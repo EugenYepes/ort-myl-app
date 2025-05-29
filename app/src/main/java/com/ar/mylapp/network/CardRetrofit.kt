@@ -3,15 +3,12 @@ package com.ar.mylapp.network
 import ar.com.myldtos.cards.CardDTO
 import javax.inject.Inject
 
-class CardRetrofit
-@Inject
-constructor(private val service: CardApiService) : IServiceCards {
+class CardRetrofit @Inject constructor(
+    private val service: CardApiService
+) : IServiceCards {
 
     override suspend fun getCards(currentPage: Int, pageSize: Int): List<CardDTO>? {
-        //val response = service.getCards()
-
-        val response = service.getCards(page = currentPage, pageSize = pageSize )
-
+        val response = service.getCards(page = currentPage, pageSize = pageSize)
         return if (response.isSuccessful) {
             response.body()
         } else {
@@ -19,13 +16,12 @@ constructor(private val service: CardApiService) : IServiceCards {
         }
     }
 
-        //TODO
-        /*override suspend fun searchCards(name: String, page: Int, pageSize: Int): List<CardDTO>? {
-        val response = service.searchCards(page, pageSize, name)
+    override suspend fun searchCardsByName(name: String, page: Int, pageSize: Int): List<CardDTO>? {
+        val response = service.searchCards(name = name, page = page, pageSize = pageSize)
         return if (response.isSuccessful) {
             response.body()
         } else {
             emptyList()
-        }*/
+        }
+    }
 }
-

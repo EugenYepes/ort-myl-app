@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ar.mylapp.components.card.CardGrid
@@ -28,7 +29,7 @@ fun CardsScreen(
         topBarViewModel.setTopBar("CARTAS")
     }
 
-    val searchCardViewModel: SearchCardViewModel = viewModel()
+    val searchCardViewModel: SearchCardViewModel = hiltViewModel()
     val searchQuery = searchCardViewModel.searchQuery
     val foundCards = searchCardViewModel.foundCards
 
@@ -41,7 +42,7 @@ fun CardsScreen(
             placeholder = "Buscar carta por nombre...",
             searchQuery = searchCardViewModel.searchQuery,
             onValueChange = {
-                searchCardViewModel.updateQuery(it, cards)
+                searchCardViewModel.updateQuery(it)
             }
         )
 
@@ -53,18 +54,20 @@ fun CardsScreen(
             )
         }
 
+        if (searchCardViewModel.errorMessage != null) {
+            Text(
+                text = "Error: ${searchCardViewModel.errorMessage}",
+                color = Red,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
         val cardsToDisplay = if (searchQuery.isBlank()) cards else foundCards
 
-        /*CardGrid(
-            navController = navController,
-            cards = cards,
-            isLoading = isLoading,
-            onLoadMore = { viewModel.loadMoreCards() }
-        )*/
         CardGrid(
             navController = navController,
             cards = cardsToDisplay,
-            isLoading = isLoading && searchQuery.isBlank(), // solo muestra loader si no se está buscando
+            isLoading = if (searchQuery.isBlank()) isLoading else searchCardViewModel.isLoading,
             onLoadMore = { if (searchQuery.isBlank()) viewModel.loadMoreCards() }
         )
     }
