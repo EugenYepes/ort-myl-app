@@ -13,4 +13,9 @@ class GetServiceCardRepository @Inject constructor(
         cardRetrofit.getCards(currentPage, pageSize)
         //return RetrofitInstance.provideCardApiClient().getCards()
     }
+
+    //TODO
+    /*suspend fun searchCards(name: String, page: Int, pageSize: Int): List<CardDTO>? =
+        cardRetrofit.searchCards(name, page, pageSize)*/
+
 }

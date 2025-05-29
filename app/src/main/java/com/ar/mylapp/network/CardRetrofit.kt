@@ -18,5 +18,14 @@ constructor(private val service: CardApiService) : IServiceCards {
             emptyList()
         }
     }
+
+        //TODO
+        /*override suspend fun searchCards(name: String, page: Int, pageSize: Int): List<CardDTO>? {
+        val response = service.searchCards(page, pageSize, name)
+        return if (response.isSuccessful) {
+            response.body()
+        } else {
+            emptyList()
+        }*/
 }
 

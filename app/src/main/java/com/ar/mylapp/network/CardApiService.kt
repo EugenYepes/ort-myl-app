@@ -14,4 +14,14 @@ interface CardApiService {
         @Query("page") page: Int,
         @Query("pageSize") pageSize: Int
     ): Response<List<CardDTO>>
+
+
+    //TODO
+    /*@GET("card/search")
+    suspend fun searchCards(
+        @Query("page") page: Int,
+        @Query("pageSize") pageSize: Int,
+        @Query("name") name: String,
+    ): Response<List<CardDTO>>*/
+
 }
