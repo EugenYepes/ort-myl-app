@@ -48,4 +48,10 @@ object RetrofitInstance {
         return GetServiceCardRepository(cardRetrofit)
     }
 
+    @Singleton
+    @Provides
+    fun provideAuthApiClient(retrofit: Retrofit): AuthApiService {
+        return retrofit.create(AuthApiService::class.java)
+    }
+
 }

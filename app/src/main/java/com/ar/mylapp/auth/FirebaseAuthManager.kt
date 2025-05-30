@@ -14,8 +14,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 object FirebaseAuthManager {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-
-    fun register(email: String, password: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
+//DEL REGISTER SE OCUPA EL BACKEND
+  /*  fun register(email: String, password: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -30,13 +30,14 @@ object FirebaseAuthManager {
                 }
                 else onError(task.exception?.message ?: "Error desconocido al registrarse")
             }
-    }
+    } */
 
     fun login(email: String, password: String, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { result ->
                 val user = auth.currentUser
-                if (user != null && user.isEmailVerified) {
+                if (user != null && user.isEmailVerified
+                    ) {
                     user.getIdToken(true)
                         .addOnSuccessListener { tokenResult ->
                             val idToken = tokenResult.token
