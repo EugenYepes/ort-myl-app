@@ -4,12 +4,13 @@ import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.Header
 import retrofit2.http.POST
+import users.PlayerDTO
 import users.StoreDTO
 import users.UserDTO
 
 interface AuthApiService {
     @POST("/api/auth/registerPlayer")
-    suspend fun registerUser(@Body request: UserDTO): Response<Unit>
+    suspend fun registerUser(@Body request: PlayerDTO): Response<Unit>
 
     @POST("/api/auth/registerStore")
     suspend fun registerStore(@Body request: StoreDTO): Response<Unit>

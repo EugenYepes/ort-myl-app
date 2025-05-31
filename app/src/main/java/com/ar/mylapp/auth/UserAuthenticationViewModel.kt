@@ -1,5 +1,6 @@
 package com.ar.mylapp.auth
 
+
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -8,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import users.PlayerDTO
@@ -64,11 +66,11 @@ class UserAuthenticationViewModel @Inject constructor(
     fun onRegisterClicked(isStore: Boolean = false) {
         if (!validarCampos(isStore)) return
 
-        // 1. Crear usuario en Firebase
-        FirebaseAuth.getInstance()
-            .createUserWithEmailAndPassword(email, password)
+        val firebaseAuth = FirebaseAuth.getInstance()
+
+        firebaseAuth.createUserWithEmailAndPassword(email, password)
             .addOnSuccessListener {
-                val user = FirebaseAuth.getInstance().currentUser
+                val user = firebaseAuth.currentUser
                 val uid = user?.uid
 
                 if (uid == null) {
@@ -76,50 +78,58 @@ class UserAuthenticationViewModel @Inject constructor(
                     return@addOnSuccessListener
                 }
 
-                // 3. Registrar en el backend
                 viewModelScope.launch {
-                    val response = if (isStore) {
-                        val storeRequest = StoreDTO().apply {
-                            uuid = uid
-                            email = email
-                            name = storeName
-                            phoneNumber = phone
-                            address = address
-                            isValid = false // or some default
-                            url = "" // TODO
-                        }
-                        authRepository.registerStore(storeRequest)
-                    } else {
-                        val playerRequest = PlayerDTO().apply {
-                            uuid = uid
-                            email = email
-                            name = "" // TODO
-                        }
-                        authRepository.registerUser(playerRequest)
-                    }
+                    try {
+                        val response = if (isStore) {
+                            Log.d("REGISTER", "UUID: $uid, Email: $email, Name: $storeName, phoneNumber: $phone, address: $address")
+                            val storeRequest = StoreDTO()
+                            storeRequest.uuid = uid
+                            storeRequest.email = email
+                            storeRequest.name = storeName
+                            storeRequest.phoneNumber = phone
+                            storeRequest.address = address
+                            storeRequest.valid = false
+                            storeRequest.url = ""
 
-                    if (response.isSuccessful) {
-                        // 4. Enviar mail de verificación
-                        user.sendEmailVerification()
-                            .addOnSuccessListener {
-                                FirebaseAuth.getInstance().signOut()
-                                registrationSuccess = true
-                                error = null
-                            }
-                            .addOnFailureListener { e ->
-                                error = "No se pudo enviar el email: ${e.message}"
-                            }
-                    } else {
-                        // 5. Si falla el backend, eliminar el usuario de Firebase
+                            val gson = Gson()
+                            Log.d("DEBUG", "JSON enviado: ${gson.toJson(storeRequest)}")
+                            authRepository.registerStore(storeRequest)
+                        } else {
+                            Log.d("REGISTER", "UUID: $uid, Email: $email, Name: ''")
+                            val playerRequest =  PlayerDTO()
+                            playerRequest.uuid = uid
+                            playerRequest.email = email
+                            playerRequest.name = ""
+
+                            val gson = Gson()
+                            Log.d("DEBUG", "JSON enviado: ${gson.toJson(playerRequest)}")
+                            authRepository.registerUser(playerRequest)
+                        }
+
+                        if (response.isSuccessful) {
+                            user.sendEmailVerification()
+                                .addOnSuccessListener {
+                                    firebaseAuth.signOut()
+                                    registrationSuccess = true
+                                    error = null
+                                }
+                                .addOnFailureListener { e ->
+                                    error = "No se pudo enviar el email: ${e.message}"
+                                }
+                        } else {
+                            user.delete()
+                                .addOnSuccessListener {
+                                    val errorMsg = extractErrorMessage(response.errorBody()?.string())
+                                    error = "Error al registrar en la base: $errorMsg"
+                                }
+                                .addOnFailureListener { deleteEx ->
+                                    error = "Backend falló y no se pudo eliminar el usuario Firebase: ${deleteEx.message}"
+                                }
+                        }
+
+                    } catch (e: Exception) {
+                        error = "Error inesperado: ${e.message}"
                         user.delete()
-                            .addOnSuccessListener {
-                                val errorMsg = extractErrorMessage(response.errorBody()?.string())
-                                error = "Error al registrar en la base: $errorMsg"
-                            }
-                            .addOnFailureListener { deleteEx ->
-                                error =
-                                    "Backend falló y no se pudo eliminar el usuario Firebase: ${deleteEx.message}"
-                            }
                     }
                 }
             }
