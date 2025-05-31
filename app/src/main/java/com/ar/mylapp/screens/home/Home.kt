@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -20,12 +21,17 @@ import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.ui.theme.GoldDark
+import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    userAuthenticationViewModel: UserAuthenticationViewModel
+    userAuthenticationViewModel: UserAuthenticationViewModel,
+    topBarViewModel: TopBarViewModel
 ){
+    LaunchedEffect(Unit) {
+        topBarViewModel.setTopBar("INICIO", "\uD83D\uDC4BBienvenido a Mitos y Leyendas Companion")
+    }
     val context = LocalContext.current
 
     Box(

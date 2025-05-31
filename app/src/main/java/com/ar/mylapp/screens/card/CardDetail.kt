@@ -9,22 +9,30 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.ar.mylapp.components.tittle.Tittle1
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
+import com.ar.mylapp.viewmodel.TopBarViewModel
 
 
 @Composable
-fun CardDetail(card: CardDTO) {
+fun CardDetail(
+    card: CardDTO,
+    topBarViewModel: TopBarViewModel
+) {
+    LaunchedEffect(Unit) {
+        topBarViewModel.setTopBar("CARTAS", capitalizeTitle(card.name))
+    }
+
     var showPopup by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -36,9 +44,6 @@ fun CardDetail(card: CardDTO) {
             verticalArrangement = Arrangement.Top,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.size(22.dp))
-            Tittle1(capitalizeTitle(card.name))
-            Spacer(modifier = Modifier.size(22.dp))
             CardDetailImage(card)
             Spacer(modifier = Modifier.size(22.dp))
             ShowButtons(onClick = { showPopup = true })

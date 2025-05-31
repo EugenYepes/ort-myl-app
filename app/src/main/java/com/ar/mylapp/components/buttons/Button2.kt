@@ -27,16 +27,17 @@ fun Button2Preview() {
 @Composable
 fun Button2(
     onClick: () -> Unit,
-    text: String
+    text: String,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .size(width = 220.dp, height = 50.dp)
             .border(
                 width = 1.dp,
                 color = GoldLight,
-                shape = RoundedCornerShape(size = 20.dp)
+                shape = RoundedCornerShape(size = 20.dp),
             ),
         colors = ButtonDefaults.buttonColors(
             containerColor = GreenDark,
