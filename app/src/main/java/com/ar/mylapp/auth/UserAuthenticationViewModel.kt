@@ -6,15 +6,12 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.ar.mylapp.models.auth.StoreRegisterRequest
-import com.ar.mylapp.models.auth.UserRegisterRequest
 import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import users.PlayerDTO
 import users.StoreDTO
-import users.UserDTO
 import javax.inject.Inject
 
 @HiltViewModel
@@ -104,12 +101,12 @@ class UserAuthenticationViewModel @Inject constructor(
                     if (response.isSuccessful) {
                         // 4. Enviar mail de verificación
                         user.sendEmailVerification()
-                            ?.addOnSuccessListener {
+                            .addOnSuccessListener {
                                 FirebaseAuth.getInstance().signOut()
                                 registrationSuccess = true
                                 error = null
                             }
-                            ?.addOnFailureListener { e ->
+                            .addOnFailureListener { e ->
                                 error = "No se pudo enviar el email: ${e.message}"
                             }
                     } else {
