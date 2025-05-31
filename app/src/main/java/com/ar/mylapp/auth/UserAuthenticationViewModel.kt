@@ -12,6 +12,9 @@ import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import users.PlayerDTO
+import users.StoreDTO
+import users.UserDTO
 import javax.inject.Inject
 
 @HiltViewModel
@@ -76,30 +79,26 @@ class UserAuthenticationViewModel @Inject constructor(
                     return@addOnSuccessListener
                 }
 
-                // 2. Preparar el request para el backend
-                val request = if (isStore) {
-                    StoreRegisterRequest(
-                        uuid = uid,
-                        email = email,
-                        password = password,
-                        storeName = storeName,
-                        phone = phone,
-                        address = address
-                    )
-                } else {
-                    UserRegisterRequest(
-                        uuid = uid,
-                        email = email,
-                        password = password
-                    )
-                }
-
                 // 3. Registrar en el backend
                 viewModelScope.launch {
                     val response = if (isStore) {
-                        authRepository.registerStore(request as StoreRegisterRequest)
+                        val storeRequest = StoreDTO().apply {
+                            uuid = uid
+                            email = email
+                            name = storeName
+                            phoneNumber = phone
+                            address = address
+                            isValid = false // or some default
+                            url = "" // TODO
+                        }
+                        authRepository.registerStore(storeRequest)
                     } else {
-                        authRepository.registerUser(request as UserRegisterRequest)
+                        val playerRequest = PlayerDTO().apply {
+                            uuid = uid
+                            email = email
+                            name = "" // TODO
+                        }
+                        authRepository.registerUser(playerRequest)
                     }
 
                     if (response.isSuccessful) {
@@ -121,7 +120,8 @@ class UserAuthenticationViewModel @Inject constructor(
                                 error = "Error al registrar en la base: $errorMsg"
                             }
                             .addOnFailureListener { deleteEx ->
-                                error = "Backend falló y no se pudo eliminar el usuario Firebase: ${deleteEx.message}"
+                                error =
+                                    "Backend falló y no se pudo eliminar el usuario Firebase: ${deleteEx.message}"
                             }
                     }
                 }
@@ -156,11 +156,11 @@ class UserAuthenticationViewModel @Inject constructor(
         error = null
     }
 
-    fun isLoggedIn(): Boolean{
+    fun isLoggedIn(): Boolean {
         return this.token != null
     }
 
-    fun resetRegistrationState(){
+    fun resetRegistrationState() {
         registrationSuccess = false
     }
 
