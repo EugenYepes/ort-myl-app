@@ -9,10 +9,10 @@ import users.StoreDTO
 import users.UserDTO
 
 interface AuthApiService {
-    @POST("/api/auth/registerPlayer")
+    @POST("/api/players/register")
     suspend fun registerUser(@Body request: PlayerDTO): Response<Unit>
 
-    @POST("/api/auth/registerStore")
+    @POST("/api/stores/register")
     suspend fun registerStore(@Body request: StoreDTO): Response<Unit>
 
     @POST("/api/auth/login")
