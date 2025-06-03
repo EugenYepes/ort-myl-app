@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -28,8 +27,6 @@ import ar.com.myldtos.cards.CardDTO
 import coil3.compose.AsyncImage
 import com.ar.mylapp.R
 import com.ar.mylapp.navigation.Screens
-import android.widget.Toast
-
 
 @Composable
 fun CardGrid(
@@ -76,16 +73,12 @@ fun CardGrid(
         }
     }
 
-    val context = LocalContext.current
-
     LaunchedEffect(shouldLoadMore.value) {
         if (shouldLoadMore.value && !isLoading) {
-            Toast.makeText(context, "Cargando más cartas...", Toast.LENGTH_SHORT).show()
             onLoadMore()
         }
     }
 }
-
 
 @Composable
 fun CardGridImage(
