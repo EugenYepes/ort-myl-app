@@ -4,27 +4,24 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.ar.mylapp.components.buttons.Button2
-import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.viewmodel.TopBarViewModel
+import com.ar.mylapp.components.buttons.WhatsAppButton
 
 @Composable
-fun StoresScreen(
+fun StoreDetailScreen(
     navController: NavController,
     topBarViewModel: TopBarViewModel
 ){
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("TIENDAS")
+        topBarViewModel.setTopBar("TIENDA")
     }
 
     Box(
@@ -38,19 +35,11 @@ fun StoresScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Stores Screen",
+                text = "Store Detail Screen",
                 fontSize = 30.sp,
                 color = GoldDark
             )
-
-            //Para testear deep link a WhatsApp. Reemplazar luego con lista de tiendas
-            Button2(
-                onClick = { navController.navigate(Screens.StoreDetail.screen)},
-                text = "Comunicarme por WhatsApp",
-                modifier = Modifier
-                    .align(Alignment.CenterHorizontally)
-                    .width(245.dp)
-            )
+            WhatsAppButton("5491169077535")
         }
     }
 }
