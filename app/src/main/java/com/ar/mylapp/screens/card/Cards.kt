@@ -8,33 +8,42 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ar.mylapp.components.card.CardGrid
-import com.ar.mylapp.components.text.Text4
+import com.ar.mylapp.components.entryData.MySearchBar
 import com.ar.mylapp.ui.theme.Red
 import com.ar.mylapp.viewmodel.CardViewModel
+import com.ar.mylapp.viewmodel.SearchCardViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
 fun CardsScreen(
     navController: NavController,
     viewModel: CardViewModel = viewModel(),
-    topBarViewModel: TopBarViewModel
+    topBarViewModel: TopBarViewModel,
 ) {
 
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar("CARTAS")
     }
 
+    val searchCardViewModel: SearchCardViewModel = hiltViewModel()
+    val searchQuery = searchCardViewModel.searchQuery
+    val foundCards = searchCardViewModel.foundCards
+
     val cards = viewModel.cards
     val isLoading = viewModel.isLoading
     val error = viewModel.errorMessage
 
     Column(modifier = Modifier.fillMaxSize()) {
-        Text4(
-            text = "Buscador de cartas", // TODO: Cambiar a SearchBar
-            modifier = Modifier.padding(8.dp)
+        MySearchBar(
+            placeholder = "Buscar carta por nombre...",
+            searchQuery = searchCardViewModel.searchQuery,
+            onValueChange = {
+                searchCardViewModel.updateQuery(it)
+            }
         )
 
         if (error != null) {
@@ -45,11 +54,22 @@ fun CardsScreen(
             )
         }
 
+        if (searchCardViewModel.errorMessage != null) {
+            Text(
+                text = "Error: ${searchCardViewModel.errorMessage}",
+                color = Red,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+
+        val cardsToDisplay = if (searchQuery.isBlank()) cards else foundCards
+
         CardGrid(
             navController = navController,
-            cards = cards,
-            isLoading = isLoading,
-            onLoadMore = { viewModel.loadMoreCards() }
+            cards = cardsToDisplay,
+            isLoading = if (searchQuery.isBlank()) isLoading else searchCardViewModel.isLoading,
+            onLoadMore = { if (searchQuery.isBlank()) viewModel.loadMoreCards() }
         )
     }
 }
+

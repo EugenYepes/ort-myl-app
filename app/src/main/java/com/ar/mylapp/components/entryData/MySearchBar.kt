@@ -38,16 +38,19 @@ import com.ar.mylapp.ui.theme.searchBarStyle
 @Composable
 fun MySearchBarPreview() {
     MySearchBar(
-        placeholder = "Buscar..."
+        placeholder = "Buscar...",
+        searchQuery = "",
+        onValueChange = {}
     )
 }
 
+
 @Composable
 fun MySearchBar(
-    placeholder: String
+    placeholder: String,
+    searchQuery: String,
+    onValueChange: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,8 +81,8 @@ fun MySearchBar(
             Spacer(modifier = Modifier.width(8.dp))
 
             OutlinedTextField(
-                value = text,
-                onValueChange = { text = it },
+                value = searchQuery,
+                onValueChange = onValueChange,
                 singleLine = true,
                 placeholder = {
                     Text(

@@ -11,6 +11,10 @@ class GetServiceCardRepository @Inject constructor(
 ) {
     suspend fun fetchCards(currentPage: Int, pageSize: Int): List<CardDTO>? = withContext(context = Dispatchers.IO) {
         cardRetrofit.getCards(currentPage, pageSize)
-        //return RetrofitInstance.provideCardApiClient().getCards()
     }
+
+    suspend fun searchCardsByName(name: String, page: Int = 1, pageSize: Int = 20): List<CardDTO>? = withContext(Dispatchers.IO) {
+        cardRetrofit.searchCardsByName(name, page, pageSize)
+    }
+
 }
