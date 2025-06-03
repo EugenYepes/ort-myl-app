@@ -15,6 +15,7 @@ import com.ar.mylapp.screens.card.AdvancedSearchScreen
 import com.ar.mylapp.screens.card.CardDetail
 import com.ar.mylapp.screens.card.CardsScreen
 import com.ar.mylapp.screens.card.FilteredResultsScreen
+import com.ar.mylapp.screens.deck.DeckDetailScreen
 import com.ar.mylapp.screens.deck.DecksScreen
 import com.ar.mylapp.screens.guidebook.GuidebookScreen
 import com.ar.mylapp.screens.home.HomeScreen
@@ -27,6 +28,7 @@ import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
 import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.viewmodel.CardViewModel
+import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
@@ -35,6 +37,7 @@ fun NavigationScreens(
     paddingValues: PaddingValues,
     userAuthenticationViewModel: UserAuthenticationViewModel,
     cardViewModel: CardViewModel,
+    deckViewModel: DecksViewModel,
     topBarViewModel: TopBarViewModel,
     isLoggedIn: Boolean
 ){
@@ -150,9 +153,16 @@ fun NavigationScreens(
         composable(Screens.Decks.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { DecksScreen(navController, topBarViewModel) },
+                onAllowed = { DecksScreen(navController, topBarViewModel, deckViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
+        }
+        composable(
+            route = "${Screens.DeckDetail.screen}/{deckId}",
+            arguments = listOf(navArgument("deckId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+            DeckDetailScreen(deckId, topBarViewModel, deckViewModel)
         }
 
         //* Account

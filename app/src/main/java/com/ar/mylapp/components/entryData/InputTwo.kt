@@ -1,6 +1,8 @@
 package com.ar.mylapp.components.entryData
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -15,34 +17,27 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.ui.theme.inputTwoThreeStyle
 import com.ar.mylapp.ui.theme.outlinedTextFieldTwoThreeStyle
 
-@Preview (showBackground = true, backgroundColor = 0x00000000)
-@Composable
-fun InputTwoPreview() {
-    InputTwo(
-        label = "Input #2"
-    )
-}
-
 @Composable
 fun InputTwo(
-    label: String
+    label: String,
+    initialValue: String = "",
+    onValueChange: (String) -> Unit
 ) {
-    var text by remember { mutableStateOf("") }
-
-    OutlinedTextField(
-        value = text,
-        onValueChange = { text = it },
-        singleLine = true,
-        label = {
-            Text(
-                label,
-                style = inputTwoThreeStyle
-            )
-        },
-        modifier = Modifier
-            .width(326.dp)
-            .height(60.dp),
-        textStyle = inputTwoThreeStyle,
-        colors = outlinedTextFieldTwoThreeStyle()
-    )
+    Column {
+        Text(
+            text = label,
+            style = inputTwoThreeStyle,
+            modifier = Modifier.padding(start = 4.dp, bottom = 4.dp)
+        )
+        OutlinedTextField(
+            value = initialValue,
+            onValueChange = onValueChange,
+            singleLine = true,
+            modifier = Modifier
+                .width(326.dp)
+                .height(60.dp),
+            textStyle = inputTwoThreeStyle,
+            colors = outlinedTextFieldTwoThreeStyle()
+        )
+    }
 }

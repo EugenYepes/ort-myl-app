@@ -26,6 +26,7 @@ import com.ar.mylapp.navigation.NavigationScreens
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
 import com.ar.mylapp.navigation.showTopBar
+import com.ar.mylapp.viewmodel.DecksViewModel
 
 
 @AndroidEntryPoint
@@ -39,6 +40,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val userAuthenticationViewModel: UserAuthenticationViewModel = viewModel()
                 val cardViewModel: CardViewModel = viewModel()
+                val deckViewModel: DecksViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val isLoggedIn by derivedStateOf { userAuthenticationViewModel.token != null }
 
@@ -80,6 +82,7 @@ class MainActivity : ComponentActivity() {
                             paddingValues = paddingValues,
                             userAuthenticationViewModel = userAuthenticationViewModel,
                             cardViewModel = cardViewModel,
+                            deckViewModel = deckViewModel,
                             topBarViewModel = topBarViewModel,
                             isLoggedIn = isLoggedIn
                         )

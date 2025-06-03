@@ -22,22 +22,14 @@ import com.ar.mylapp.components.title.Title3
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.BlackLight
 
-@Preview(showBackground = true, backgroundColor = 0xFF000000)
-@Composable
-fun DeckNameCardPreview() {
-    DeckNameCard(
-        title2 = "Ejemplo Nombre de Carta",
-        title3 = "n/50" // Modificar según Issue 31
-    )
-}
-
 @Composable
 fun DeckNameCard(
     title2: String,
-    title3: String
+    title3: String,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .border(width = 1.dp, color = GoldDark)
             .width(366.dp)
             .height(67.dp)
@@ -61,7 +53,7 @@ fun DeckNameCard(
                 modifier = Modifier.widthIn(max = 250.dp)
             )
             Title3(
-                title = title3
+                title = "$title3/50"
             )
         }
     }
