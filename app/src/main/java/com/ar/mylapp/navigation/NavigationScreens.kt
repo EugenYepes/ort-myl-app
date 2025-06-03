@@ -11,8 +11,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.screens.account.AccountScreen
+import com.ar.mylapp.screens.card.AdvancedSearchScreen
 import com.ar.mylapp.screens.card.CardDetail
 import com.ar.mylapp.screens.card.CardsScreen
+import com.ar.mylapp.screens.card.FilteredResultsScreen
 import com.ar.mylapp.screens.deck.DecksScreen
 import com.ar.mylapp.screens.guidebook.GuidebookScreen
 import com.ar.mylapp.screens.home.HomeScreen
@@ -57,10 +59,25 @@ fun NavigationScreens(
             arguments = listOf(navArgument("cardId") { type = NavType.IntType })
         ) { backStackEntry ->
             val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
-            val card = cardViewModel.cards.find { it.id == cardId }
-            if (card != null) {
-                CardDetail(card, topBarViewModel)
-            }
+            CardDetail(id = cardId, topBarViewModel = topBarViewModel, viewModel = cardViewModel)
+        }
+
+        composable(Screens.AdvanceSearch.screen) {
+            AdvancedSearchScreen(
+                onFiltersApplied = { filters ->
+                    cardViewModel.loadFilteredCards(filters)
+                    navController.navigate(Screens.FilteredResults.screen)
+                },
+                topBarViewModel = topBarViewModel
+            )
+        }
+
+        composable(Screens.FilteredResults.screen) {
+            FilteredResultsScreen(
+                navController = navController,
+                viewModel = cardViewModel,
+                topBarViewModel = topBarViewModel
+            )
         }
 
         //* Stores
