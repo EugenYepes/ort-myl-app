@@ -19,6 +19,15 @@ interface CardApiService {
         @Query("pageSize") pageSize: Int
     ): Response<List<CardDTO>>
 
+    //Búsqueda de cartas por nombre en CardsScreen
+    @GET("card/search")
+    suspend fun searchCards(
+        @Query("name") name: String,
+        @Query("page") page: Int = 1,
+        @Query("pageSize") pageSize: Int = 20
+    ): Response<List<CardDTO>>
+
+
     @GET("card/{id}")
     suspend fun getCardById(@Path("id") id: Int): Response<CardDTO>
 

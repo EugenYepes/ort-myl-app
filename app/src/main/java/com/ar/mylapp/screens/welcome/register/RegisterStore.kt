@@ -26,13 +26,13 @@ import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.navigation.NavigateOnRegistrationSuccess
 import com.ar.mylapp.navigation.Screens
 
-@Preview
-@Composable
-fun RegisterStoreScreenPreview(){
-    var navController = rememberNavController()
-    var viewModel = UserAuthenticationViewModel()
-    RegisterStoreScreen(navController, viewModel)
-}
+//@Preview
+//@Composable
+//fun RegisterStoreScreenPreview(){
+//    var navController = rememberNavController()
+//    var viewModel = UserAuthenticationViewModel()
+//    RegisterStoreScreen(navController, viewModel)
+//}
 
 @Composable
 fun RegisterStoreScreen(

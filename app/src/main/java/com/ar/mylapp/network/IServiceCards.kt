@@ -16,4 +16,6 @@ interface IServiceCards {
     ): List<CardDTO>
 
     suspend fun getFilterOptions(): Map<String, List<CardPropertiesDTO>>
+
+    suspend fun searchCardsByName(name: String, page: Int = 1, pageSize: Int = 20): List<CardDTO>?
 }

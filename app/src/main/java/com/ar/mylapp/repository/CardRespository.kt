@@ -25,4 +25,9 @@ class GetServiceCardRepository @Inject constructor(
     suspend fun fetchCardById(id: Int): CardDTO {
         return cardRetrofit.getCardById(id)
     }
+
+    suspend fun searchCardsByName(name: String, page: Int = 1, pageSize: Int = 20): List<CardDTO>? = withContext(Dispatchers.IO) {
+        cardRetrofit.searchCardsByName(name, page, pageSize)
+    }
+
 }

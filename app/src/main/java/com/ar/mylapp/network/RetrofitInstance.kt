@@ -15,44 +15,43 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object RetrofitInstance {
 
-    @Singleton
-    @Provides
-    fun provideLoggingInterceptor(): HttpLoggingInterceptor =
-        HttpLoggingInterceptor().apply {
-            level = HttpLoggingInterceptor.Level.BODY
-        }
+    val logging = HttpLoggingInterceptor().apply {
+        level = HttpLoggingInterceptor.Level.BODY
+    }
+    val client = OkHttpClient.Builder()
+        .addInterceptor(logging)
+        .build()
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(
-        logging: HttpLoggingInterceptor
-    ): OkHttpClient =
-        OkHttpClient.Builder()
-            .addInterceptor(logging)
-            .build()
-
-    @Singleton
-    @Provides
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient
-    ): Retrofit =
-        Retrofit.Builder()
+    fun provideRetrofit():Retrofit{
+        //Creo Retrofit
+        return Retrofit.Builder()
+            //Defino Url base
             .baseUrl(Config.baseUrl)
+            //Defino canal de comunicación (Gson)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(okHttpClient)
+            .client(client)
             .build()
+    }
 
     @Singleton
     @Provides
-    fun provideCardApiClient(
-        retrofit: Retrofit
-    ): CardApiService =
-        retrofit.create(CardApiService::class.java)
+    //Se crea CardApiService y ya existe en todo el proyecto
+    fun provideCardApiClient(retrofit: Retrofit): CardApiService {
+        return retrofit.create(CardApiService::class.java)
+    }
 
     @Singleton
     @Provides
-    fun provideCardRepository(
-        cardRetrofit: CardRetrofit
-    ): GetServiceCardRepository =
-        GetServiceCardRepository(cardRetrofit)
+    fun provideCardRepository(cardRetrofit: CardRetrofit): GetServiceCardRepository {
+        return GetServiceCardRepository(cardRetrofit)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthApiClient(retrofit: Retrofit): AuthApiService {
+        return retrofit.create(AuthApiService::class.java)
+    }
+
 }
