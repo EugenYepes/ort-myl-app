@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
-import com.google.gson.Gson
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import users.PlayerDTO
@@ -91,8 +90,6 @@ class UserAuthenticationViewModel @Inject constructor(
                             storeRequest.valid = false
                             storeRequest.url = ""
 
-                            val gson = Gson()
-                            Log.d("DEBUG", "JSON enviado: ${gson.toJson(storeRequest)}")
                             authRepository.registerStore(storeRequest)
                         } else {
                             Log.d("REGISTER", "UUID: $uid, Email: $email, Name: ''")
@@ -101,8 +98,6 @@ class UserAuthenticationViewModel @Inject constructor(
                             playerRequest.email = email
                             playerRequest.name = ""
 
-                            val gson = Gson()
-                            Log.d("DEBUG", "JSON enviado: ${gson.toJson(playerRequest)}")
                             authRepository.registerUser(playerRequest)
                         }
 
@@ -195,7 +190,7 @@ class UserAuthenticationViewModel @Inject constructor(
             val jsonObject = org.json.JSONObject(json ?: "")
             jsonObject.getString("error")
         } catch (e: Exception) {
-            "Ocurrió un error inesperado"
+            "Ocurrió un error inesperado: ${e.message ?: "desconocido"}"
         }
     }
 
