@@ -1,18 +1,29 @@
-package com.ar.mylapp.screens.hand
+package com.ar.mylapp.screens.store
+
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.ui.theme.GoldDark
+import com.ar.mylapp.viewmodel.TopBarViewModel
+import com.ar.mylapp.components.buttons.WhatsAppButton
 
 @Composable
-fun HandScreen(navController: NavController){
+fun StoreDetailScreen(
+    navController: NavController,
+    topBarViewModel: TopBarViewModel
+){
+    LaunchedEffect(Unit) {
+        topBarViewModel.setTopBar("TIENDA")
+    }
+
     Box(
         modifier = Modifier.fillMaxSize()
     ){
@@ -24,10 +35,11 @@ fun HandScreen(navController: NavController){
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "Hand Screen",
+                text = "Store Detail Screen",
                 fontSize = 30.sp,
                 color = GoldDark
             )
+            WhatsAppButton("5491169077535")
         }
     }
 }

@@ -9,13 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
@@ -26,13 +23,13 @@ import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.navigation.NavigateOnRegistrationSuccess
 import com.ar.mylapp.navigation.Screens
 
-@Preview
-@Composable
-fun RegisterStoreScreenPreview(){
-    var navController = rememberNavController()
-    var viewModel = UserAuthenticationViewModel()
-    RegisterStoreScreen(navController, viewModel)
-}
+//@Preview
+//@Composable
+//fun RegisterStoreScreenPreview(){
+//    var navController = rememberNavController()
+//    var viewModel = UserAuthenticationViewModel()
+//    RegisterStoreScreen(navController, viewModel)
+//}
 
 @Composable
 fun RegisterStoreScreen(

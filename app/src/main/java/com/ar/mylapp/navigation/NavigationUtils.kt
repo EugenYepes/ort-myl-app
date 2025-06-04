@@ -12,6 +12,7 @@ fun getSectionForRoute(route: String?): String? {
         route == Screens.Decks.screen -> "Decks"
         route == Screens.Account.screen -> "Account"
         route == Screens.Stores.screen -> "Stores"
+        route == Screens.StoreDetail.screen -> "StoreDetail"
         route == Screens.Hand.screen -> "Hand"
         route == Screens.Guidebook.screen -> "Guidebook"
         route == Screens.Welcome.screen -> "Welcome"
@@ -22,6 +23,24 @@ fun getSectionForRoute(route: String?): String? {
         route == Screens.RegisterStore.screen -> "RegisterStore"
         else -> null
     }
+}
+
+fun showTopBar(
+    currentRoute: String?
+): Boolean {
+    val noTopBarRoutes = getNoTopBarRoutes()
+    return currentRoute !in noTopBarRoutes
+}
+
+private fun getNoTopBarRoutes(): List<String> {
+    return listOf(
+        Screens.Welcome.screen,
+        Screens.Login.screen,
+        Screens.Register.screen,
+        Screens.RegisterUser.screen,
+        Screens.RegisterStore.screen,
+        Screens.RestorePassword.screen
+    )
 }
 
 @Composable
