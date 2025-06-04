@@ -25,8 +25,9 @@ import com.ar.mylapp.components.topBar.MyTopBar
 import com.ar.mylapp.navigation.NavigationScreens
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import com.ar.mylapp.navigation.showTopBar
-
+import com.ar.mylapp.viewmodel.StoreViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -39,8 +40,9 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 val userAuthenticationViewModel: UserAuthenticationViewModel = viewModel()
                 val cardViewModel: CardViewModel = viewModel()
+                val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
-                val isLoggedIn by derivedStateOf { userAuthenticationViewModel.token != null }
+                val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
 
                 // Ruta actual
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -80,6 +82,7 @@ class MainActivity : ComponentActivity() {
                             paddingValues = paddingValues,
                             userAuthenticationViewModel = userAuthenticationViewModel,
                             cardViewModel = cardViewModel,
+                            storeViewModel = storeViewModel,
                             topBarViewModel = topBarViewModel,
                             isLoggedIn = isLoggedIn
                         )

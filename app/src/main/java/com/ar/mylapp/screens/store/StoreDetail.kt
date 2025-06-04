@@ -1,45 +1,68 @@
 package com.ar.mylapp.screens.store
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.ar.mylapp.ui.theme.GoldDark
-import com.ar.mylapp.viewmodel.TopBarViewModel
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.WhatsAppButton
+import com.ar.mylapp.components.text.Text5
+import com.ar.mylapp.viewmodel.TopBarViewModel
+import users.StoreDTO
 
 @Composable
 fun StoreDetailScreen(
-    navController: NavController,
-    topBarViewModel: TopBarViewModel
-){
+    topBarViewModel: TopBarViewModel,
+    store: StoreDTO
+) {
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("TIENDA")
+        topBarViewModel.setTopBar(store.name)
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ){
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Store Detail Screen",
-                fontSize = 30.sp,
-                color = GoldDark
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(horizontal = 24.dp, vertical = 16.dp),
+        verticalArrangement = Arrangement.spacedBy(24.dp),
+        horizontalAlignment = Alignment.Start
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.location_icon),
+                contentDescription = null,
+                modifier = Modifier.padding(end = 8.dp)
             )
-            WhatsAppButton("5491169077535")
+            Text5(
+                text = store.address,
+            )
+        }
+
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(
+                painter = painterResource(id = R.drawable.phone_icon),
+                contentDescription = null,
+                modifier = Modifier.padding(end = 8.dp)
+            )
+            Text5(
+                text = store.phoneNumber,
+            )
+        }
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+        ) {
+            WhatsAppButton(phoneNumber = store.phoneNumber)
         }
     }
 }

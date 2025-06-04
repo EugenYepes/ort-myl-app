@@ -67,6 +67,10 @@ fun HomeScreen(
                 onClick = { navController.navigate(Screens.Welcome.screen) },
                 text = "Go to Welcome Screen"
             )
+            Button1(
+                onClick = { navController.navigate(Screens.Stores.screen) },
+                text = "Go to Store Screen"
+            )
             Spacer(modifier = Modifier.height(24.dp))
             // Se agregar boton de logout para pruebas
             Button(
