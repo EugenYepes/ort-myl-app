@@ -81,27 +81,27 @@ fun CardCarousel(navController: NavController) {
             )
         }
 
-        Box(
-            Modifier
-                .fillMaxWidth()
-                .height(40.dp)
-                .padding(16.dp),
-            contentAlignment = Alignment.Center
-        ) {
-            Row(
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                verticalAlignment = Alignment.CenterVertically,
-            ) {
-                repeat(carouselItems.size) { index ->
-                    val ellipse =
-                        if (index == selectedIndex.value) R.drawable.ellipse1 else R.drawable.ellipse3
-                    Image(
-                        painter = painterResource(id = ellipse),
-                        contentDescription = null,
-                        modifier = Modifier.size(8.dp)
-                    )
-                }
-            }
-        }
+//        Box(
+//            Modifier
+//                .fillMaxWidth()
+//                .height(40.dp)
+//                .padding(16.dp),
+//            contentAlignment = Alignment.Center
+//        ) {
+//            Row(
+//                horizontalArrangement = Arrangement.spacedBy(8.dp),
+//                verticalAlignment = Alignment.CenterVertically,
+//            ) {
+//                repeat(carouselItems.size) { index ->
+//                    val ellipse =
+//                        if (index == selectedIndex.intValue) R.drawable.ellipse1 else R.drawable.ellipse3
+//                    Image(
+//                        painter = painterResource(id = ellipse),
+//                        contentDescription = null,
+//                        modifier = Modifier.size(8.dp)
+//                    )
+//                }
+//            }
+//        }
     }
 }

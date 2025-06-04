@@ -19,7 +19,6 @@ import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
-import com.ar.mylapp.navigation.NavigateOnRegistrationSuccess
 import com.ar.mylapp.navigation.Screens
 
 @Composable
