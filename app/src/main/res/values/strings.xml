@@ -18,6 +18,9 @@
     <string name="cards_not_found">No se encontro ninguna carta</string>
     <string name="button_search">BUSCAR</string>
 
+    <!-- Stores-->
+    <string name="button_wpp">Comunicarme por WhatsApp</string>
+
     <!-- Guidebook -->
     <string name="guidebook_one_objective_title">1 - Objetivo del juego</string>
     <string name="guidebook_two_objective_title">2 - Partes de una carta</string>

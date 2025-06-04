@@ -5,24 +5,25 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.material3.Button
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.R
-import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.buttons.Button6
+import com.ar.mylapp.components.card.CardCarousel
+import com.ar.mylapp.components.title.Title2
 import com.ar.mylapp.navigation.Screens
-import com.ar.mylapp.components.buttons.Button1
-import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
@@ -36,7 +37,13 @@ fun HomeScreen(
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title, subtitle)
     }
-    val context = LocalContext.current
+    val buttons = listOf(
+        Triple("CARTAS", R.drawable.cards_icon, Screens.Cards.screen),
+        Triple("MAZOS", R.drawable.decks_icon, Screens.Decks.screen),
+        Triple("CUENTA", R.drawable.account_icon, Screens.Account.screen),
+        Triple("TIENDAS", R.drawable.store_icon, Screens.Stores.screen),
+        Triple("GUÍA", R.drawable.guide_icon, Screens.Guidebook.screen),
+    )
 
     Box(
         modifier = Modifier
@@ -45,43 +52,44 @@ fun HomeScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .padding(top  = 10.dp, start = 24.dp, end = 24.dp)
                 .align(Alignment.Center),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(10.dp)
         ) {
-            Text(
-                text = "Home Screen",
-                fontSize = 30.sp,
-                color = GoldDark
+            Title2(
+                title = "Acceso rápido",
+                modifier = Modifier.align(Alignment.Start)
             )
-            Button1(
-                onClick = { navController.navigate(Screens.Cards.screen) },
-                text = "Go to Cards Screen"
-            )
-            Button1(
-                onClick = { navController.navigate(Screens.Account.screen) },
-                text = "Go to Account Screen"
-            )
-            //Para testear patalla de Welcome (Login y Register)
-            Button1(
-                onClick = { navController.navigate(Screens.Welcome.screen) },
-                text = "Go to Welcome Screen"
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            // Se agregar boton de logout para pruebas
-            Button(
-                onClick = {
-                    FirebaseAuthManager.logout(context)
-                    // Limpiar la sesión del ViewModel
-                    // para que no rebote entre Home y Login
-                    userAuthenticationViewModel.clearSession()
-                    navController.navigate("login") {
-                        popUpTo("home") { inclusive = true }
+            LazyVerticalGrid(
+                columns = GridCells.Fixed(2),
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(40.dp),
+                verticalArrangement = Arrangement.spacedBy(20.dp),
+                userScrollEnabled = false,
+                content = {
+                    items(buttons.size) { index ->
+                        val (text, iconRes, screen) = buttons[index]
+                        Box(
+                            modifier = Modifier.fillMaxWidth(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Button6(
+                                onClick = { navController.navigate(screen) },
+                                text = text,
+                                icon = painterResource(id = iconRes)
+                            )
+                        }
                     }
                 }
-            ) {
-                Text("Cerrar sesión")
-            }
+            )
+            Spacer(modifier = Modifier.height(10.dp))
+            Title2(
+                title = "Cartas destacadas",
+                modifier = Modifier.align(Alignment.Start)
+            )
+            CardCarousel(navController)
         }
     }
 }

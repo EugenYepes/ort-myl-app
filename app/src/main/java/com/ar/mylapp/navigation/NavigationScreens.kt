@@ -1,5 +1,6 @@
 package com.ar.mylapp.navigation
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -29,8 +30,10 @@ import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
+import com.ar.mylapp.viewmodel.StoreViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
+@SuppressLint("StateFlowValueCalledInComposition")
 @Composable
 fun NavigationScreens(
     navController: NavHostController,
@@ -38,6 +41,7 @@ fun NavigationScreens(
     userAuthenticationViewModel: UserAuthenticationViewModel,
     cardViewModel: CardViewModel,
     deckViewModel: DecksViewModel,
+    storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
     isLoggedIn: Boolean
 ){
@@ -86,10 +90,20 @@ fun NavigationScreens(
 
         //* Stores
         composable(Screens.Stores.screen) {
-            StoresScreen(navController, topBarViewModel)
+            StoresScreen(navController, topBarViewModel, storeViewModel)
         }
-        composable(Screens.StoreDetail.screen) {
-            StoreDetailScreen(navController, topBarViewModel)
+        composable(
+            route = "${Screens.StoreDetail.screen}/{storeUuid}",
+            arguments = listOf(navArgument("storeUuid") { type = NavType.StringType })
+        ) { backStackEntry ->
+            val storeUuid = backStackEntry.arguments?.getString("storeUuid")
+            val store = storeViewModel.stores.value.find { it.uuid == storeUuid }
+            store?.let {
+                StoreDetailScreen(
+                    topBarViewModel = topBarViewModel,
+                    store = it
+                )
+            }
         }
 
         //* Guidebook
