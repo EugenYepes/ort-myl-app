@@ -24,8 +24,8 @@ import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.text.Text8
 import com.ar.mylapp.components.title.Title2
-import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.BlackLight
+import com.ar.mylapp.ui.theme.GoldDark
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
@@ -33,7 +33,7 @@ fun StoreInfoCardPreview() {
     StoreInfoCard(
         title = "Tienda #1",
         text = "Av. Cabildo 1110",
-        buttonText = "Comunicarme por WhatsApp"
+        onClick = {}
     )
 }
 
@@ -41,13 +41,13 @@ fun StoreInfoCardPreview() {
 fun StoreInfoCard(
     title: String,
     text: String,
-    buttonText: String
+    onClick: () -> Unit = {}
 ) {
     Card(
         modifier = Modifier
             .border(width = 1.dp, color = GoldDark)
             .width(366.dp)
-            .height(153.dp)
+            .height(170.dp)
             .background(color = BlackLight),
         colors = CardColors(
             containerColor = Color.Transparent,
@@ -58,9 +58,9 @@ fun StoreInfoCard(
     ) {
         Column(
             modifier = Modifier
-                .padding(vertical = 5.dp, horizontal = 10.dp)
+                .padding(vertical = 10.dp, horizontal = 12.dp)
                 .fillMaxWidth(),
-            verticalArrangement = Arrangement.spacedBy(10.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             Title2(
                 title = title
@@ -80,11 +80,11 @@ fun StoreInfoCard(
                 )
             }
             Button2(
-                onClick = {},
-                text = buttonText,
+                onClick = { onClick() },
+                text = "Comunicarme por WhatsApp",
                 modifier = Modifier
+                    .width(280.dp)
                     .align(Alignment.End)
-                    .width(245.dp)
             )
         }
     }
