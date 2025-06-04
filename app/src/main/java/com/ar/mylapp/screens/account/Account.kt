@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -14,6 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.buttons.Button4
+import com.ar.mylapp.components.text.Text4
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
@@ -29,34 +32,24 @@ fun AccountScreen(
 
     Box(
         modifier = Modifier.fillMaxSize()
-    ){
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center),
-            verticalArrangement = Arrangement.Center,
+                .fillMaxWidth()
+                .align(Alignment.TopCenter)
+                .padding(top = 32.dp),
+            verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Account Screen",
-                fontSize = 30.sp,
-                color = GoldDark,
-                modifier = Modifier.padding(bottom = 20.dp)
-            )
-            Text(
+            Text4(
                 text = "Mail: " + if (userAuthenticationViewModel.email != "") userAuthenticationViewModel.email else "no hay nada",
-                fontSize = 30.sp,
-                color = GoldDark
             )
-            Text(
+            Text4(
                 text = "Contra: " + if (userAuthenticationViewModel.password != "") userAuthenticationViewModel.password else "no hay nada",
-                fontSize = 30.sp,
-                color = GoldDark
             )
-            Text(
-                text = "Token: " + if (userAuthenticationViewModel.token != null) userAuthenticationViewModel.token else "no hay nada",
-                fontSize = 30.sp,
-                color = GoldDark
+            Button4(
+                text = "Cerrar Sesión",
+                onClick = { userAuthenticationViewModel.clearSession() }
             )
         }
     }

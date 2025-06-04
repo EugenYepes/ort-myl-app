@@ -24,6 +24,7 @@ import com.ar.mylapp.screens.store.StoreDetailScreen
 import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.screens.welcome.WelcomeScreen
 import com.ar.mylapp.screens.welcome.login.LoginScreen
+import com.ar.mylapp.screens.welcome.register.ConfirmRegister
 import com.ar.mylapp.screens.welcome.register.RegisterScreen
 import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
 import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
@@ -142,14 +143,33 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
-                onDenied = { RegisterUserScreen(navController, userAuthenticationViewModel) }
+                onDenied = { RegisterUserScreen(
+                    navController = navController,
+                    userAuthenticationViewModel = userAuthenticationViewModel,
+                    onRegistered = {
+                        navController.navigate(Screens.ConfirmRegister.screen)
+                    }
+                ) }
             )
         }
         composable(Screens.RegisterStore.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
-                onDenied = { RegisterStoreScreen(navController, userAuthenticationViewModel) }
+                onDenied = { RegisterStoreScreen(
+                    navController = navController,
+                    userAuthenticationViewModel = userAuthenticationViewModel,
+                    onRegistered = {
+                        navController.navigate(Screens.ConfirmRegister.screen)
+                    }
+                ) }
+            )
+        }
+        composable(Screens.ConfirmRegister.screen) {
+            AuthGate(
+                isAllowed = isLoggedIn,
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onDenied = { ConfirmRegister(navController) }
             )
         }
 

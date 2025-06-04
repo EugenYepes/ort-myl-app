@@ -49,6 +49,7 @@ sealed class Screens (val screen: String) {
     data object Register: Screens("register")
     data object RegisterUser: Screens("registerUser")
     data object RegisterStore: Screens("registerStore")
+    data object ConfirmRegister: Screens("confirmRegister")
 
     // RestorePassword
     data object RestorePassword: Screens("restorePassword")

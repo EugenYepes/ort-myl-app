@@ -34,15 +34,14 @@ import com.ar.mylapp.navigation.Screens
 @Composable
 fun RegisterStoreScreen(
     navController: NavController,
-    userAuthenticationViewModel: UserAuthenticationViewModel
+    userAuthenticationViewModel: UserAuthenticationViewModel,
+    onRegistered: () -> Unit
 ) {
 
-    NavigateOnRegistrationSuccess(
-        navController =  navController,
-        userAuthenticationViewModel = userAuthenticationViewModel,
-        popUpToScreen = Screens.RegisterStore.screen,
-        destinationScreen = Screens.Home.screen
-    )
+    if (userAuthenticationViewModel.navigateToConfirmScreen) {
+        userAuthenticationViewModel.navigateToConfirmScreen = false
+        onRegistered()
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
