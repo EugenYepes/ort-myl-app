@@ -56,7 +56,6 @@ fun HomeScreen(
             )
             Row (
                 horizontalArrangement = Arrangement.spacedBy(40.dp),
-
             ) {
                 Column (
                     verticalArrangement = Arrangement.spacedBy(10.dp)
@@ -98,21 +97,6 @@ fun HomeScreen(
                 modifier = Modifier.align(Alignment.Start)
             )
             CardCarousel()
-
-//            // Se agregar boton de logout para pruebas
-//            Button(
-//                onClick = {
-//                    FirebaseAuthManager.logout(context)
-//                    // Limpiar la sesión del ViewModel
-//                    // para que no rebote entre Home y Login
-//                    userAuthenticationViewModel.clearSession()
-//                    navController.navigate("login") {
-//                        popUpTo("home") { inclusive = true }
-//                    }
-//                }
-//            ) {
-//                Text("Cerrar sesión")
-//            }
         }
     }
 }
