@@ -2,6 +2,7 @@ package com.ar.mylapp.components.card
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -24,20 +24,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.ar.mylapp.R
 
 @OptIn(ExperimentalMaterial3Api::class)
-@Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun CardCarousel() { //cards: List<CardDTO>
-
-    /*data class CarouselItem(
-        val id: Int,
-        val imageUrl: String,
-        val contentDescription: String
-    )*/
+fun CardCarousel(navController: NavController) {
 
     data class CarouselItem(
         val id: Int,
@@ -47,23 +40,15 @@ fun CardCarousel() { //cards: List<CardDTO>
 
     val carouselItems = remember {
         listOf(
-            CarouselItem(0, R.drawable.cardeolo, "card1"),
-            CarouselItem(1, R.drawable.cardhelios, "card2"),
-            CarouselItem(2, R.drawable.cardgaia, "card3")
+            CarouselItem(13696, R.drawable.cardeolo, "cardeolo"),
+            CarouselItem(1665, R.drawable.cardhelios, "cardhelios"),
+            CarouselItem(14691, R.drawable.cardgaia, "cardgaia")
         )
     }
 
-    /*val carouselItems = cards.take(3).mapIndexed { index, card ->
-    CarouselItem(
-        id = index,
-        imageUrl = card.imageUrl,
-        contentDescription = card.name
-        )
-    }*/
-
     val initialIndex = carouselItems.size / 2
     val carouselState = rememberCarouselState(
-        initialItem = initialIndex, // Inicia en la carta del medio
+        initialItem = initialIndex,
         itemCount = { carouselItems.size }
     )
 
@@ -77,33 +62,34 @@ fun CardCarousel() { //cards: List<CardDTO>
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(top = 10.dp, bottom = 10.dp),
+                .padding(vertical = 10.dp),
             itemWidth = 230.dp,
             itemSpacing = 10.dp,
             contentPadding = PaddingValues(horizontal = 10.dp)
         ) { i ->
             val item = carouselItems[i]
             Image(
-                modifier = Modifier
-                    .height(300.dp)
-                    .maskClip(MaterialTheme.shapes.extraLarge),
                 painter = painterResource(id = item.imageResId),
                 contentDescription = item.contentDescription,
+                modifier = Modifier
+                    .height(300.dp)
+                    .maskClip(MaterialTheme.shapes.extraLarge)
+                    .clickable {
+                        navController.navigate("cardDetail/${item.id}")
+                    },
                 contentScale = ContentScale.Crop
             )
         }
+
         Box(
             Modifier
-                .width(393.dp)
+                .fillMaxWidth()
                 .height(40.dp)
                 .padding(16.dp),
             contentAlignment = Alignment.Center
         ) {
             Row(
-                horizontalArrangement = Arrangement.spacedBy(
-                    8.dp,
-                    Alignment.CenterHorizontally
-                ),
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 repeat(carouselItems.size) { index ->
