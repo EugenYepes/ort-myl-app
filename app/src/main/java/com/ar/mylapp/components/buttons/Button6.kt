@@ -30,7 +30,7 @@ import com.ar.mylapp.ui.theme.White
 fun Button6Preview(){
     Button6(
         onClick = { },
-        text = "CUENTA",
+        text = "TIENDA",
         icon =  painterResource(id = R.drawable.store_icon),
     )
 }
@@ -45,7 +45,7 @@ fun Button6(
         onClick = onClick,
         modifier = Modifier
             .size(
-                width = 152.dp,
+                width = 158.dp,
                 height = 56.dp
             )
             .border(
