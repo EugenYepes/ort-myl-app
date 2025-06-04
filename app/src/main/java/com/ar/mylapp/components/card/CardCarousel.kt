@@ -77,15 +77,15 @@ fun CardCarousel() { //cards: List<CardDTO>
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
-                .padding(top = 16.dp, bottom = 16.dp),
+                .padding(top = 10.dp, bottom = 10.dp),
             itemWidth = 230.dp,
-            itemSpacing = 20.dp,
-            contentPadding = PaddingValues(horizontal = 20.dp)
+            itemSpacing = 10.dp,
+            contentPadding = PaddingValues(horizontal = 10.dp)
         ) { i ->
             val item = carouselItems[i]
             Image(
                 modifier = Modifier
-                    .height(330.dp)
+                    .height(300.dp)
                     .maskClip(MaterialTheme.shapes.extraLarge),
                 painter = painterResource(id = item.imageResId),
                 contentDescription = item.contentDescription,
