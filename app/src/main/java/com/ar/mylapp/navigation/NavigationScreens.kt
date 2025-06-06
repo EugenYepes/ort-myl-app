@@ -55,7 +55,7 @@ fun NavigationScreens(
         //? Pantallas accesibles para todos
         //* Home
         composable(Screens.Home.screen) {
-            HomeScreen(navController, userAuthenticationViewModel, topBarViewModel)
+            HomeScreen(navController, topBarViewModel)
         }
 
         //* Cards
@@ -117,7 +117,7 @@ fun NavigationScreens(
         composable(Screens.Welcome.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }
@@ -126,7 +126,7 @@ fun NavigationScreens(
         composable(Screens.Login.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = {  LoginScreen(navController, userAuthenticationViewModel) }
             )
         }
@@ -135,14 +135,14 @@ fun NavigationScreens(
         composable(Screens.Register.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = { RegisterScreen(navController) }
             )
         }
         composable(Screens.RegisterUser.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = { RegisterUserScreen(
                     navController = navController,
                     userAuthenticationViewModel = userAuthenticationViewModel,
@@ -155,7 +155,7 @@ fun NavigationScreens(
         composable(Screens.RegisterStore.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = { RegisterStoreScreen(
                     navController = navController,
                     userAuthenticationViewModel = userAuthenticationViewModel,
@@ -168,7 +168,7 @@ fun NavigationScreens(
         composable(Screens.ConfirmRegister.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = { ConfirmRegister(navController) }
             )
         }
@@ -177,7 +177,7 @@ fun NavigationScreens(
         composable(Screens.RestorePassword.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { HomeScreen(navController, topBarViewModel) },
                 onDenied = { RestorePasswordScreen(navController, userAuthenticationViewModel) }
             )
         }
