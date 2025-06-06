@@ -1,7 +1,7 @@
 package com.ar.mylapp.repository
 
+import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.network.StoreRetrofit
-import users.StoreDTO
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject

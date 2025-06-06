@@ -1,12 +1,9 @@
 package com.ar.mylapp.network
 
-//import com.ar.mylapp.models.auth.LoginResponse
-//import com.ar.mylapp.models.auth.StoreRegisterRequest
-//import com.ar.mylapp.models.auth.UserRegisterRequest
+import ar.com.myldtos.users.PlayerDTO
+import ar.com.myldtos.users.StoreDTO
+import ar.com.myldtos.users.UserDTO
 import retrofit2.Response
-import users.PlayerDTO
-import users.StoreDTO
-import users.UserDTO
 import javax.inject.Inject
 
 class AuthRetrofit @Inject constructor(
@@ -22,7 +19,7 @@ class AuthRetrofit @Inject constructor(
     }
 
     suspend fun login(token: String): Response<UserDTO> {
-        return service.login(token)
+        return service.me(token)
     }
 
 }
