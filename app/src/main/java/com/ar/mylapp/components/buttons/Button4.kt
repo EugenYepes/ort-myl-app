@@ -1,7 +1,6 @@
 package com.ar.mylapp.components.buttons
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -31,7 +30,6 @@ fun Button4(
     Button(
         onClick = onClick,
         modifier = Modifier
-            .size(width = 160.dp, height = 50.dp)
             .border(
                 width = 1.dp,
                 color = GoldLight,
@@ -41,9 +39,9 @@ fun Button4(
             containerColor = DarkRed,
             contentColor = GoldDark
         ),
-        shape = RoundedCornerShape(20.dp)
-    )
-    {
+        shape = RoundedCornerShape(20.dp),
+        contentPadding = ButtonDefaults.ContentPadding
+    ) {
         Text7(
             text = text,
             modifier = Modifier

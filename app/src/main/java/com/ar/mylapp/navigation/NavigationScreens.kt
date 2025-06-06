@@ -16,6 +16,7 @@ import com.ar.mylapp.screens.card.AdvancedSearchScreen
 import com.ar.mylapp.screens.card.CardDetail
 import com.ar.mylapp.screens.card.CardsScreen
 import com.ar.mylapp.screens.card.FilteredResultsScreen
+import com.ar.mylapp.screens.deck.DeckDetailScreen
 import com.ar.mylapp.screens.deck.DecksScreen
 import com.ar.mylapp.screens.guidebook.GuidebookScreen
 import com.ar.mylapp.screens.home.HomeScreen
@@ -23,11 +24,13 @@ import com.ar.mylapp.screens.store.StoreDetailScreen
 import com.ar.mylapp.screens.store.StoresScreen
 import com.ar.mylapp.screens.welcome.WelcomeScreen
 import com.ar.mylapp.screens.welcome.login.LoginScreen
+import com.ar.mylapp.screens.welcome.register.ConfirmRegister
 import com.ar.mylapp.screens.welcome.register.RegisterScreen
 import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
 import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
 import com.ar.mylapp.viewmodel.CardViewModel
+import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
@@ -38,6 +41,7 @@ fun NavigationScreens(
     paddingValues: PaddingValues,
     userAuthenticationViewModel: UserAuthenticationViewModel,
     cardViewModel: CardViewModel,
+    deckViewModel: DecksViewModel,
     storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
     isLoggedIn: Boolean
@@ -139,14 +143,33 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
-                onDenied = { RegisterUserScreen(navController, userAuthenticationViewModel) }
+                onDenied = { RegisterUserScreen(
+                    navController = navController,
+                    userAuthenticationViewModel = userAuthenticationViewModel,
+                    onRegistered = {
+                        navController.navigate(Screens.ConfirmRegister.screen)
+                    }
+                ) }
             )
         }
         composable(Screens.RegisterStore.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
-                onDenied = { RegisterStoreScreen(navController, userAuthenticationViewModel) }
+                onDenied = { RegisterStoreScreen(
+                    navController = navController,
+                    userAuthenticationViewModel = userAuthenticationViewModel,
+                    onRegistered = {
+                        navController.navigate(Screens.ConfirmRegister.screen)
+                    }
+                ) }
+            )
+        }
+        composable(Screens.ConfirmRegister.screen) {
+            AuthGate(
+                isAllowed = isLoggedIn,
+                onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onDenied = { ConfirmRegister(navController) }
             )
         }
 
@@ -155,7 +178,7 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, userAuthenticationViewModel, topBarViewModel) },
-                onDenied = { RestorePasswordScreen(navController) }
+                onDenied = { RestorePasswordScreen(navController, userAuthenticationViewModel) }
             )
         }
 
@@ -164,9 +187,16 @@ fun NavigationScreens(
         composable(Screens.Decks.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { DecksScreen(navController, topBarViewModel) },
+                onAllowed = { DecksScreen(navController, topBarViewModel, deckViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
+        }
+        composable(
+            route = "${Screens.DeckDetail.screen}/{deckId}",
+            arguments = listOf(navArgument("deckId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
+            DeckDetailScreen(deckId, topBarViewModel, deckViewModel)
         }
 
         //* Account

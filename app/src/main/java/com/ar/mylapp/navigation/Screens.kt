@@ -22,6 +22,9 @@ sealed class Screens (val screen: String) {
 
     // Decks
     data object Decks: Screens("decks")
+    data object DeckDetail : Screens("deckDetail") {
+        fun withArgs(deckId: Int) = "deckDetail/$deckId"
+    }
 
     // Guidebook
     data object Guidebook: Screens("guidebook")
@@ -46,6 +49,7 @@ sealed class Screens (val screen: String) {
     data object Register: Screens("register")
     data object RegisterUser: Screens("registerUser")
     data object RegisterStore: Screens("registerStore")
+    data object ConfirmRegister: Screens("confirmRegister")
 
     // RestorePassword
     data object RestorePassword: Screens("restorePassword")

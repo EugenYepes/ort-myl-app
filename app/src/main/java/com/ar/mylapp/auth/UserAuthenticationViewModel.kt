@@ -29,6 +29,7 @@ class UserAuthenticationViewModel @Inject constructor(
     var registrationSuccess by mutableStateOf(false)
     var error by mutableStateOf<String?>(null)
     var token by mutableStateOf<String?>(null)
+    var navigateToConfirmScreen by mutableStateOf(false)
 
     fun onLoginClicked() {
         if (email.isBlank() || password.isBlank()) {
@@ -87,7 +88,7 @@ class UserAuthenticationViewModel @Inject constructor(
                             storeRequest.name = storeName
                             storeRequest.phoneNumber = phone
                             storeRequest.address = address
-                            storeRequest.valid = false
+                            storeRequest.valid = true
                             storeRequest.url = ""
 
                             authRepository.registerStore(storeRequest)
@@ -106,6 +107,7 @@ class UserAuthenticationViewModel @Inject constructor(
                                 .addOnSuccessListener {
                                     firebaseAuth.signOut()
                                     registrationSuccess = true
+                                    navigateToConfirmScreen = true
                                     error = null
                                 }
                                 .addOnFailureListener { e ->

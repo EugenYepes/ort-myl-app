@@ -1,4 +1,4 @@
-package com.ar.mylapp.screens.welcome
+package com.ar.mylapp.screens.welcome.register
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -10,20 +10,21 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.ar.mylapp.components.buttons.Button1
-import com.ar.mylapp.components.buttons.Button5
+import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.image.ImageLogoMyl
+import com.ar.mylapp.components.text.Text5
+import com.ar.mylapp.components.title.Title2
 import com.ar.mylapp.navigation.Screens
 
 @Composable
-fun WelcomeScreen(
+fun ConfirmRegister(
     navController: NavController
 ) {
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(20.dp, Alignment.CenterVertically),
+            verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .padding(top = 20.dp)
@@ -34,24 +35,20 @@ fun WelcomeScreen(
                     .align(Alignment.CenterHorizontally)
             )
             Column(
-                verticalArrangement = Arrangement.spacedBy(40.dp, Alignment.CenterVertically),
+                verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
-                modifier = Modifier.padding(top = 40.dp)
             ) {
-                Button1(
-                    onClick = { navController.navigate(Screens.Login.screen) },
-                    text = "INICIAR SESIÓN"
+                Title2(
+                    title = "Su Correo Electrónico ha sido verificado"
                 )
-                Button1(
-                    onClick = { navController.navigate(Screens.Register.screen) },
-                    text = "REGISTRARSE"
+                Text5(
+                    text = "Gracias por unirte a Mitos y Leyendas Companion!\nA continuacion se le ha enviado un correo electronico a su mail.\nPor favor confirme su registro para poder ingresar"
                 )
-                Button5(
-                    onClick = { navController.navigate(Screens.Guidebook.screen) },
-                    text = "APRENDE A JUGAR"
+                Button2(
+                    text = "Iniciar Sesion",
+                    onClick = { navController.navigate(Screens.Login.screen)}
                 )
             }
-
         }
     }
 }

@@ -32,13 +32,12 @@ fun Title2(
         modifier = modifier,
         style = TextStyle(
             fontSize = 32.sp,
-            lineHeight = 18.sp,
+            lineHeight = 40.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
             color = GoldDark,
             textAlign = TextAlign.Center,
         ),
-        maxLines = 1,
         softWrap = true,
         overflow = TextOverflow.Ellipsis
     )
