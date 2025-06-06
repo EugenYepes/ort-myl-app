@@ -114,4 +114,25 @@ class CardViewModel @Inject constructor(
             }
         }
     }
+
+    var carouselCards by mutableStateOf<List<CardDTO>>(emptyList())
+        private set
+    fun loadRandomCardsForCarousel(maxPages: Int = 1000, count: Int = 10) {
+        viewModelScope.launch {
+            isLoading = true
+            try {
+                val randomPage = (1..maxPages).random()
+                val result = cardRepository.fetchCards(randomPage, pageSize = 15)
+                if (!result.isNullOrEmpty()) {
+                    carouselCards = result.shuffled().take(count)
+                } else {
+                    errorMessage = "No se encontraron cartas para el carrusel"
+                }
+            } catch (e: Exception) {
+                errorMessage = "Error cargando cartas para carrusel: ${e.localizedMessage}"
+            } finally {
+                isLoading = false
+            }
+        }
+    }
 }

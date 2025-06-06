@@ -21,12 +21,14 @@ import com.ar.mylapp.components.buttons.ButtonsGrid
 import com.ar.mylapp.components.card.CardCarousel
 import com.ar.mylapp.components.title.Title2
 import com.ar.mylapp.navigation.getHomeButtonsGridInfo
+import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
 fun HomeScreen(
     navController: NavController,
-    topBarViewModel: TopBarViewModel
+    topBarViewModel: TopBarViewModel,
+    cardViewModel: CardViewModel
 ){
     val title = stringResource(R.string.topbar_home_title)
     val subtitle = stringResource(R.string.topbar_home_subtitle)
@@ -56,7 +58,7 @@ fun HomeScreen(
                 title = stringResource(R.string.cards_grid),
                 modifier = Modifier.align(Alignment.Start)
             )
-            CardCarousel(navController)
+            CardCarousel(navController, cardViewModel)
         }
     }
 }
