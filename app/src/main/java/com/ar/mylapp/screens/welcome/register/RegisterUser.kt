@@ -58,12 +58,14 @@ fun RegisterUserScreen(
                 InputOne(
                     label = "Contraseña",
                     value = userAuthenticationViewModel.password,
-                    onValueChange = { userAuthenticationViewModel.password = it }
+                    onValueChange = { userAuthenticationViewModel.password = it },
+                    isPassword = true
                 )
                 InputOne(
                     label = "Confirmar Contraseña",
                     value = userAuthenticationViewModel.confirmPassword,
-                    onValueChange = { userAuthenticationViewModel.confirmPassword = it }
+                    onValueChange = { userAuthenticationViewModel.confirmPassword = it },
+                    isPassword = true
                 )
 
                 userAuthenticationViewModel.error?.let {

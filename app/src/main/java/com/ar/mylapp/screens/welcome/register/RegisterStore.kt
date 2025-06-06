@@ -22,14 +22,6 @@ import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.navigation.Screens
 
-//@Preview
-//@Composable
-//fun RegisterStoreScreenPreview(){
-//    var navController = rememberNavController()
-//    var viewModel = UserAuthenticationViewModel()
-//    RegisterStoreScreen(navController, viewModel)
-//}
-
 @Composable
 fun RegisterStoreScreen(
     navController: NavController,
@@ -86,13 +78,15 @@ fun RegisterStoreScreen(
                 InputOne(
                     label = "Contraseña",
                     value = userAuthenticationViewModel.password,
-                    onValueChange = { userAuthenticationViewModel.password = it }
+                    onValueChange = { userAuthenticationViewModel.password = it },
+                    isPassword = true
                 )
 
                 InputOne(
                     label = "Confirmar Contraseña",
                     value = userAuthenticationViewModel.confirmPassword,
-                    onValueChange = { userAuthenticationViewModel.confirmPassword = it }
+                    onValueChange = { userAuthenticationViewModel.confirmPassword = it },
+                    isPassword = true
                 )
 
                 userAuthenticationViewModel.error?.let {
@@ -122,5 +116,4 @@ fun RegisterStoreScreen(
             }
         }
     }
-
 }
