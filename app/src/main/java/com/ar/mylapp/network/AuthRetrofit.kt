@@ -22,4 +22,8 @@ class AuthRetrofit @Inject constructor(
         return service.me(token)
     }
 
+    suspend fun deleteAccount(token: String): Response<Unit> {
+        return service.deleteAccount(token)
+    }
+
 }

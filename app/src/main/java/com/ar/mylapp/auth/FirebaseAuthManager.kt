@@ -1,6 +1,7 @@
 package com.ar.mylapp.auth
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -41,6 +42,7 @@ object FirebaseAuthManager {
                     user.getIdToken(true)
                         .addOnSuccessListener { tokenResult ->
                             val idToken = tokenResult.token
+                            Log.d("AuthToken", "Token de ID: $idToken")
                             if (idToken != null) onSuccess(idToken)
                             else onError("No se pudo obtener el token")
                         }

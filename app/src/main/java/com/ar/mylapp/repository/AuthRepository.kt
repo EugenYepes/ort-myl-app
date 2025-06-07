@@ -25,4 +25,8 @@ class AuthRepository @Inject constructor(
         authRetrofit.login(token)
     }
 
+    suspend fun deleteAccount(token: String): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.deleteAccount("Bearer $token")
+    }
+
 }
