@@ -20,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -28,8 +27,6 @@ import ar.com.myldtos.cards.CardDTO
 import coil3.compose.AsyncImage
 import com.ar.mylapp.R
 import com.ar.mylapp.navigation.Screens
-import android.widget.Toast
-
 
 @Composable
 fun CardGrid(
@@ -65,7 +62,6 @@ fun CardGrid(
                 )
             }
         }
-
     }
 
     val shouldLoadMore = remember {
@@ -73,7 +69,7 @@ fun CardGrid(
             val layoutInfo = listState.layoutInfo
             val totalItems = layoutInfo.totalItemsCount
             val lastVisible = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-            lastVisible >= totalItems -9
+            lastVisible >= totalItems - 1
         }
     }
 

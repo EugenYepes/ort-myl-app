@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.tittle
+package com.ar.mylapp.components.title
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,29 +16,28 @@ import com.ar.mylapp.R
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Tittle2Preview(){
-    Tittle2(
-        tittle = "Tittle #2"
+fun Title2Preview(){
+    Title2(
+        title = "Title #2"
     )
 }
 
 @Composable
-fun Tittle2(
-    tittle: String,
+fun Title2(
+    title: String,
     modifier: Modifier = Modifier
 ){
     Text(
-        text = tittle,
+        text = title,
         modifier = modifier,
         style = TextStyle(
             fontSize = 32.sp,
-            lineHeight = 18.sp,
+            lineHeight = 40.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
             color = GoldDark,
             textAlign = TextAlign.Center,
         ),
-        maxLines = 1,
         softWrap = true,
         overflow = TextOverflow.Ellipsis
     )

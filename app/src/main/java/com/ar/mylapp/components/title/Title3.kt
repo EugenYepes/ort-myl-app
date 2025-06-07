@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.tittle
+package com.ar.mylapp.components.title
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -16,19 +16,19 @@ import com.ar.mylapp.ui.theme.GoldBeige
 
 @Preview(showBackground = true, backgroundColor = 0xFF000000)
 @Composable
-fun Tittle3Preview(){
-    Tittle3(
-        tittle = "Tittle #3"
+fun Title3Preview(){
+    Title3(
+        title = "Title #3"
     )
 }
 
 @Composable
-fun Tittle3(
-    tittle: String,
+fun Title3(
+    title: String,
     modifier: Modifier = Modifier
 ){
     Text(
-        text = tittle,
+        text = title,
         modifier = modifier,
         style = TextStyle(
             fontSize = 32.sp,

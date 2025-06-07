@@ -17,27 +17,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.ar.mylapp.components.tittle.Tittle2
-import com.ar.mylapp.components.tittle.Tittle3
+import com.ar.mylapp.components.title.Title2
+import com.ar.mylapp.components.title.Title3
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.BlackLight
-
-@Preview(showBackground = true, backgroundColor = 0xFF000000)
-@Composable
-fun DeckNameCardPreview() {
-    DeckNameCard(
-        title2 = "Ejemplo Nombre de Carta",
-        title3 = "n/50" //TODO Modificar según Issue 31
-    )
-}
 
 @Composable
 fun DeckNameCard(
     title2: String,
-    title3: String
+    title3: String,
+    modifier: Modifier = Modifier
 ) {
     Card(
-        modifier = Modifier
+        modifier = modifier
             .border(width = 1.dp, color = GoldDark)
             .width(366.dp)
             .height(67.dp)
@@ -56,12 +48,12 @@ fun DeckNameCard(
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            Tittle2(
-                tittle = title2,
+            Title2(
+                title = title2,
                 modifier = Modifier.widthIn(max = 250.dp)
             )
-            Tittle3(
-                tittle = title3
+            Title3(
+                title = "$title3/50"
             )
         }
     }

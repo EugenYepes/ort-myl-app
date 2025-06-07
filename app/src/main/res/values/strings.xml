@@ -43,5 +43,216 @@
     <string name="add">+</string>
     <string name="remove">-</string>
 
+    <!-- Top Bar -->
+    <string name="topbar_home_title">INICIO</string>
+    <string name="topbar_cards_title">CARTAS</string>
+    <string name="topbar_decks_title">MIS MAZOS</string>
+    <string name="topbar_stores_title">TIENDAS</string>
+    <string name="topbar_guidebook_title">¿COMÓ JUGAR?</string>
+    <string name="topbar_account_title">MI CUENTA</string>
+
+    <string name="topbar_advancesearch_subtitle">Busqueda Avanzada</string>
+    <string name="topbar_editaccount_subtitle">Editar</string>
+    <string name="topbar_home_subtitle">👋Bienvenido a Mitos y Leyendas Companion</string>
+
+    <!-- Cards -->
+    <string name="advance_search">Busqueda Avanzada</string>
+    <string name="cards_not_found">No se encontro ninguna carta</string>
+    <string name="button_search">BUSCAR</string>
+
+    <!-- Stores-->
+    <string name="button_wpp">Comunicarme por WhatsApp</string>
+
+    <!-- Guidebook -->
+    <string name="guidebook_one_objective_title">1 - Objetivo del juego</string>
+    <string name="guidebook_two_objective_title">2 - Partes de una carta</string>
+    <string name="guidebook_three_objective_title">3 - Tipos de carta</string>
+    <string name="guidebook_four_objective_title">4 - Las zonas de juego</string>
+    <string name="guidebook_five_objective_title">5 - Fases del turno</string>
+    <string name="guidebook_six_objective_title">6 - Jugar una carta</string>
+
+    <string name="guidebook_one_objective_text">
+        En Mitos y Leyendas, cada jugador debe defender su Castillo, representado por un mazo de cartas, mientras ataca a los Castillos enemigos para conquistar sus territorios.
+        \n Tu Castillo está compuesto por:
+            \n🛡️ Aliados:
+                \n\t\t\t Guerreros que atacan y defienden.
+            \n✨ Talismanes:
+                \n\t\t\t Conjuros que alteran el curso del juego.
+            \n🏛️ Tótems:
+                \n\t\t\t Estructuras que otorgan habilidades permanentes.
+            \n⚔️ Armas:
+                \n\t\t\t Herramientas que potencian a tus Aliados.
+            \n💰 Oros:
+                \n\t\t\t Recursos que usas para pagar el coste de las cartas.
+        \n¿Cómo se gana? 
+        \n➡️ El primer jugador que logre derribar el Castillo del oponente (dejándolo sin cartas) será el vencedor.
+        \n
+    </string>
+    <string name="guidebook_two_objective_text">
+        Cada carta está compuesta por los siguientes elementos:
+            \n\t • Nombre de la carta: aparece en la parte superior.
+            \n\t • Coste: en la esquina superior izquierda, indica cuántos Oros necesitas para jugarla.
+            \n\t • Tipo de carta: debajo del nombre (Aliado, Talismán, Tótem, etc.).
+            \n\t • Fuerza (solo Aliados): aparece en la parte media, define su poder de ataque/defensa.
+            \n\t • Habilidad: en la zona central o inferior, explica qué efecto tiene la carta.
+            \n\t • Ilustración: parte central de la carta, mostrando su arte.
+            \n\t • Colección y rareza: generalmente en la parte inferior o margen.
+            \n\t • Número de carta: pequeño texto al pie que identifica la carta en su colección.
+        \n
+    </string>
+    <string name="guidebook_three_objective_text">
+        🔹 Aliados
+        \n ➡️ Representan personajes reclutados para atacar Castillos enemigos o defender el propio.
+        \n Ejemplo: Guerrero Dragón (Fuerza 4).
+        \n Características clave:
+        \n\t • Poseen Fuerza y habilidades.
+        \n\t • Permiten atacar en la Fase de Ataque.
+        \n\t • Pueden recibir Armas y ser afectados por Tótems y Talismanes.
+
+        \n\n 🔹 Talismanes
+        \n ➡️ Son poderosos hechizos o eventos que afectan directamente la partida.
+        \n Al ser jugados, cumplen su efecto inmediato y luego van al Cementerio.
+        \n Ejemplo: Llama Purificadora — Destruye un Aliado en juego.
+        \n 📝 Dato: No permanecen en juego; son de “un solo uso”.
+
+        \n\n🔹 Tótems
+        \n➡️ Representan altares, edificaciones o lugares históricos que otorgan habilidades o modificadores permanentes.
+        \n Ejemplo: Altar del Sol Naciente — Todos tus Aliados ganan +1 Fuerza mientras este Tótem esté en juego.
+        \n✅ Permanecen en juego hasta que sean destruidos o retirados.
+
+        \n\n 🔹 Armas
+        \n ➡️ Equipos o herramientas de guerra diseñadas para ser portadas por Aliados, otorgándoles habilidades nuevas o bonificaciones de Fuerza.
+        \n Ejemplo: Espada del Destino — El Aliado equipado gana +2 Fuerza y la habilidad “Indestructible”.
+        \n 🔧 Dato: Una vez equipada, sigue al Aliado mientras esté en juego.
+
+        \n\n 🔹 Oros
+        \n ➡️ El recurso más importante del juego.
+        \n Simbolizan tesoros y bienes que usas para pagar el coste de las cartas.
+        \n Ejemplo: Moneda de Oro.  En cada turno, puedes generar Oros para bajar cartas desde tu mano.
+        \n 💡 Consejo: ¡Gestiona bien tus Oros! Un error en los primeros turnos puede costarte la partida.
+        \n
+    </string>
+    <string name="guidebook_four_objective_text">
+        El campo de batalla está dividido en distintas zonas bien definidas, donde se colocan las cartas según su tipo y función. Cada zona tiene una finalidad específica y conocerlas bien es clave para dominar la partida.
+        \n\n Estas son las zonas:
+
+        \n\n 1. Castillo
+            \n\t • Representa tu mazo de cartas.
+            \n\t • Aquí colocás todas tus cartas antes de que comiencen a jugarse.
+            \n\t • Cuando robás cartas, las sacás del Castillo.
+            \n\t • Objetivo del oponente: ¡derribar tu Castillo!
+
+        \n\n 2. Cementerio
+            \n\t • Zona donde van las cartas que ya han sido utilizadas o destruidas.
+            \n\t • Aquí terminan los Talismanes después de ser jugados y los Aliados/Tótems cuando son derrotados.
+
+        \n\n 3. Zona de Oro
+            \n\t • Aquí colocás tus cartas de Oro que vas usando para generar recursos.
+            \n\t • Cada turno, tus Oros se activan para pagar los costes de las cartas que jugás.
+
+        \n\n 4. Zona de Aliados
+            \n\t • Este es el campo de batalla principal.
+            \n\t • Aquí desplegás tus Aliados que atacan y defienden.
+            \n\t • Cada Aliado permanece aquí hasta ser derrotado, regresar a la mano o ser destruido.
+
+        \n\n 5. Zona de Soporte
+            \n\t • Aquí se colocan tus Tótems y Armas.
+            \n\t • Las Armas suelen estar equipadas a Aliados, pero se visualizan en esta zona cuando entran en juego.
+            \n\t • Los Tótems permanecen aquí mientras estén activos.
+
+        \n\n 6. Mano
+            \n\t • No es una “zona física” sobre la mesa, pero es vital: es el conjunto de cartas que tenés en la mano.
+            \n\t • Podés verlas y jugarlas en tu turno si tenés recursos suficientes.
+            \n
+    </string>
+    <string name="guidebook_five_objective_text">
+        Una partida de Mitos y Leyendas se desarrolla en turnos divididos en fases. Conocer bien qué podés hacer en cada fase es clave para planificar una buena estrategia.
+
+        \n\n 🌀 1. Fase de Agrupación
+            \n\t • Tus Aliados en Línea de Ataque vuelven automáticamente a la Línea de Defensa.
+            \n\t • Todos los Oros pagados durante el turno anterior van a la Reserva (es decir, se vuelven a usar en el siguiente turno).
+            \n\t • Todo esto ocurre de manera automática, a menos que una carta diga lo contrario.
+        \n🔁 Es como reiniciar tu campo de juego para prepararte para un nuevo turno. 
+
+        \n\n 🌞 2. Fase de Vigilia
+        \n Es tu fase principal, donde realizás la mayoría de las acciones.
+        \n\t ✔️ Lo que podés hacer:
+            \n\t • Jugar un Oro desde tu mano (¡solo uno por turno!).
+            \n\t • Bajar Aliados, Tótems, Armas y Talismanes.
+            \n\t • Activar habilidades de cartas en juego.
+        \n ⚠️ Importante:
+        \n Si no jugás un Oro en esta fase, no podés hacerlo más tarde (salvo por efectos especiales).
+        \n 📌 Al final de esta fase, decidís:
+            \n\t • Atacar → pasás a la Fase de Batalla Mitológica.
+            \n\t • No atacar → pasás directamente a la Fase Final.
+
+        \n\n ⚔️ 3. Fase de Batalla Mitológica
+        \n La fase de combate se divide en cuatro pasos fundamentales:
+        \n I. Declaración de Ataque
+            \n\t • Elegís qué Aliados van a atacar.
+            \n\t • Sólo pueden atacar los que ya estaban en juego al inicio del turno.
+        \n II. Declaración de Bloqueo
+            \n\t • Tu oponente elige con qué Aliados va a bloquear.
+            \n\t • Solo un bloqueador por cada atacante.
+        \n III. Guerra de Talismanes
+            \n\t • Los jugadores se alternan jugando Talismanes o activando habilidades.
+            \n\t • Es una etapa táctica, donde el orden y los recursos son clave.
+        \n IV. Asignación de Daño
+            \n\t • Se comparan las Fuerzas de los Aliados enfrentados.
+            \n\t • Si el atacante gana:
+                \n\t\t • El bloqueador es destruido.
+                \n\t\t • El exceso de Fuerza se aplica al Castillo enemigo (se descartan cartas del mazo).
+            \n\t • Si el bloqueador gana, el atacante es destruido.
+
+        \n\n 🌑 4. Fase Final
+            \n\t • Terminan todos los efectos temporales (por ejemplo, habilidades “hasta el final del turno”).
+            \n\t • El turno se cierra oficialmente.
+
+        \n\n 🎴 5. Fase de Robar
+        \n\t • Robás una carta de tu Castillo.
+        \n\t • Si tenés más de 8 cartas en mano, debés descartar hasta tener 8.
+        \n\t • Luego comienza el turno del siguiente jugador.
+
+        \n\n 📘 Consejo para nuevos jugadores:
+        \n Usá la Fase de Vigilia para planificar tus recursos, y reservá Oros para la Guerra de Talismanes, donde muchas partidas se definen.
+        \n
+    </string>
+    <string name="guidebook_six_objective_text">
+        En Mitos y Leyendas, la mayoría de las cartas se juegan desde tu mano, aunque algunas habilidades te permitirán jugarlas desde otras zonas. El proceso sigue una secuencia específica de pasos.
+
+        \n\n 🪄 PASO 1: Mostrar la carta
+        \n Revelá o indicá claramente qué carta vas a jugar.
+        \n Esto informa a los demás jugadores y activa el siguiente paso.
+
+        \n\n 🎯 PASO 2: Seleccionar objetivos (si aplica)
+        \n Algunas cartas necesitan elegir objetivos antes de resolverse.
+        \n Ejemplos comunes:
+            \n\t\t • Elegir un Aliado enemigo para destruir con un Talismán.
+            \n\t\t • Seleccionar un portador para un Arma.
+            \n\t\t • Escoger una carta para aplicar un efecto.
+        \n 🔔 Si no hay un objetivo válido, la carta no puede ser jugada.
+
+        \n\n 💰 PASO 3: Pagar el coste
+        \n Cada carta tiene un coste en Oros (indicado arriba a la izquierda). Para pagarlo:
+            \n\t\t • Mové esa cantidad de cartas desde tu Reserva de Oros a tu Zona de Oros Pagados.
+        \n 📌 Solo podés usar Oros que estén activos (no pagados previamente ese turno).
+
+        \n\n ⚠️ PASO 4: Ventana de respuesta
+        \n Después de anunciar y pagar una carta, se abre una ventana de respuesta:
+        \n\t\t • Cualquier jugador puede jugar cartas o activar habilidades en respuesta.
+        \n\t\t • En esta etapa, es posible anular la carta recién jugada.
+        \n\t\t\t • Si es anulada, va directamente al Cementerio y no tiene efecto.
+        \n 🧠 El orden de respuesta es importante y puede cambiar el curso del juego.
+
+        \n\n ✅ PASO 5: Resolver la carta
+        \n Si nadie la anula, la carta se resuelve:
+            \n\t • Aliado, Tótem o Arma: entra en juego y permanece en el campo.
+            \n\t • Talismán: aplica su efecto inmediato y luego va al Cementerio.
+
+        \n 🎉 ¡Listo! Ya jugaste una carta con éxito.
+        \n
+    </string>
+    <string name="quick_access">Acceso rápido</string>
+    <string name="cards_grid">Algunas Cartas</string>
 
 </resources>

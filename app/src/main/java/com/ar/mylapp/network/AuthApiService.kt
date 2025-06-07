@@ -1,0 +1,22 @@
+package com.ar.mylapp.network
+
+import retrofit2.Response
+import retrofit2.http.Body
+import retrofit2.http.Header
+import retrofit2.http.POST
+import users.PlayerDTO
+import users.StoreDTO
+import users.UserDTO
+
+interface AuthApiService {
+    @POST("/api/players/register")
+    suspend fun registerUser(@Body request: PlayerDTO): Response<Unit>
+
+    @POST("/api/stores/register")
+    suspend fun registerStore(@Body request: StoreDTO): Response<Unit>
+
+    @POST("/api/auth/login")
+    suspend fun login(@Header("Authorization") token: String): Response<UserDTO>
+
+
+}
