@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -18,31 +17,14 @@ import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
-import com.ar.mylapp.navigation.NavigateOnLogInSuccess
 import com.ar.mylapp.navigation.Screens
-
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     userAuthenticationViewModel: UserAuthenticationViewModel
 )
-// : ViewModel()
 {
-    /*
-    var email = viewModel.email
-    var password = viewModel.password
-    var error = viewModel.error
-    var token = viewModel.token
-    */
-
-    NavigateOnLogInSuccess(
-        navController = navController,
-        userAuthenticationViewModel = userAuthenticationViewModel,
-        popUpToScreen = Screens.Login.screen,
-        destinationScreen = Screens.Home.screen
-    )
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -79,13 +61,12 @@ fun LoginScreen(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
-
                 Button5(
                     onClick = { navController.navigate(Screens.RestorePassword.screen)},
                     text = "Recuperar Contraseña"
                 )
                 Button1(
-                    onClick = { userAuthenticationViewModel.onLoginClicked() },
+                    onClick = { userAuthenticationViewModel.onLoginClicked(navController) },
                     text = "INICIAR SESIÓN"
                 )
                 Column(
@@ -98,7 +79,6 @@ fun LoginScreen(
                         text = "REGISTRARSE"
                     )
                 }
-
             }
         }
     }

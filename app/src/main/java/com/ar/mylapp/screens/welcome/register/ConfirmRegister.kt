@@ -39,7 +39,7 @@ fun ConfirmRegister(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Title2(
-                    title = "Su Correo Electrónico ha sido verificado"
+                    title = "Verificar su Correo Electrónico"
                 )
                 Text5(
                     text = "Gracias por unirte a Mitos y Leyendas Companion!\nA continuacion se le ha enviado un correo electronico a su mail.\nPor favor confirme su registro para poder ingresar"
