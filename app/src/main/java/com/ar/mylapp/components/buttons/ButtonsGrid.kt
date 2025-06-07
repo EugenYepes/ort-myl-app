@@ -21,12 +21,16 @@ fun ButtonsGrid(
                 horizontalArrangement = Arrangement.spacedBy(40.dp)
             ) {
                 Button6(
-                    onClick = { navController.navigate(buttonGridInfo[i].third) },
+                    onClick = { navController.navigate(buttonGridInfo[i].third) {
+                        launchSingleTop = true
+                    } },
                     text = buttonGridInfo[i].first,
                     icon = painterResource(id = buttonGridInfo[i].second),
                 )
                 Button6(
-                    onClick = { navController.navigate(buttonGridInfo[i + 1].third) },
+                    onClick = { navController.navigate(buttonGridInfo[i + 1].third) {
+                        launchSingleTop = true
+                    } },
                     text = buttonGridInfo[i + 1].first,
                     icon = painterResource(id = buttonGridInfo[i + 1].second),
                 )
@@ -37,7 +41,9 @@ fun ButtonsGrid(
                 horizontalArrangement = Arrangement.Center
             ) {
                 Button6(
-                    onClick = { navController.navigate(buttonGridInfo[i].third) },
+                    onClick = { navController.navigate(buttonGridInfo[i].third) {
+                        launchSingleTop = true
+                    } },
                     text = buttonGridInfo[i].first,
                     icon = painterResource(id = buttonGridInfo[i].second),
                 )
