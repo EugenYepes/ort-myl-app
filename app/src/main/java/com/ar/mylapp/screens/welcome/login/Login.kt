@@ -5,8 +5,9 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -26,16 +27,7 @@ import com.ar.mylapp.navigation.Screens
 fun LoginScreen(
     navController: NavController,
     userAuthenticationViewModel: UserAuthenticationViewModel
-)
-// : ViewModel()
-{
-    /*
-    var email = viewModel.email
-    var password = viewModel.password
-    var error = viewModel.error
-    var token = viewModel.token
-    */
-
+) {
     NavigateOnLogInSuccess(
         navController = navController,
         userAuthenticationViewModel = userAuthenticationViewModel,
@@ -52,6 +44,7 @@ fun LoginScreen(
             modifier = Modifier
                 .padding(top = 20.dp)
                 .align(Alignment.TopCenter)
+                .verticalScroll(rememberScrollState())
         ) {
             ImageLogoMyl(
                 modifier = Modifier

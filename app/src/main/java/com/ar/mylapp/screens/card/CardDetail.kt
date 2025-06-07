@@ -69,7 +69,10 @@ fun CardDetail(
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CardDetailImage(card)
+                    CardDetailImage(
+                        card,
+                        Alignment.Center
+                    )
                     Spacer(modifier = Modifier.size(22.dp))
                     ShowButtons(onClick = { showPopup = true })
                     if (showPopup) {
