@@ -210,5 +210,7 @@
         \n 🎉 ¡Listo! Ya jugaste una carta con éxito.
         \n
     </string>
+    <string name="quick_access">Acceso rápido</string>
+    <string name="cards_grid">Algunas Cartas</string>
 
 </resources>

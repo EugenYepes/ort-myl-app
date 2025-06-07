@@ -3,7 +3,18 @@ package com.ar.mylapp.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+
+fun getHomeButtonsGridInfo() : List<Triple<String, Int, String>> {
+    return listOf(
+        Triple("CARTAS", R.drawable.cards_icon, Screens.Cards.screen),
+        Triple("MAZOS", R.drawable.decks_icon, Screens.Decks.screen),
+        Triple("CUENTA", R.drawable.account_icon, Screens.Account.screen),
+        Triple("TIENDAS", R.drawable.store_icon, Screens.Stores.screen),
+        Triple("GUÍA", R.drawable.guide_icon, Screens.Guidebook.screen),
+    )
+}
 
 fun getSectionForRoute(route: String?): String? {
     return when {
