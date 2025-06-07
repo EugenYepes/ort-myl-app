@@ -1,6 +1,7 @@
 package com.ar.mylapp.network
 
 import com.ar.mylapp.repository.GetServiceCardRepository
+import com.ar.mylapp.repository.StoreRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,11 +26,8 @@ object RetrofitInstance {
     @Singleton
     @Provides
     fun provideRetrofit():Retrofit{
-        //Creo Retrofit
         return Retrofit.Builder()
-            //Defino Url base
             .baseUrl(Config.baseUrl)
-            //Defino canal de comunicación (Gson)
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)
             .build()
@@ -46,6 +44,30 @@ object RetrofitInstance {
     @Provides
     fun provideCardRepository(cardRetrofit: CardRetrofit): GetServiceCardRepository {
         return GetServiceCardRepository(cardRetrofit)
+    }
+
+    @Singleton
+    @Provides
+    fun provideAuthApiClient(retrofit: Retrofit): AuthApiService {
+        return retrofit.create(AuthApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStoreApiClient(retrofit: Retrofit): StoreApiService {
+        return retrofit.create(StoreApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStoreRetrofit(service: StoreApiService): StoreRetrofit {
+        return StoreRetrofit(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideStoreRepository(storeRetrofit: StoreRetrofit): StoreRepository {
+        return StoreRepository(storeRetrofit)
     }
 
 }

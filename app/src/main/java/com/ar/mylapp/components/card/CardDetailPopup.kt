@@ -55,11 +55,6 @@ fun CardDetailPopup(onDismiss: () -> Unit, card: CardDTO) {
                 .width(400.dp)
                 .height(600.dp)
                 .padding(16.dp),
-            //TODO: Definir si se le ponemos un borde o no
-//            border = BorderStroke(
-//                2.dp,
-//                color = GoldDark
-//            ),
             shape = RoundedCornerShape(16.dp),
         ) {
             CloseIcon(onDismiss, modifier = Modifier.align(Alignment.End))

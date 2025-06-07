@@ -1,43 +1,63 @@
 package com.ar.mylapp.screens.store
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.res.stringResource
+import androidx.navigation.NavController
+import com.ar.mylapp.R
+import com.ar.mylapp.viewmodel.StoreViewModel
+import com.ar.mylapp.viewmodel.TopBarViewModel
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.ar.mylapp.ui.theme.GoldDark
-import com.ar.mylapp.viewmodel.TopBarViewModel
+import androidx.compose.ui.unit.dp
+import com.ar.mylapp.components.store.StoreInfoCard
+import com.ar.mylapp.navigation.Screens
 
 @Composable
 fun StoresScreen(
     navController: NavController,
-    topBarViewModel: TopBarViewModel
+    topBarViewModel: TopBarViewModel,
+    storeViewModel: StoreViewModel
 ){
+    val stores by storeViewModel.stores.collectAsState()
+    var title = stringResource(R.string.topbar_stores_title)
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("TIENDAS")
+        storeViewModel.loadStores()
+        topBarViewModel.setTopBar(title)
     }
 
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ){
-        Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .align(Alignment.Center),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            Text(
-                text = "Stores Screen",
-                fontSize = 30.sp,
-                color = GoldDark
-            )
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(vertical = 12.dp),
+    ) {
+        items(stores) { store ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 8.dp)
+            ) {
+                StoreInfoCard(
+                    title = store.name,
+                    text = store.address,
+                    phoneNumber = store.phoneNumber,
+                    modifier = Modifier
+                        .align(Alignment.Center)
+                        .width(366.dp),
+                    onCardClick = {
+                        navController.navigate("${Screens.StoreDetail.screen}/${store.uuid}")
+                    }
+                )
+            }
         }
     }
 }

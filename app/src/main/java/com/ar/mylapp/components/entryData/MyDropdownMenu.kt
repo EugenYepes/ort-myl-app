@@ -42,19 +42,10 @@ import com.ar.mylapp.ui.theme.exposedDropdownStyle
 import com.ar.mylapp.ui.theme.labelDropdownMenuStyle
 import com.ar.mylapp.ui.theme.textDropdownMenuStyle
 
-// Esta funcion luego recibira la info de la API
-fun getDropdownData(): Map<String, List<String>> {
-    return mapOf(
-        "tipo1" to listOf("sandía", "tornado", "pixel", "murmullo", "código"),
-        "tipo2" to listOf("cafetera", "ruido", "mapache", "glitch", "burbuja"),
-        "tipo3" to listOf("helicóptero", "espátula", "vórtice", "almohada", "robot")
-    )
-}
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyDropdownMenu(
+    modifier: Modifier,
     label: String,
     options: List<String>,
     selectedOptions: List<String>,
@@ -76,7 +67,7 @@ fun MyDropdownMenu(
         onExpandedChange = { expanded = !expanded }
     ) {
         Box(
-            modifier = Modifier
+            modifier = modifier
                 .width(300.dp)
                 .border(
                     width = 2.dp,
@@ -232,6 +223,7 @@ fun MyDropdownMenuPreview() {
         onOptionToggled = { option, isChecked ->
             if (isChecked) selectedTypes.add(option)
             else selectedTypes.remove(option)
-        }
+        },
+        modifier = Modifier,
     )
 }

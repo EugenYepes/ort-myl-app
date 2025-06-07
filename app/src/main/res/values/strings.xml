@@ -1,5 +1,27 @@
 <resources>
     <string name="app_name">MYL APP</string>
+
+    <!-- Top Bar -->
+    <string name="topbar_home_title">INICIO</string>
+    <string name="topbar_cards_title">CARTAS</string>
+    <string name="topbar_decks_title">MIS MAZOS</string>
+    <string name="topbar_stores_title">TIENDAS</string>
+    <string name="topbar_guidebook_title">¿COMÓ JUGAR?</string>
+    <string name="topbar_account_title">MI CUENTA</string>
+
+    <string name="topbar_advancesearch_subtitle">Busqueda Avanzada</string>
+    <string name="topbar_editaccount_subtitle">Editar</string>
+    <string name="topbar_home_subtitle">👋Bienvenido a Mitos y Leyendas Companion</string>
+
+    <!-- Cards -->
+    <string name="advance_search">Busqueda Avanzada</string>
+    <string name="cards_not_found">No se encontro ninguna carta</string>
+    <string name="button_search">BUSCAR</string>
+
+    <!-- Stores-->
+    <string name="button_wpp">Comunicarme por WhatsApp</string>
+
+    <!-- Guidebook -->
     <string name="guidebook_one_objective_title">1 - Objetivo del juego</string>
     <string name="guidebook_two_objective_title">2 - Partes de una carta</string>
     <string name="guidebook_three_objective_title">3 - Tipos de carta</string>
@@ -188,5 +210,7 @@
         \n 🎉 ¡Listo! Ya jugaste una carta con éxito.
         \n
     </string>
+    <string name="quick_access">Acceso rápido</string>
+    <string name="cards_grid">Algunas Cartas</string>
 
 </resources>

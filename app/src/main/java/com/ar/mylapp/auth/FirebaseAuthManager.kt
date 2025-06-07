@@ -14,8 +14,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 object FirebaseAuthManager {
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
-
-    fun register(email: String, password: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
+//DEL REGISTER SE OCUPA EL BACKEND
+  /*  fun register(email: String, password: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -30,18 +30,33 @@ object FirebaseAuthManager {
                 }
                 else onError(task.exception?.message ?: "Error desconocido al registrarse")
             }
-    }
+    } */
 
     fun login(email: String, password: String, onSuccess: (String) -> Unit, onError: (String) -> Unit) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnSuccessListener { result ->
-                auth.currentUser?.getIdToken(true)?.addOnSuccessListener { tokenResult ->
-                    val idToken = tokenResult.token
-                    if (idToken != null) onSuccess(idToken)
-                    else onError("No se pudo obtener el token")
+                val user = auth.currentUser
+                if (user != null && user.isEmailVerified
+                    ) {
+                    user.getIdToken(true)
+                        .addOnSuccessListener { tokenResult ->
+                            val idToken = tokenResult.token
+                            if (idToken != null) onSuccess(idToken)
+                            else onError("No se pudo obtener el token")
+                        }
+                        .addOnFailureListener {
+                            onError("Error al obtener el token: ${it.message}")
+                        }
+                } else {
+                    // Se hace un signout porque para verificar el email verificado
+                    // primero tiene que conectarse
+                    FirebaseAuth.getInstance().signOut()
+                    onError("Debes verificar tu correo antes de ingresar. Revisa tu bandeja de entrada.")
                 }
             }
-            .addOnFailureListener { onError(it.message ?: "Login fallido") }
+            .addOnFailureListener {
+                onError(it.message ?: "Login fallido")
+            }
     }
 
     fun logout(context: Context) {

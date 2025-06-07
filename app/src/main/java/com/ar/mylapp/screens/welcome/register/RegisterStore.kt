@@ -9,13 +9,10 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
@@ -23,29 +20,19 @@ import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
-import com.ar.mylapp.navigation.NavigateOnRegistrationSuccess
 import com.ar.mylapp.navigation.Screens
-
-@Preview
-@Composable
-fun RegisterStoreScreenPreview(){
-    var navController = rememberNavController()
-    var viewModel = UserAuthenticationViewModel()
-    RegisterStoreScreen(navController, viewModel)
-}
 
 @Composable
 fun RegisterStoreScreen(
     navController: NavController,
-    userAuthenticationViewModel: UserAuthenticationViewModel
+    userAuthenticationViewModel: UserAuthenticationViewModel,
+    onRegistered: () -> Unit
 ) {
 
-    NavigateOnRegistrationSuccess(
-        navController =  navController,
-        userAuthenticationViewModel = userAuthenticationViewModel,
-        popUpToScreen = Screens.RegisterStore.screen,
-        destinationScreen = Screens.Home.screen
-    )
+    if (userAuthenticationViewModel.navigateToConfirmScreen) {
+        userAuthenticationViewModel.navigateToConfirmScreen = false
+        onRegistered()
+    }
 
     Box(
         modifier = Modifier.fillMaxSize()
@@ -91,13 +78,15 @@ fun RegisterStoreScreen(
                 InputOne(
                     label = "Contraseña",
                     value = userAuthenticationViewModel.password,
-                    onValueChange = { userAuthenticationViewModel.password = it }
+                    onValueChange = { userAuthenticationViewModel.password = it },
+                    isPassword = true
                 )
 
                 InputOne(
                     label = "Confirmar Contraseña",
                     value = userAuthenticationViewModel.confirmPassword,
-                    onValueChange = { userAuthenticationViewModel.confirmPassword = it }
+                    onValueChange = { userAuthenticationViewModel.confirmPassword = it },
+                    isPassword = true
                 )
 
                 userAuthenticationViewModel.error?.let {
@@ -127,5 +116,4 @@ fun RegisterStoreScreen(
             }
         }
     }
-
 }

@@ -47,7 +47,7 @@ fun WelcomeScreen(
                     text = "REGISTRARSE"
                 )
                 Button5(
-                    onClick = {},
+                    onClick = { navController.navigate(Screens.Guidebook.screen) },
                     text = "APRENDE A JUGAR"
                 )
             }

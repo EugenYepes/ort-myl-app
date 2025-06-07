@@ -22,8 +22,7 @@ import com.ar.mylapp.navigation.Screens
 @Composable
 fun RestorePasswordScreen(
     navController: NavController,
-    userAuthenticationViewModel: UserAuthenticationViewModel = viewModel()
-
+    userAuthenticationViewModel: UserAuthenticationViewModel
 )
 {
     Box(
