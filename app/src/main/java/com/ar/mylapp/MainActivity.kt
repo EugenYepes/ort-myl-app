@@ -26,6 +26,7 @@ import com.ar.mylapp.navigation.NavigationScreens
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.navigation.showTopBar
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
@@ -45,6 +46,7 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
+                val startDestination = if (isLoggedIn) Screens.Home.screen else Screens.Welcome.screen
 
                 // Ruta actual
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -87,7 +89,8 @@ class MainActivity : ComponentActivity() {
                             deckViewModel = deckViewModel,
                             storeViewModel = storeViewModel,
                             topBarViewModel = topBarViewModel,
-                            isLoggedIn = isLoggedIn
+                            isLoggedIn = isLoggedIn,
+                            startDestination = startDestination
                         )
                     }
                 }
