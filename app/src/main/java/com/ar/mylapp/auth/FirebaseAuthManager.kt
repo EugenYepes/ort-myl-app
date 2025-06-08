@@ -54,9 +54,8 @@ object FirebaseAuthManager {
                     onError("Debes verificar tu correo antes de ingresar. Revisa tu bandeja de entrada.")
                 }
             }
-            .addOnFailureListener {
-                onError(it.message ?: "Login fallido")
-            }
+            //.addOnFailureListener { onError(it.message ?: "Login fallido") }
+            .addOnFailureListener { onError(getTranslatedErrorMessage(it)) }
     }
 
     fun logout(context: Context) {
@@ -80,9 +79,25 @@ object FirebaseAuthManager {
     ) {
         auth.sendPasswordResetEmail(email)
             .addOnSuccessListener { onSuccess() }
-            .addOnFailureListener { exception -> onError(exception.message ?: "Error al enviar el correo") }
+            //.addOnFailureListener { exception -> onError(exception.message ?: "Error al enviar el correo") }
+            .addOnFailureListener { exception -> onError(getTranslatedErrorMessage(exception)) }
     }
 
-
+    private fun getTranslatedErrorMessage(exception: Exception): String {
+        val errorCode = (exception as? com.google.firebase.auth.FirebaseAuthException)?.errorCode
+        return when (errorCode) {
+            "ERROR_INVALID_EMAIL" -> "El email no tiene un formato válido"
+            "ERROR_USER_NOT_FOUND" -> "No existe una cuenta con este email"
+            "ERROR_WRONG_PASSWORD" -> "La contraseña es incorrecta"
+            "ERROR_EMAIL_ALREADY_IN_USE" -> "Ya hay una cuenta con este email"
+            "ERROR_WEAK_PASSWORD" -> "La contraseña es demasiado débil (mínimo 6 caracteres)"
+            "ERROR_USER_DISABLED" -> "Esta cuenta fue deshabilitada"
+            "ERROR_TOO_MANY_REQUESTS" -> "Demasiados intentos fallidos. Intentá más tarde"
+            "ERROR_OPERATION_NOT_ALLOWED" -> "Este tipo de autenticación no está habilitado"
+            "ERROR_NETWORK_REQUEST_FAILED" -> "Error de red. Verificá tu conexión a Internet"
+            "ERROR_INVALID_CREDENTIAL" -> "Las credenciales son inválidas o han expirado"
+            else -> exception.message ?: "Ocurrió un error inesperado"
+        }
+    }
 
 }

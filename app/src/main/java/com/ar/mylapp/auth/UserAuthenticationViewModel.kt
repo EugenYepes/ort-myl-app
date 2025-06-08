@@ -186,6 +186,11 @@ class UserAuthenticationViewModel @Inject constructor(
             return false
         }
 
+        if (!isPasswordSecure(password)) {
+            error = "La contraseña debe tener al menos 8 caracteres, un número y un símbolo"
+            return false
+        }
+
         if (isStore && (storeName.isBlank() || address.isBlank() || phone.isBlank())) {
             error = "Completá los campos faltantes"
             return false
@@ -201,6 +206,13 @@ class UserAuthenticationViewModel @Inject constructor(
         } catch (e: Exception) {
             "Ocurrió un error inesperado: ${e.message ?: "desconocido"}"
         }
+    }
+
+    fun isPasswordSecure(password: String): Boolean {
+        val minLength = 8
+        val hasDigit = password.any { it.isDigit() }
+        val hasSymbol = password.any { !it.isLetterOrDigit() }
+        return password.length >= minLength && hasDigit && hasSymbol
     }
 
 }
