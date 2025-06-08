@@ -7,6 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.NavController
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,7 +33,9 @@ class UserAuthenticationViewModel @Inject constructor(
     var token by mutableStateOf<String?>(null)
     var navigateToConfirmScreen by mutableStateOf(false)
 
-    fun onLoginClicked() {
+    fun onLoginClicked(
+        navController: NavController,
+    ) {
         if (email.isBlank() || password.isBlank()) {
             error = "Completá email y contraseña"
             return
@@ -48,6 +52,9 @@ class UserAuthenticationViewModel @Inject constructor(
                         val loginData = response.body()
                         loginData?.let {
                             Log.d("LOGIN", "UUID: ${it.uuid}, Email: ${it.email}")
+                        }
+                        navController.navigate(Screens.Home.screen) {
+                            popUpTo(0) { inclusive = true }
                         }
                     } else {
                         val errorBody = response.errorBody()?.string()
