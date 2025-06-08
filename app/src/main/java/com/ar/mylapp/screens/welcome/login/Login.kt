@@ -19,31 +19,14 @@ import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
-import com.ar.mylapp.navigation.NavigateOnLogInSuccess
 import com.ar.mylapp.navigation.Screens
-
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     userAuthenticationViewModel: UserAuthenticationViewModel
 )
-// : ViewModel()
 {
-    /*
-    var email = viewModel.email
-    var password = viewModel.password
-    var error = viewModel.error
-    var token = viewModel.token
-    */
-
-    NavigateOnLogInSuccess(
-        navController = navController,
-        userAuthenticationViewModel = userAuthenticationViewModel,
-        popUpToScreen = Screens.Login.screen,
-        destinationScreen = Screens.Home.screen
-    )
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -80,13 +63,12 @@ fun LoginScreen(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
-
                 Button5(
                     onClick = { navController.navigate(Screens.RestorePassword.screen)},
                     text = stringResource(R.string.restore_password)
                 )
                 Button1(
-                    onClick = { userAuthenticationViewModel.onLoginClicked() },
+                    onClick = { userAuthenticationViewModel.onLoginClicked(navController) },
                     text = stringResource(R.string.login_mayus)
                 )
                 Column(
@@ -99,7 +81,6 @@ fun LoginScreen(
                         text = stringResource(R.string.register_mayus)
                     )
                 }
-
             }
         }
     }
