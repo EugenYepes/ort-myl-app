@@ -32,6 +32,7 @@ class UserAuthenticationViewModel @Inject constructor(
     var error by mutableStateOf<String?>(null)
     var token by mutableStateOf<String?>(null)
     var navigateToConfirmScreen by mutableStateOf(false)
+    var isCheckingAuth by mutableStateOf(true)
 
     fun onLoginClicked(
         navController: NavController,
@@ -201,6 +202,19 @@ class UserAuthenticationViewModel @Inject constructor(
         } catch (e: Exception) {
             "Ocurrió un error inesperado: ${e.message ?: "desconocido"}"
         }
+    }
+
+    init {
+        checkCurrentUser() // ✅ Verifica si hay una sesión activa al iniciar la app
+    }
+
+    private fun checkCurrentUser() {
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        firebaseUser?.getIdToken(false)?.addOnSuccessListener { result ->
+            val idToken = result.token
+            token = idToken // ✅ Activa la lógica actual con el token
+        }
+        isCheckingAuth = false
     }
 
 }
