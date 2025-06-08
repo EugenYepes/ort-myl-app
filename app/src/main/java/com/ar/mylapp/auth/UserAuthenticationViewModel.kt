@@ -138,7 +138,7 @@ class UserAuthenticationViewModel @Inject constructor(
                 }
             }
             .addOnFailureListener { e ->
-                error = "Error al registrar usuario en Firebase: ${e.message}"
+                error = "Error al registrar usuario en Firebase: ${FirebaseAuthManager.getTranslatedErrorMessage(e)}"
             }
     }
 

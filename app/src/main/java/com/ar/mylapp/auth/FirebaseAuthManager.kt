@@ -83,7 +83,7 @@ object FirebaseAuthManager {
             .addOnFailureListener { exception -> onError(getTranslatedErrorMessage(exception)) }
     }
 
-    private fun getTranslatedErrorMessage(exception: Exception): String {
+    fun getTranslatedErrorMessage(exception: Exception): String {
         val errorCode = (exception as? com.google.firebase.auth.FirebaseAuthException)?.errorCode
         return when (errorCode) {
             "ERROR_INVALID_EMAIL" -> "El email no tiene un formato válido"
