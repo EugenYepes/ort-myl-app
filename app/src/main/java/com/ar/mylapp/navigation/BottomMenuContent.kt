@@ -17,10 +17,10 @@ data class BottomMenuContent(
 fun getLogInBottomMenuContent(): List<BottomMenuContent> {
     return listOf(
         BottomMenuContent(ImageVector.vectorResource(id = R.drawable.home_icon), stringResource(R.string.bottom_menu_home_label), Screens.Home.screen, stringResource(R.string.bottom_menu_home_section)),
-        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.cards_icon), stringResource(R.string.bottom_menu_cards_label), Screens.Cards.screen, stringResource(R.string.bottom_menu_home_section)),
-        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.decks_icon), stringResource(R.string.bottom_menu_decks_label), Screens.Decks.screen, stringResource(R.string.bottom_menu_home_section)),
-        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.store_icon), stringResource(R.string.bottom_menu_store_label), Screens.Stores.screen, stringResource(R.string.bottom_menu_home_section)),
-        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.guide_icon), stringResource(R.string.bottom_menu_guide_label), Screens.Guidebook.screen, stringResource(R.string.bottom_menu_home_section)),
+        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.cards_icon), stringResource(R.string.bottom_menu_cards_label), Screens.Cards.screen, stringResource(R.string.bottom_menu_cards_section)),
+        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.decks_icon), stringResource(R.string.bottom_menu_decks_label), Screens.Decks.screen, stringResource(R.string.bottom_menu_decks_section)),
+        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.store_icon), stringResource(R.string.bottom_menu_store_label), Screens.Stores.screen, stringResource(R.string.bottom_menu_store_section)),
+        BottomMenuContent(ImageVector.vectorResource(id = R.drawable.guide_icon), stringResource(R.string.bottom_menu_guide_label), Screens.Guidebook.screen, stringResource(R.string.bottom_menu_guide_section)),
     )
 }
 

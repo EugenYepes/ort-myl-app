@@ -8,8 +8,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text5
@@ -39,13 +41,13 @@ fun ConfirmRegister(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 Title2(
-                    title = "Su Correo Electrónico ha sido verificado"
+                    title = stringResource(R.string.verify_email_title)
                 )
                 Text5(
-                    text = "Gracias por unirte a Mitos y Leyendas Companion!\nA continuacion se le ha enviado un correo electronico a su mail.\nPor favor confirme su registro para poder ingresar"
+                    text = stringResource(R.string.verify_email_subtitle)
                 )
                 Button2(
-                    text = "Iniciar Sesion",
+                    text = stringResource(R.string.login_mayus),
                     onClick = { navController.navigate(Screens.Login.screen)}
                 )
             }
