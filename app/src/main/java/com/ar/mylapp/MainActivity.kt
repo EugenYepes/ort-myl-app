@@ -26,6 +26,7 @@ import com.ar.mylapp.navigation.NavigationScreens
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ar.mylapp.navigation.showTopBar
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
@@ -33,6 +34,7 @@ import com.ar.mylapp.viewmodel.StoreViewModel
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
