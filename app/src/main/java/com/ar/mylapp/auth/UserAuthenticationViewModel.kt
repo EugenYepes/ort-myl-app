@@ -186,7 +186,7 @@ class UserAuthenticationViewModel @Inject constructor(
             return false
         }
 
-        if (isStore && (storeName.isBlank() || address.isBlank() || phone.isBlank())) {
+        if (isStore && (storeName.isBlank() || address.isBlank())) {
             error = "Completá los campos faltantes"
             return false
         }
