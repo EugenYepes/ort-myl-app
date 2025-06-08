@@ -50,7 +50,7 @@ fun CardsScreen(
                 .padding(start = 16.dp, end = 16.dp)
         ) {
             MySearchBar(
-                placeholder = "Buscar carta por nombre...",
+                placeholder = stringResource(R.string.searchbar_placeholder),
                 searchQuery = searchCardViewModel.searchQuery,
                 onValueChange = {
                     searchCardViewModel.updateQuery(it)

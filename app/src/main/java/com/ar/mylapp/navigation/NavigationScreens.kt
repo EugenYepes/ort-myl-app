@@ -109,7 +109,7 @@ fun NavigationScreens(
 
         //* Guidebook
         composable(Screens.Guidebook.screen) {
-            GuidebookScreen(navController, topBarViewModel)
+            GuidebookScreen(topBarViewModel)
         }
 
         //? Pantallas solo para usuarios sin sesion iniciada

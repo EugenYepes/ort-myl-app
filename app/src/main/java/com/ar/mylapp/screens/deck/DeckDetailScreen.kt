@@ -5,13 +5,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.ar.mylapp.R
 import com.ar.mylapp.components.text.Text3
-import com.ar.mylapp.components.title.Title1
 import com.ar.mylapp.ui.theme.GoldDark
-import com.ar.mylapp.ui.theme.GoldLight
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
@@ -23,13 +23,14 @@ fun DeckDetailScreen(
 ) {
     val deck = decksViewModel.decks.find { it.id == deckId }
 
+    val title = stringResource(R.string.topbar_deck_details)
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("DETALLE MAZO", deck?.name)
+        topBarViewModel.setTopBar(title, deck?.name)
     }
 
     if (deck == null) {
         Text(
-            text = "Mazo no encontrado",
+            text = stringResource(R.string.deck_not_found),
             modifier = Modifier.padding(24.dp),
             fontSize = 16.sp,
             color = GoldDark
@@ -51,7 +52,7 @@ fun DeckDetailScreen(
         )
 
         Text(
-            text = "Todavía no hay cartas.",
+            text = stringResource(R.string.no_cards),
             fontSize = 14.sp,
             color = GoldDark
         )

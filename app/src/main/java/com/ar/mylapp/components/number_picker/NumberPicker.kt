@@ -10,14 +10,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.PickerButton
+import com.ar.mylapp.ui.theme.BlackLight
+import com.ar.mylapp.ui.theme.GoldBeige
 import com.ar.mylapp.viewmodel.NumberPickerViewModel
 
 @Preview(showBackground = true, backgroundColor = 0xFF00FF00)
@@ -34,7 +37,7 @@ fun NumberPickerPreview(){
 fun NumberPicker(
     modifier: Modifier = Modifier,
     min: Int = 0,
-    max: Int = 10,
+    max: Int = 3,
     viewModel: NumberPickerViewModel = viewModel()
 ) {
     val number = viewModel.number
@@ -43,7 +46,7 @@ fun NumberPicker(
         modifier = modifier
             .width(200.dp)
             .background(
-                color = Color(0xFF22211F),
+                color = BlackLight,
                 shape = RoundedCornerShape(100.dp)
             )
             .padding(
@@ -55,14 +58,14 @@ fun NumberPicker(
     ) {
 
         PickerButton(
-            icon = "-",
+            icon = stringResource(R.string.remove),
             modifier = Modifier.weight(1f),
             onClick = { viewModel.decrement(min) }
         )
 
         Text(
             text = number.toString(),
-            color = Color(0xFFF5EEC1),
+            color = GoldBeige,
             fontSize = 24.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
@@ -70,7 +73,7 @@ fun NumberPicker(
         )
 
         PickerButton(
-            icon = "+",
+            icon = stringResource(R.string.add),
             modifier = Modifier.weight(1f),
             onClick = { viewModel.increment(max) }
         )

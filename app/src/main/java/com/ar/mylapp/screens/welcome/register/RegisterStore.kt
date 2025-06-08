@@ -11,8 +11,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
@@ -52,38 +54,38 @@ fun RegisterStoreScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 InputOne(
-                    label = "Nombre de la Tienda",
+                    label = stringResource(R.string.store_name),
                     value = userAuthenticationViewModel.storeName,
                     onValueChange = { userAuthenticationViewModel.storeName = it }
                 )
 
                 InputOne(
-                    label = "Dirección",
+                    label = stringResource(R.string.store_adress),
                     value = userAuthenticationViewModel.address,
                     onValueChange = { userAuthenticationViewModel.address = it }
                 )
 
                 InputOne(
-                    label = "Teléfono",
+                    label = stringResource(R.string.store_phone),
                     value = userAuthenticationViewModel.phone,
                     onValueChange = { userAuthenticationViewModel.phone = it }
                 )
 
                 InputOne(
-                    label = "Correo Electrónico",
+                    label = stringResource(R.string.email),
                     value = userAuthenticationViewModel.email,
                     onValueChange = { userAuthenticationViewModel.email = it }
                 )
 
                 InputOne(
-                    label = "Contraseña",
+                    label = stringResource(R.string.password),
                     value = userAuthenticationViewModel.password,
                     onValueChange = { userAuthenticationViewModel.password = it },
                     isPassword = true
                 )
 
                 InputOne(
-                    label = "Confirmar Contraseña",
+                    label = stringResource(R.string.confirm_password),
                     value = userAuthenticationViewModel.confirmPassword,
                     onValueChange = { userAuthenticationViewModel.confirmPassword = it },
                     isPassword = true
@@ -99,7 +101,7 @@ fun RegisterStoreScreen(
                 Spacer(modifier = Modifier.size(8.dp))
                 Button1(
                     onClick = { userAuthenticationViewModel.onRegisterClicked(isStore = true) },
-                    text = "REGISTRARSE"
+                    text = stringResource(R.string.register_mayus)
                 )
             }
             Column(
@@ -107,11 +109,11 @@ fun RegisterStoreScreen(
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text3(
-                    text = "¿Ya tienes una cuenta?"
+                    text = stringResource(R.string.has_an_account)
                 )
                 Button5(
                     onClick = { navController.navigate(Screens.Login.screen) },
-                    text = "INICIAR SESIÓN"
+                    text = stringResource(R.string.login_mayus),
                 )
             }
         }

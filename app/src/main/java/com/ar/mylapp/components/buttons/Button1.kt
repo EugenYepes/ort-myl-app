@@ -49,12 +49,6 @@ fun Button1(
             contentColor = GoldDark),
         shape = RoundedCornerShape(20.dp)
     ) {
-        /*Tittle1(
-            tittle = text,
-            modifier = Modifier
-        )*/
-
-        //Modificación de tamaño de Tittle1 a 30.sp y padding a 2.p (en vez de 32.dp y 16.dp)
         Text(
             text = text,
             modifier = Modifier
@@ -67,7 +61,7 @@ fun Button1(
                 color = GoldDark,
                 textAlign = TextAlign.Center,
             ),
-            maxLines = 2, // Mostrará hasta 2 líneas
+            maxLines = 2,
         )
     }
 }

@@ -27,8 +27,8 @@ fun getSectionForRoute(route: String?): String? {
         route == Screens.Login.screen -> "Login"
         route == Screens.Register.screen -> "Register"
         route == Screens.RestorePassword.screen -> "RestorePassword"
-        route == Screens.RegisterUser.screen -> "RegisterUser"
-        route == Screens.RegisterStore.screen -> "RegisterStore"
+        route == Screens.RegisterUser.screen -> "Register"
+        route == Screens.RegisterStore.screen -> "Register"
         else -> null
     }
 }

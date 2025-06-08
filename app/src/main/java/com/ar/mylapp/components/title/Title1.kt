@@ -42,7 +42,7 @@ fun Title1(
             color = GoldDark,
             textAlign = TextAlign.Center,
         ),
-        maxLines = 2, // Mostrará hasta 2 líneas
-        overflow = TextOverflow.Ellipsis // Si excede, pone "..."
+        maxLines = 2,
+        overflow = TextOverflow.Ellipsis
     )
 }
