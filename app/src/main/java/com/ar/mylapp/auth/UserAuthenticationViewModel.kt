@@ -32,6 +32,7 @@ class UserAuthenticationViewModel @Inject constructor(
     var error by mutableStateOf<String?>(null)
     var token by mutableStateOf<String?>(null)
     var navigateToConfirmScreen by mutableStateOf(false)
+    var isCheckingAuth by mutableStateOf(true)
 
     fun onLoginClicked(
         navController: NavController,
@@ -208,11 +209,25 @@ class UserAuthenticationViewModel @Inject constructor(
         }
     }
 
+
     fun isPasswordSecure(password: String): Boolean {
         val minLength = 8
         val hasDigit = password.any { it.isDigit() }
         val hasSymbol = password.any { !it.isLetterOrDigit() }
         return password.length >= minLength && hasDigit && hasSymbol
+    }
+    
+    init {
+        checkCurrentUser()
+    }
+
+    private fun checkCurrentUser() {
+        val firebaseUser = FirebaseAuth.getInstance().currentUser
+        firebaseUser?.getIdToken(false)?.addOnSuccessListener { result ->
+            val idToken = result.token
+            token = idToken
+        }
+        isCheckingAuth = false
     }
 
 }

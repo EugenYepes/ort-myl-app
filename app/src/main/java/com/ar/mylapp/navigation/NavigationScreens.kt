@@ -44,11 +44,12 @@ fun NavigationScreens(
     deckViewModel: DecksViewModel,
     storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
-    isLoggedIn: Boolean
+    isLoggedIn: Boolean,
+    startDestination: String
 ){
     NavHost(
         navController = navController,
-        startDestination = Screens.Home.screen,
+        startDestination = startDestination,
         modifier = Modifier.padding(paddingValues),
     ){
 
@@ -127,7 +128,7 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, topBarViewModel, cardViewModel) },
-                onDenied = {  LoginScreen(navController, userAuthenticationViewModel) }
+                onDenied = { LoginScreen(navController, userAuthenticationViewModel) }
             )
         }
 

@@ -26,6 +26,8 @@ import com.ar.mylapp.navigation.NavigationScreens
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.navigation.showTopBar
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
@@ -33,6 +35,19 @@ import com.ar.mylapp.viewmodel.StoreViewModel
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        val splashScreen = installSplashScreen()
+        splashScreen.setOnExitAnimationListener { splashProvider ->
+            val splashView = splashProvider.view
+
+            // Fade-out con duración
+            splashView.animate()
+                .alpha(0f)
+                .setDuration(500)
+                .withEndAction {
+                    splashProvider.remove()
+                }
+                .start()
+        }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -45,6 +60,7 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
+                val startDestination = if (isLoggedIn) Screens.Home.screen else Screens.Welcome.screen
 
                 // Ruta actual
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -87,7 +103,8 @@ class MainActivity : ComponentActivity() {
                             deckViewModel = deckViewModel,
                             storeViewModel = storeViewModel,
                             topBarViewModel = topBarViewModel,
-                            isLoggedIn = isLoggedIn
+                            isLoggedIn = isLoggedIn,
+                            startDestination = startDestination
                         )
                     }
                 }
