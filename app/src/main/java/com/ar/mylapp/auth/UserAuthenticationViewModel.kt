@@ -205,14 +205,14 @@ class UserAuthenticationViewModel @Inject constructor(
     }
 
     init {
-        checkCurrentUser() // ✅ Verifica si hay una sesión activa al iniciar la app
+        checkCurrentUser()
     }
 
     private fun checkCurrentUser() {
         val firebaseUser = FirebaseAuth.getInstance().currentUser
         firebaseUser?.getIdToken(false)?.addOnSuccessListener { result ->
             val idToken = result.token
-            token = idToken // ✅ Activa la lógica actual con el token
+            token = idToken
         }
         isCheckingAuth = false
     }

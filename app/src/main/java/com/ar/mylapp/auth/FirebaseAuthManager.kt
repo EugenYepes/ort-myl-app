@@ -83,6 +83,4 @@ object FirebaseAuthManager {
             .addOnFailureListener { exception -> onError(exception.message ?: "Error al enviar el correo") }
     }
 
-
-
 }
