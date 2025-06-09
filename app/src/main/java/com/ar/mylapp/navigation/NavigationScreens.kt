@@ -128,7 +128,7 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, topBarViewModel, cardViewModel) },
-                onDenied = {  LoginScreen(navController, userAuthenticationViewModel) }
+                onDenied = { LoginScreen(navController, userAuthenticationViewModel) }
             )
         }
 

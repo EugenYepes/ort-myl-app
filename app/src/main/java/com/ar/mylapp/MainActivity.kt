@@ -35,7 +35,19 @@ import com.ar.mylapp.viewmodel.StoreViewModel
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        installSplashScreen()
+        val splashScreen = installSplashScreen()
+        splashScreen.setOnExitAnimationListener { splashProvider ->
+            val splashView = splashProvider.view
+
+            // Fade-out con duración
+            splashView.animate()
+                .alpha(0f)
+                .setDuration(500)
+                .withEndAction {
+                    splashProvider.remove()
+                }
+                .start()
+        }
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
