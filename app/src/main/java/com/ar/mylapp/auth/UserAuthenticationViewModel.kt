@@ -95,7 +95,7 @@ class UserAuthenticationViewModel @Inject constructor(
                             storeRequest.name = storeName
                             storeRequest.phoneNumber = phone
                             storeRequest.address = address
-                            storeRequest.valid = true
+                            storeRequest.valid = false
                             storeRequest.url = ""
 
                             authRepository.registerStore(storeRequest)
