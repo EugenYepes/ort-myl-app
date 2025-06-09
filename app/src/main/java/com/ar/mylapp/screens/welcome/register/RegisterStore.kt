@@ -49,18 +49,22 @@ fun RegisterStoreScreen(
                     .align(Alignment.CenterHorizontally)
                     .height(150.dp)
             )
+            Text3(
+                text = stringResource(R.string.required_fields)
+            )
             Column(
                 verticalArrangement = Arrangement.spacedBy(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
+
                 InputOne(
-                    label = stringResource(R.string.store_name),
+                    label = stringResource(R.string.store_name) + stringResource(R.string.required_field_icon),
                     value = userAuthenticationViewModel.storeName,
                     onValueChange = { userAuthenticationViewModel.storeName = it }
                 )
 
                 InputOne(
-                    label = stringResource(R.string.store_adress),
+                    label = stringResource(R.string.store_adress) + stringResource(R.string.required_field_icon),
                     value = userAuthenticationViewModel.address,
                     onValueChange = { userAuthenticationViewModel.address = it }
                 )
@@ -72,20 +76,20 @@ fun RegisterStoreScreen(
                 )
 
                 InputOne(
-                    label = stringResource(R.string.email),
+                    label = stringResource(R.string.email) + stringResource(R.string.required_field_icon),
                     value = userAuthenticationViewModel.email,
                     onValueChange = { userAuthenticationViewModel.email = it }
                 )
 
                 InputOne(
-                    label = stringResource(R.string.password),
+                    label = stringResource(R.string.password) + stringResource(R.string.required_field_icon),
                     value = userAuthenticationViewModel.password,
                     onValueChange = { userAuthenticationViewModel.password = it },
                     isPassword = true
                 )
 
                 InputOne(
-                    label = stringResource(R.string.confirm_password),
+                    label = stringResource(R.string.confirm_password) + stringResource(R.string.required_field_icon),
                     value = userAuthenticationViewModel.confirmPassword,
                     onValueChange = { userAuthenticationViewModel.confirmPassword = it },
                     isPassword = true

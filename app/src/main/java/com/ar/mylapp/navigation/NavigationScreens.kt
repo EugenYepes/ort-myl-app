@@ -68,7 +68,7 @@ fun NavigationScreens(
             arguments = listOf(navArgument("cardId") { type = NavType.IntType })
         ) { backStackEntry ->
             val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
-            CardDetail(id = cardId, topBarViewModel = topBarViewModel, viewModel = cardViewModel)
+            CardDetail(cardId, topBarViewModel, cardViewModel, userAuthenticationViewModel)
         }
 
         composable(Screens.AdvanceSearch.screen) {

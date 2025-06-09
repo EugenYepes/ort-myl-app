@@ -275,6 +275,8 @@
     <string name="store_phone">Teléfono</string>
     <string name="has_an_account">¿Ya tienes una cuenta?</string>
     <string name="guidebook_mayus">APRENDE A JUGAR</string>
+    <string name="required_field_icon">*</string>
+    <string name="required_fields">* campos obligatorios</string>
 
     <!-- Decks -->
     <string name="new_deck">Nuevo Mazo</string>
@@ -283,4 +285,5 @@
     <string name="create_deck">Crear Mazo</string>
     <string name="deck_not_found">Mazo no encontrado</string>
     <string name="no_cards">Todavía no hay cartas.</string>
+    <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
 </resources>

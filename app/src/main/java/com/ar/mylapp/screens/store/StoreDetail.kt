@@ -62,7 +62,10 @@ fun StoreDetailScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {
-            WhatsAppButton(phoneNumber = store.phoneNumber)
+            WhatsAppButton(
+                phoneNumber = store.phoneNumber,
+                enabled = !store.phoneNumber.isEmpty()
+            )
         }
     }
 }

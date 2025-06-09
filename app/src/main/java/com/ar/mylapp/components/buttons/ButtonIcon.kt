@@ -14,29 +14,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
+import com.ar.mylapp.ui.theme.Gray
 
 @Preview
 @Composable
-fun ButtonIconPreview() {
+private fun ButtonIconPreview() {
     ButtonIcon(
         onClick = {},
         image = painterResource(id = R.drawable.folder_plus),
+        enabled = false
     )
 }
 
 @Composable
 fun ButtonIcon(
     onClick: () -> Unit,
-    image: Painter
+    image: Painter,
+    enabled: Boolean = true
 ) {
     IconButton(
         onClick = onClick,
+        enabled = enabled,
         modifier = Modifier
             .size(width = 60.dp, height = 60.dp)
             .clip(RoundedCornerShape(50.dp))
-            .background(color = GoldDark)
-    )
-    {
+            .background(if (enabled) GoldDark else Gray)
+    ) {
         Image(
             painter = image,
             contentDescription = "image description",
