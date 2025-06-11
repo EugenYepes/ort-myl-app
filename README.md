@@ -16,7 +16,6 @@ Esta app permite a los usuarios explorar cartas, construir mazos personalizados 
 - 📚 Explorar cartas de *Mitos y Leyendas*.
 - 🛠️ Crear y administrar mazos personalizados.
 - 📖 Consultar reglas básicas del juego.
-- 🎲 Simular una mano inicial.
 - 🔐 Registro e inicio de sesión de usuarios.
 
 ## 🛠️ Cómo correr el proyecto
