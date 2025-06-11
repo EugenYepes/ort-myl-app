@@ -58,7 +58,10 @@ fun StoreInfoCard(
                     contentDescription = null,
                     contentScale = ContentScale.None
                 )
-                Text8(text = text)
+                Text8(
+                    text = text,
+                    maxLines = 1
+                )
             }
 
             Row(
