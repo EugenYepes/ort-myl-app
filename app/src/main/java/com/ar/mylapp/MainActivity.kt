@@ -60,7 +60,6 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
-                val startDestination = if (isLoggedIn) Screens.Home.screen else Screens.Welcome.screen
 
                 // Ruta actual
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
@@ -104,7 +103,6 @@ class MainActivity : ComponentActivity() {
                             storeViewModel = storeViewModel,
                             topBarViewModel = topBarViewModel,
                             isLoggedIn = isLoggedIn,
-                            startDestination = startDestination
                         )
                     }
                 }
