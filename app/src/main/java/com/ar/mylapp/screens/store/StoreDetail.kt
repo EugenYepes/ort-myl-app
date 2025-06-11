@@ -13,11 +13,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.WhatsAppButton
 import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.viewmodel.TopBarViewModel
-import users.StoreDTO
 
 @Composable
 fun StoreDetailScreen(
@@ -62,7 +62,10 @@ fun StoreDetailScreen(
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {
-            WhatsAppButton(phoneNumber = store.phoneNumber)
+            WhatsAppButton(
+                phoneNumber = store.phoneNumber,
+                enabled = !store.phoneNumber.isEmpty()
+            )
         }
     }
 }

@@ -8,17 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavController
+import androidx.compose.ui.res.stringResource
+import com.ar.mylapp.R
 import com.ar.mylapp.components.accordion.GuidebookAccordion
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
 fun GuidebookScreen(
-    navController: NavController,
     topBarViewModel: TopBarViewModel
 ){
+    val title = stringResource(R.string.topbar_guidebook_title)
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("¿COMÓ JUGAR?")
+        topBarViewModel.setTopBar(title)
     }
 
     Box(
@@ -34,5 +35,4 @@ fun GuidebookScreen(
             GuidebookAccordion()
         }
     }
-
 }

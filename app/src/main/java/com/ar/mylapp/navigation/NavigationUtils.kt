@@ -1,10 +1,7 @@
 package com.ar.mylapp.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.navigation.NavController
 import com.ar.mylapp.R
-import com.ar.mylapp.auth.UserAuthenticationViewModel
 
 fun getHomeButtonsGridInfo() : List<Triple<String, Int, String>> {
     return listOf(
@@ -30,8 +27,8 @@ fun getSectionForRoute(route: String?): String? {
         route == Screens.Login.screen -> "Login"
         route == Screens.Register.screen -> "Register"
         route == Screens.RestorePassword.screen -> "RestorePassword"
-        route == Screens.RegisterUser.screen -> "RegisterUser"
-        route == Screens.RegisterStore.screen -> "RegisterStore"
+        route == Screens.RegisterUser.screen -> "Register"
+        route == Screens.RegisterStore.screen -> "Register"
         else -> null
     }
 }
@@ -64,42 +61,5 @@ fun AuthGate(
         onAllowed()
     } else {
         onDenied()
-    }
-}
-
-@Composable
-fun NavigateOnRegistrationSuccess(
-    navController: NavController,
-    userAuthenticationViewModel: UserAuthenticationViewModel,
-    popUpToScreen: String,
-    destinationScreen: String
-) {
-    LaunchedEffect(userAuthenticationViewModel.registrationSuccess) {
-        if (userAuthenticationViewModel.registrationSuccess) {
-            navController.navigate(destinationScreen) {
-                popUpTo(popUpToScreen) {
-                    inclusive = true
-                }
-            }
-            userAuthenticationViewModel.resetRegistrationState()
-        }
-    }
-}
-
-@Composable
-fun NavigateOnLogInSuccess(
-    navController: NavController,
-    userAuthenticationViewModel: UserAuthenticationViewModel,
-    popUpToScreen: String,
-    destinationScreen: String
-) {
-    LaunchedEffect(userAuthenticationViewModel.token) {
-        if (!userAuthenticationViewModel.token.isNullOrEmpty()) {
-            navController.navigate(destinationScreen) {
-                popUpTo(popUpToScreen) {
-                    inclusive = true
-                }
-            }
-        }
     }
 }

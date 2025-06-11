@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.navigation.Screens
@@ -41,11 +43,11 @@ fun RegisterScreen(
             ) {
                 Button1(
                     onClick = { navController.navigate(Screens.RegisterUser.screen) },
-                    text = "USUARIO"
+                    text = stringResource(R.string.user_mayus)
                 )
                 Button1(
                     onClick = { navController.navigate(Screens.RegisterStore.screen)},
-                    text = "TIENDA"
+                    text = stringResource(R.string.store_mayus)
                 )
             }
 

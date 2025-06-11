@@ -6,11 +6,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
@@ -18,31 +19,14 @@ import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
-import com.ar.mylapp.navigation.NavigateOnLogInSuccess
 import com.ar.mylapp.navigation.Screens
-
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     userAuthenticationViewModel: UserAuthenticationViewModel
 )
-// : ViewModel()
 {
-    /*
-    var email = viewModel.email
-    var password = viewModel.password
-    var error = viewModel.error
-    var token = viewModel.token
-    */
-
-    NavigateOnLogInSuccess(
-        navController = navController,
-        userAuthenticationViewModel = userAuthenticationViewModel,
-        popUpToScreen = Screens.Login.screen,
-        destinationScreen = Screens.Home.screen
-    )
-
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -62,12 +46,12 @@ fun LoginScreen(
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
                 InputOne(
-                    label = "Correo Electrónico",
+                    label = stringResource(R.string.email),
                     value = userAuthenticationViewModel.email,
                     onValueChange = { userAuthenticationViewModel.email = it }
                 )
                 InputOne(
-                    label = "Contraseña",
+                    label = stringResource(R.string.password),
                     value = userAuthenticationViewModel.password,
                     onValueChange = { userAuthenticationViewModel.password = it },
                     isPassword = true
@@ -79,26 +63,24 @@ fun LoginScreen(
                         modifier = Modifier.padding(top = 4.dp)
                     )
                 }
-
                 Button5(
                     onClick = { navController.navigate(Screens.RestorePassword.screen)},
-                    text = "Recuperar Contraseña"
+                    text = stringResource(R.string.restore_password)
                 )
                 Button1(
-                    onClick = { userAuthenticationViewModel.onLoginClicked() },
-                    text = "INICIAR SESIÓN"
+                    onClick = { userAuthenticationViewModel.onLoginClicked(navController) },
+                    text = stringResource(R.string.login_mayus)
                 )
                 Column(
                     verticalArrangement = Arrangement.spacedBy((-10).dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    Text3(text = "¿No tienes una cuenta?")
+                    Text3(text = stringResource(R.string.no_account))
                     Button5(
                         onClick = {navController.navigate(Screens.Register.screen)},
-                        text = "REGISTRARSE"
+                        text = stringResource(R.string.register_mayus)
                     )
                 }
-
             }
         }
     }

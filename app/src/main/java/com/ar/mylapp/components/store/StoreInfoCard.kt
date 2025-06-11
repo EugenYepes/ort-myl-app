@@ -65,7 +65,10 @@ fun StoreInfoCard(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                WhatsAppButton(phoneNumber = phoneNumber)
+                WhatsAppButton(
+                    phoneNumber = phoneNumber,
+                    enabled = !phoneNumber.isEmpty()
+                )
             }
         }
     }

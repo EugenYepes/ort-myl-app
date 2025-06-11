@@ -21,6 +21,7 @@ import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
@@ -66,7 +67,7 @@ fun MyTopBar(
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.back_icon),
-                    contentDescription = "Volver",
+                    contentDescription = stringResource(R.string.back),
                     tint = White
                 )
             }
@@ -110,7 +111,7 @@ fun MyTopBar(
             {
                 Icon(
                     imageVector = ImageVector.vectorResource(id = R.drawable.account_icon),
-                    contentDescription = "Cuenta",
+                    contentDescription = stringResource(R.string.account),
                     tint = White
                 )
             }
