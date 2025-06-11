@@ -85,6 +85,30 @@ object FirebaseAuthManager {
             .addOnFailureListener { exception -> onError(getTranslatedErrorMessage(exception)) }
     }
 
+    // metodo necesario para borrar la cuenta
+    // o cambiar de email
+    fun reAuthenticateFirebase(
+        email: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            onError("No hay usuario logueado.")
+            return
+        }
+
+        val credential = com.google.firebase.auth.EmailAuthProvider.getCredential(email, password)
+        user.reauthenticate(credential)
+            .addOnSuccessListener {
+                onSuccess() // se reautentica para despues borrar
+            }
+            .addOnFailureListener { ex ->
+                onError(getTranslatedErrorMessage(ex))
+            }
+    }
+
     fun getTranslatedErrorMessage(exception: Exception): String {
         val errorCode = (exception as? com.google.firebase.auth.FirebaseAuthException)?.errorCode
         return when (errorCode) {
