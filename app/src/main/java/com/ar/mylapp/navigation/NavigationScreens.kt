@@ -44,7 +44,7 @@ fun NavigationScreens(
     deckViewModel: DecksViewModel,
     storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
-    isLoggedIn: Boolean
+    isLoggedIn: Boolean,
 ){
     NavHost(
         navController = navController,
@@ -127,7 +127,7 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, topBarViewModel, cardViewModel) },
-                onDenied = {  LoginScreen(navController, userAuthenticationViewModel) }
+                onDenied = { LoginScreen(navController, userAuthenticationViewModel) }
             )
         }
 
