@@ -7,14 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.com.myldtos.users.PlayerDTO
+import ar.com.myldtos.users.StoreDTO
 import androidx.navigation.NavController
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import users.PlayerDTO
-import users.StoreDTO
 import javax.inject.Inject
 
 @HiltViewModel

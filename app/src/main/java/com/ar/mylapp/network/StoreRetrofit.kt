@@ -1,7 +1,7 @@
 package com.ar.mylapp.network
 
 import android.util.Log
-import users.StoreDTO
+import ar.com.myldtos.users.StoreDTO
 import javax.inject.Inject
 
 class StoreRetrofit @Inject constructor(

@@ -1,6 +1,6 @@
 package com.ar.mylapp.network
 
-import users.StoreDTO
+import ar.com.myldtos.users.StoreDTO
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
