@@ -45,11 +45,10 @@ fun NavigationScreens(
     storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
     isLoggedIn: Boolean,
-    startDestination: String
 ){
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = Screens.Home.screen,
         modifier = Modifier.padding(paddingValues),
     ){
 
