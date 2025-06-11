@@ -1,14 +1,15 @@
 package com.ar.mylapp.network
 
+import ar.com.myldtos.users.PlayerDTO
+import ar.com.myldtos.users.StoreDTO
+import ar.com.myldtos.users.UserDTO
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import users.PlayerDTO
-import users.StoreDTO
-import users.UserDTO
+
 
 interface AuthApiService {
     @POST("/api/players/register")
@@ -19,8 +20,6 @@ interface AuthApiService {
 
     @POST("/api/auth/me")
     suspend fun me(@Header("Authorization") token: String): Response<UserDTO>
-    @POST("/api/auth/login")
-    suspend fun login(@Header("Authorization") token: String): Response<UserDTO>
 
     @DELETE("/api/users")
     suspend fun deleteAccount(@Header("Authorization") token: String): Response<Unit>
