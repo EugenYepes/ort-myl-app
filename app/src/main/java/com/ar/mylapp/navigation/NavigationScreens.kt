@@ -187,7 +187,7 @@ fun NavigationScreens(
         composable(Screens.Decks.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { DecksScreen(navController, topBarViewModel, deckViewModel) },
+                onAllowed = { DecksScreen(navController, topBarViewModel, deckViewModel, authViewModel = userAuthenticationViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }

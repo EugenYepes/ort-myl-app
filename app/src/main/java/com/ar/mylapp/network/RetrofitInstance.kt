@@ -1,5 +1,6 @@
 package com.ar.mylapp.network
 
+import com.ar.mylapp.repository.DeckRepository
 import com.ar.mylapp.repository.GetServiceCardRepository
 import com.ar.mylapp.repository.StoreRepository
 import dagger.Module
@@ -69,5 +70,24 @@ object RetrofitInstance {
     fun provideStoreRepository(storeRetrofit: StoreRetrofit): StoreRepository {
         return StoreRepository(storeRetrofit)
     }
+
+    @Provides
+    @Singleton
+    fun provideDeckApiClient(retrofit: Retrofit): DeckApiService {
+        return retrofit.create(DeckApiService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeckRepository(deckRetrofit: DeckRetrofit): DeckRepository {
+        return DeckRepository(deckRetrofit)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeckRetrofit(service: DeckApiService): DeckRetrofit {
+        return DeckRetrofit(service)
+    }
+
 
 }
