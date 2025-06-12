@@ -94,6 +94,7 @@ fun DeckDetailScreen(
             if (showDialog) {
                 EditDeckPopup(
                     id = deck.id,
+                    currentName = deck.name,
                     onDismiss = { showDialog = false },
                     onConfirm = { id, name, description ->
                         authViewModel.token?.let { token ->
@@ -145,6 +146,7 @@ fun DeckDetailScreen(
 @Composable
 fun EditDeckPopup(
     id : Int,
+    currentName: String,
     onDismiss: () -> Unit,
     onConfirm: (Int, String, String) -> Unit
 ) {
@@ -194,9 +196,8 @@ fun EditDeckPopup(
 
                     Button1(
                         onClick = {
-                            if (name.isNotBlank()) {
-                                onConfirm(id, name, description)
-                            }
+                            val finalName = if (name.isBlank()) currentName else name
+                            onConfirm(id, finalName, description)
                         },
                         text = stringResource(R.string.edit_deck)
                     )
