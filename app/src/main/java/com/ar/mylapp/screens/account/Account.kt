@@ -1,23 +1,24 @@
 package com.ar.mylapp.screens.account
 
+import android.view.Gravity
+import android.widget.Toast
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button4
+import com.ar.mylapp.components.dialog.ConfirmDeleteDialog
 import com.ar.mylapp.components.text.Text4
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
-import com.google.firebase.auth.FirebaseAuth
+import androidx.compose.ui.window.Dialog
 
 @Composable
 fun AccountScreen(
@@ -27,26 +28,33 @@ fun AccountScreen(
     accountViewModel: AccountViewModel
 ) {
     val context = LocalContext.current
-
     var showDialog by remember { mutableStateOf(false) }
     var passwordInput by remember { mutableStateOf("") }
-    var localError by remember { mutableStateOf<String?>(null) }
+
+    val localError by rememberUpdatedState(accountViewModel.updateError)
 
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar("MI CUENTA")
     }
 
-    // Cuando se elimina la cuenta OK
+    // cuando se borra la cuenta, redirige directo y muestra toast
     LaunchedEffect(accountViewModel.deleteSuccess) {
         if (accountViewModel.deleteSuccess) {
             userAuthenticationViewModel.clearSession()
+            val toast = Toast.makeText(context, "Cuenta eliminada. Hasta la proxima!", Toast.LENGTH_LONG)
+            toast.setGravity(Gravity.CENTER, 0, 0)
+            toast.show()
             navController.navigate(Screens.Login.screen) {
                 popUpTo("home") { inclusive = true }
             }
+
+            accountViewModel.deleteSuccess = false
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
@@ -87,76 +95,37 @@ fun AccountScreen(
             )
         }
 
-        // AlertDialog para confirmar eliminación con contraseña
         if (showDialog) {
-            AlertDialog(
-                onDismissRequest = { showDialog = false },
-                title = { Text("Confirmar eliminación") },
-                text = {
-                    Column {
-                        Text("Para eliminar la cuenta, confirmá tu contraseña:")
-                        OutlinedTextField(
-                            value = passwordInput,
-                            onValueChange = { passwordInput = it },
-                            label = { Text("Contraseña") },
-                            singleLine = true,
-                            visualTransformation = PasswordVisualTransformation()
-                        )
-                        if (localError != null) {
-                            Text(
-                                text = localError ?: "",
-                                color = Color.Red,
-                                modifier = Modifier.padding(top = 8.dp)
-                            )
-                        }
-                    }
-                },
-                confirmButton = {
-                    TextButton(onClick = {
-                        localError = null
+            Dialog(onDismissRequest = {
+                showDialog = false
+                passwordInput = ""
+                accountViewModel.updateError = null
+            }) {
+                ConfirmDeleteDialog(
+                    title = "Confirmar eliminación",
+                    description = "Para eliminar la cuenta, confirmá tu contraseña:",
+                    password = passwordInput,
+                    onPasswordChange = { passwordInput = it },
+                    confirmButtonText = "Eliminar",
+                    cancelButtonText = "Cancelar",
+                    onConfirm = {
                         val email = userAuthenticationViewModel.email
                         val password = passwordInput
 
                         if (email.isNotBlank() && password.isNotBlank()) {
-                            FirebaseAuthManager.reAuthenticateFirebase(
-                                email = email,
-                                password = password,
-                                onSuccess = {
-                                    FirebaseAuth.getInstance().currentUser?.getIdToken(true)
-                                        ?.addOnSuccessListener { tokenResult ->
-                                            val token = tokenResult.token
-                                            if (!token.isNullOrBlank()) {
-                                                accountViewModel.deleteAccount("Bearer $token")
-                                                showDialog = false
-                                            } else {
-                                                localError = "No se pudo obtener el token"
-                                            }
-                                        }
-                                        ?.addOnFailureListener {
-                                            localError = "Error al obtener el token: ${it.message}"
-                                        }
-                                },
-                                onError = { errorMsg ->
-                                    localError = errorMsg
-                                }
-                            )
+                            accountViewModel.deleteAccountWithPassword(email, password)
                         } else {
-                            localError = "Completá todos los campos"
+                            accountViewModel.updateError = "Completá todos los campos"
                         }
-                    }) {
-                        Text("Eliminar")
-                    }
-                },
-                dismissButton = {
-                    TextButton(onClick = {
+                    },
+                    onCancel = {
                         showDialog = false
                         passwordInput = ""
-                        localError = null
-                    }) {
-                        Text("Cancelar")
-                    }
-                }
-            )
+                        accountViewModel.updateError = null
+                    },
+                    errorMessage = localError
+                )
+            }
         }
     }
 }

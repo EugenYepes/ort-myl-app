@@ -7,7 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.com.myldtos.users.PlayerDTO
 import ar.com.myldtos.users.StoreDTO
+import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.repository.AuthRepository
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -53,4 +55,32 @@ class AccountViewModel @Inject constructor(
             deleteSuccess = response.isSuccessful
         }
     }
+
+    fun deleteAccountWithPassword(email: String, password: String) {
+        viewModelScope.launch {
+            FirebaseAuthManager.reAuthenticateFirebase(
+                email = email,
+                password = password,
+                onSuccess = {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    user?.getIdToken(true)
+                        ?.addOnSuccessListener { tokenResult ->
+                            val token = tokenResult.token
+                            if (!token.isNullOrBlank()) {
+                                deleteAccount("Bearer $token")
+                            } else {
+                                updateError = "No se pudo obtener el token"
+                            }
+                        }
+                        ?.addOnFailureListener {
+                            updateError = "Error al obtener el token: ${it.message}"
+                        }
+                },
+                onError = { errorMsg ->
+                    updateError = errorMsg
+                }
+            )
+        }
+    }
+
 }
