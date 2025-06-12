@@ -1,6 +1,7 @@
 package com.ar.mylapp.components.buttons
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -30,6 +31,7 @@ fun Button4(
     Button(
         onClick = onClick,
         modifier = Modifier
+            .height(50.dp)
             .border(
                 width = 1.dp,
                 color = GoldLight,
