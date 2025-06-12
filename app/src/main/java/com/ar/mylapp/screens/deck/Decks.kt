@@ -10,6 +10,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
@@ -45,7 +47,7 @@ fun DecksScreen(
     topBarViewModel: TopBarViewModel,
     decksViewModel: DecksViewModel,
     authViewModel: UserAuthenticationViewModel
-){
+) {
     var showDialog by remember { mutableStateOf(false) }
     val title = stringResource(R.string.topbar_decks_title)
     val decks by decksViewModel.decks
@@ -60,53 +62,52 @@ fun DecksScreen(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .padding(16.dp)
     ) {
-//        decksViewModel.decks.forEach { deck ->
-//            DeckNameCard(
-//                title2 = deck.name,
-//                title3 = deck.cards.size.toString(),
-//                modifier = Modifier.clickable {
-//                    navController.navigate(Screens.DeckDetail.withArgs(deck.id))
-//                }
-//            )
-//        }
-        decks.forEach { deck ->
-            DeckNameCard(
-                title2 = deck.name,
-                title3 = deck.cards.size.toString(),
-                modifier = Modifier.clickable {
-                    navController.navigate(Screens.DeckDetail.withArgs(deck.id))
-                }
-            )
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f), // Ocupa todo el espacio disponible excepto el del botón
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(decks) { deck ->
+                DeckNameCard(
+                    title2 = deck.name,
+                    title3 = deck.cards.size.toString(),
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screens.DeckDetail.withArgs(deck.id))
+                    }
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(16.dp)) // Espacio entre la lista y el botón
 
         Button1(
             onClick = { showDialog = true },
-            text = stringResource(R.string.new_deck)
+            text = stringResource(R.string.new_deck),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
+    }
 
-        if (showDialog) {
-            CreateDeckPopup(
-                onDismiss = { showDialog = false },
-                onConfirm = { name, description ->
-                    authViewModel.token?.let { token ->
-                        decksViewModel.addDeck(
-                            token = token,
-                            name = name,
-                            description = description,
-                            onResult = { showDialog = false }
-                        )
-                    }
+
+    if (showDialog) {
+        CreateDeckPopup(
+            onDismiss = { showDialog = false },
+            onConfirm = { name, description ->
+                authViewModel.token?.let { token ->
+                    decksViewModel.addDeck(
+                        token = token,
+                        name = name,
+                        description = description,
+                        onResult = { showDialog = false }
+                    )
                 }
-            )
-        }
+            }
+        )
     }
 }
+
 
 @Composable
 fun CreateDeckPopup(
