@@ -7,11 +7,19 @@ import javax.inject.Inject
 class DeckRepository @Inject constructor(
     private val deckRetrofit: DeckRetrofit
 ) {
-    suspend fun addDeck(token: String, name: String, description: String) : DeckDTO {
+    suspend fun addDeck(token: String, name: String, description: String): DeckDTO {
         return deckRetrofit.addDeck(token, name, description)
     }
 
     suspend fun getDecks(token: String): List<DeckDTO> {
         return deckRetrofit.getDecks(token)
+    }
+
+    suspend fun updateDeck(token: String, id: Int, name: String, description: String): Boolean {
+        return deckRetrofit.updateDeck(token, id, name, description)
+    }
+
+    suspend fun deleteDeck(token: String, id: Int): Boolean {
+        return deckRetrofit.deleteDeck(token, id)
     }
 }

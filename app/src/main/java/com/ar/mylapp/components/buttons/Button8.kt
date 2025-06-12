@@ -43,11 +43,6 @@ fun Button8(
             .wrapContentWidth()
             .height(50.dp)
             .padding(horizontal = 6.dp)
-            /*.border(
-                width = 1.dp,
-                color = GoldDark,
-                shape = RoundedCornerShape(size = 6.dp)
-            )*/
             .background(color = GoldDark, shape = RoundedCornerShape(size = 6.dp)),
         colors = ButtonDefaults.buttonColors(
             containerColor = GoldDark,

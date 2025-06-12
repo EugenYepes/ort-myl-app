@@ -286,4 +286,12 @@
     <string name="deck_not_found">Mazo no encontrado</string>
     <string name="no_cards">Todavía no hay cartas.</string>
     <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
+    <string name="edit_deck">Editar Mazo</string>
+    <string name="delete_deck">Eliminar Mazo</string>
+    <string name="edit_success_title">Se ha editado el mazo</string>
+    <string name="edit_success_button">Volver</string>
+    <string name="delete_deck_title">Confirmar eliminación</string>
+    <string name="delete_deck_text">El mazo se eliminara por siempre y no podras recuperarlo</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
 </resources>

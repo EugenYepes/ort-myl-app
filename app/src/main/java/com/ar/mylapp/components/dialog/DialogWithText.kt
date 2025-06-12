@@ -34,7 +34,9 @@ fun DialogWithTextPreview() {
         title = "Title",
         text = "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
         button7Text = "Label",
-        button8Text = "Label"
+        button8Text = "Label",
+        onClick = {},
+        onConfirm = {}
     )
 }
 
@@ -44,6 +46,8 @@ fun DialogWithText(
     text: String,
     button7Text: String,
     button8Text: String,
+    onClick: () -> Unit,
+    onConfirm: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -89,12 +93,12 @@ fun DialogWithText(
                 verticalAlignment = Alignment.Top,
             ) {
                 Button7(
-                    onClick = {},
+                    onClick = onClick,
                     text = button7Text
                 )
                 Spacer(modifier = Modifier.width(4.dp))
                 Button8(
-                    onClick = {},
+                    onClick = { onConfirm() },
                     text = button8Text
                 )
             }

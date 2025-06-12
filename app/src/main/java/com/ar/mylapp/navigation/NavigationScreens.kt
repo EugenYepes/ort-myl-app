@@ -196,7 +196,7 @@ fun NavigationScreens(
             arguments = listOf(navArgument("deckId") { type = NavType.IntType })
         ) { backStackEntry ->
             val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
-            DeckDetailScreen(deckId, topBarViewModel, deckViewModel)
+            DeckDetailScreen(deckId, topBarViewModel, deckViewModel, authViewModel = userAuthenticationViewModel)
         }
 
         //* Account

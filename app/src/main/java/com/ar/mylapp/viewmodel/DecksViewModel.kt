@@ -42,4 +42,41 @@ class DecksViewModel @Inject constructor(
             }
         }
     }
+
+    fun editDeck(token: String, id: Int, name: String, description: String) {
+        if (name.isNotBlank()) {
+            val deckToEdit = decks.find { it.id == id } ?: return
+
+            val updatedDeck = DeckDTO()
+            updatedDeck.id = deckToEdit.id
+            updatedDeck.name = name
+            updatedDeck.description = description
+            updatedDeck.cards = deckToEdit.cards
+
+            decks = decks.map { if (it.id == id) updatedDeck else it }
+
+            viewModelScope.launch {
+                val success = repository.updateDeck(
+                    id = updatedDeck.id,
+                    name = updatedDeck.name,
+                    description = updatedDeck.description,
+                    token = "Bearer $token"
+                )
+
+                if (!success) {
+                    println("Error: no se pudo editar el mazo")
+                }
+            }
+        }
+    }
+
+    fun deleteDeck(token: String, id: Int, onResult: (Boolean) -> Unit) {
+        viewModelScope.launch {
+            val success = repository.deleteDeck(token, id)
+            if (success) {
+                decks = decks.filter { it.id != id }
+            }
+            onResult(success)
+        }
+    }
 }

@@ -16,4 +16,28 @@ class DeckRetrofit @Inject constructor(
         return service.getDecks(token)
     }
 
+    suspend fun updateDeck(token: String, id: Int, name: String, description: String): Boolean {
+        return try {
+            val deckDTO = DeckDTO().apply {
+                this.id = id
+                this.name = name
+                this.description = description
+            }
+            val response = service.updateDeck(token, id, deckDTO)
+            response.isSuccessful
+        } catch (e: Exception) {
+            println("Error actualizando mazo: ${e.message}")
+            false
+        }
+    }
+
+    suspend fun deleteDeck(token: String, id: Int): Boolean {
+        return try {
+            val response = service.deleteDeck(token, id)
+            response.isSuccessful
+        } catch (e: Exception) {
+            println("Error al eliminar el mazo: ${e.message}")
+            false
+        }
+    }
 }
