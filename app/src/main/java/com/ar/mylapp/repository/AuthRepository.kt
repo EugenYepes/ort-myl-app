@@ -37,4 +37,8 @@ class AuthRepository @Inject constructor(
         authRetrofit.updateStore(token, store)
     }
 
+    suspend fun getFullUserInfo(token: String): Response<StoreDTO> = withContext(Dispatchers.IO) {
+        authRetrofit.getFullUserInfo(token)
+    }
+
 }

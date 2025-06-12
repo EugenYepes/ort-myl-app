@@ -32,4 +32,7 @@ interface AuthApiService {
     suspend fun updateStore(@Header("Authorization") token: String, @Body store: StoreDTO
     ): Response<Unit>
 
+    @POST("/api/auth/full")
+    suspend fun getFullUserInfo(@Header("Authorization") token: String): Response<StoreDTO>
+
 }

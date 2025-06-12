@@ -35,6 +35,9 @@ fun AccountScreen(
 
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar("MI CUENTA")
+        userAuthenticationViewModel.token?.let { token ->
+            accountViewModel.getFullUserInfo("Bearer $token")
+        }
     }
 
     // cuando se borra la cuenta, redirige directo y muestra toast
@@ -63,8 +66,27 @@ fun AccountScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text4("Mail: ${userAuthenticationViewModel.email.ifBlank { "no hay nada" }}")
-            Text4("Contra: ${userAuthenticationViewModel.password.ifBlank { "no hay nada" }}")
+
+            val userData = accountViewModel.userData
+
+            if (userData != null) {
+                Text4("Email: ${userData.email}")
+                Text4("Nombre: ${userData.name}")
+
+                // Si tiene más datos, asumimos que es Store
+                userData.address?.let {
+                    Text4("Dirección: $it")
+                }
+                userData.phoneNumber?.let {
+                    Text4("Teléfono: $it")
+                }
+                userData.url?.let {
+                    Text4("URL: $it")
+                }
+            } else {
+                Text4("Cargando datos del usuario...")
+            }
+
 
             Row(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
