@@ -48,7 +48,10 @@ fun DecksScreen(
 ){
     var showDialog by remember { mutableStateOf(false) }
     val title = stringResource(R.string.topbar_decks_title)
-    LaunchedEffect(Unit) {
+
+    val decksCount = decksViewModel.decks.size
+
+    LaunchedEffect(decksCount) {
         topBarViewModel.setTopBar(title)
         authViewModel.token?.let { token ->
             decksViewModel.loadDecks(token)
@@ -87,7 +90,8 @@ fun DecksScreen(
                         decksViewModel.addDeck(
                             token = token,
                             name = name,
-                            description = description
+                            description = description,
+                            onResult = { showDialog = false }
                         )
                         showDialog = false
                     }

@@ -18,10 +18,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button3
+import com.ar.mylapp.components.buttons.Button4
 import com.ar.mylapp.components.dialog.DialogWithText
 import com.ar.mylapp.components.dialog.DialogWithoutText
 import com.ar.mylapp.components.entryData.InputThree
@@ -39,7 +41,8 @@ fun DeckDetailScreen(
     deckId: Int,
     topBarViewModel: TopBarViewModel,
     decksViewModel: DecksViewModel,
-    authViewModel: UserAuthenticationViewModel
+    authViewModel: UserAuthenticationViewModel,
+    navController: NavController
 ) {
     var showDialog by remember { mutableStateOf(false) }
     var showSuccessDialog by remember { mutableStateOf(false) }
@@ -108,24 +111,33 @@ fun DeckDetailScreen(
                     onDismiss = { showSuccessDialog = false }
                 )
             }
-//            Button4(
-//                onClick = { showDeleteDialog = true },
-//                text = stringResource(R.string.delete_deck)
-//            )
-//            if (showDeleteDialog) {
-//                DeleteDeckConfirmationDialog (
-//                    id = deck.id,
-//                    title = stringResource(R.string.delete_deck_title),
-//                    text = stringResource(R.string.delete_deck_text),
-//                    button7Text = stringResource(R.string.cancel),
-//                    button8Text = stringResource(R.string.delete),
-//                    onDismiss = { showDeleteDialog = false },
-//                    onConfirm = { id ->
-//                        decksViewModel.deleteDeck(id) {}
-//                        showDeleteDialog = false
-//                    }
-//                )
-//            }
+            Button4(
+                onClick = { showDeleteDialog = true },
+                text = stringResource(R.string.delete_deck)
+            )
+            if (showDeleteDialog) {
+                DeleteDeckConfirmationDialog (
+                    id = deck.id,
+                    title = stringResource(R.string.delete_deck_title),
+                    text = stringResource(R.string.delete_deck_text),
+                    button7Text = stringResource(R.string.cancel),
+                    button8Text = stringResource(R.string.delete),
+                    onDismiss = { showDeleteDialog = false },
+                    onConfirm = { id ->
+                        authViewModel.token?.let {
+                            decksViewModel.deleteDeck(
+                                id = id,
+                                token = it
+                            ) { success ->
+                                if (success) {
+                                    navController.popBackStack()
+                                }
+                            }
+                        }
+                        showDeleteDialog = false
+                    }
+                )
+            }
         }
     }
 }

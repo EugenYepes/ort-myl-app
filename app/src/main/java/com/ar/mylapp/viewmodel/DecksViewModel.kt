@@ -30,12 +30,13 @@ class DecksViewModel @Inject constructor(
         }
     }
 
-    fun addDeck(token: String, name: String, description: String) {
+    fun addDeck(token: String, name: String, description: String, onResult: () -> Unit) {
         if (name.isNotBlank()) {
             viewModelScope.launch {
                 try {
                     repository.addDeck("Bearer $token", name, description)
                     loadDecks("Bearer $token")
+                    onResult()
                 } catch (e: Exception) {
                     Log.e("DecksViewModel", "Error creando deck: ${e.message}")
                 }
@@ -72,7 +73,7 @@ class DecksViewModel @Inject constructor(
 
     fun deleteDeck(token: String, id: Int, onResult: (Boolean) -> Unit) {
         viewModelScope.launch {
-            val success = repository.deleteDeck(token, id)
+            val success = repository.deleteDeck("Bearer $token", id)
             if (success) {
                 decks = decks.filter { it.id != id }
             }
