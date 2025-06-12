@@ -48,10 +48,9 @@ fun DecksScreen(
 ){
     var showDialog by remember { mutableStateOf(false) }
     val title = stringResource(R.string.topbar_decks_title)
+    val decks by decksViewModel.decks
 
-    val decksCount = decksViewModel.decks.size
-
-    LaunchedEffect(decksCount) {
+    LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title)
         authViewModel.token?.let { token ->
             decksViewModel.loadDecks(token)
@@ -65,7 +64,16 @@ fun DecksScreen(
         verticalArrangement = Arrangement.spacedBy(12.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        decksViewModel.decks.forEach { deck ->
+//        decksViewModel.decks.forEach { deck ->
+//            DeckNameCard(
+//                title2 = deck.name,
+//                title3 = deck.cards.size.toString(),
+//                modifier = Modifier.clickable {
+//                    navController.navigate(Screens.DeckDetail.withArgs(deck.id))
+//                }
+//            )
+//        }
+        decks.forEach { deck ->
             DeckNameCard(
                 title2 = deck.name,
                 title3 = deck.cards.size.toString(),
@@ -93,7 +101,6 @@ fun DecksScreen(
                             description = description,
                             onResult = { showDialog = false }
                         )
-                        showDialog = false
                     }
                 }
             )

@@ -47,7 +47,7 @@ fun DeckDetailScreen(
     var showDialog by remember { mutableStateOf(false) }
     var showSuccessDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
-    val deck = decksViewModel.decks.find { it.id == deckId }
+    val deck = decksViewModel.decks.value.find { it.id == deckId }
 
     val title = stringResource(R.string.topbar_deck_details)
     LaunchedEffect(Unit) {
