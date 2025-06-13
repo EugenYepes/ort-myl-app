@@ -48,7 +48,7 @@ fun DeckDetailScreen(
     var showDialog by remember { mutableStateOf(false) }
     var showSuccessDialog by remember { mutableStateOf(false) }
     var showDeleteDialog by remember { mutableStateOf(false) }
-    val deck = decksViewModel.decks.find { it.id == deckId }
+    val deck = decksViewModel.decks.value.find { it.id == deckId }
 
     val title = stringResource(R.string.topbar_deck_details)
     LaunchedEffect(Unit) {
@@ -89,6 +89,7 @@ fun DeckDetailScreen(
             if (showDialog) {
                 EditDeckPopup(
                     id = deck.id,
+                    currentName = deck.name,
                     onDismiss = { showDialog = false },
                     onConfirm = { id, name, description ->
                         authViewModel.token?.let { token ->
@@ -156,6 +157,7 @@ fun DeckDetailScreen(
 @Composable
 fun EditDeckPopup(
     id : Int,
+    currentName: String,
     onDismiss: () -> Unit,
     onConfirm: (Int, String, String) -> Unit
 ) {
@@ -205,9 +207,8 @@ fun EditDeckPopup(
 
                     Button1(
                         onClick = {
-                            if (name.isNotBlank()) {
-                                onConfirm(id, name, description)
-                            }
+                            val finalName = if (name.isBlank()) currentName else name
+                            onConfirm(id, finalName, description)
                         },
                         text = stringResource(R.string.edit_deck)
                     )

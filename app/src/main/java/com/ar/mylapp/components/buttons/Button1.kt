@@ -27,18 +27,20 @@ import com.ar.mylapp.ui.theme.GreenDark
 fun Button1Preview() {
     Button1(
         onClick = {},
-        text = "Botón #1"
+        text = "Botón #1",
+        modifier = Modifier.padding(16.dp)
     )
 }
 
 @Composable
 fun Button1(
     onClick: () -> Unit,
-    text: String
+    text: String,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .size(width = 270.dp, height = 85.dp)
             .border(
                 width = 1.dp,
