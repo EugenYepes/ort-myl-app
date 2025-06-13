@@ -1,6 +1,7 @@
 package com.ar.mylapp.network
 
 import ar.com.myldtos.users.DeckDTO
+import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.models.cardProperties.DeckProperties
 import retrofit2.http.Body
 import retrofit2.http.PUT
@@ -24,4 +25,10 @@ interface DeckApiService {
     @DELETE("/api/player/deck/{id}")
     suspend fun deleteDeck(@Header("Authorization") token: String, @Path("id") id: Int): Response<Void>
 
+    @POST("/api/player/deckcard/{cardId}")
+    suspend fun addCardToDeck(
+        @Header("Authorization") token: String,
+        @Path("cardId") cardId: Int,
+        @Body deckList: List<DeckCardProperties>
+    ): Response<Void>
 }

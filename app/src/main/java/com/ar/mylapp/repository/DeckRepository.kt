@@ -1,6 +1,7 @@
 package com.ar.mylapp.repository
 
 import ar.com.myldtos.users.DeckDTO
+import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.network.DeckRetrofit
 import javax.inject.Inject
 
@@ -21,5 +22,9 @@ class DeckRepository @Inject constructor(
 
     suspend fun deleteDeck(token: String, id: Int): Boolean {
         return deckRetrofit.deleteDeck(token, id)
+    }
+
+    suspend fun addCardToDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean {
+        return deckRetrofit.addCardToDeck(token, cardId, deckList)
     }
 }

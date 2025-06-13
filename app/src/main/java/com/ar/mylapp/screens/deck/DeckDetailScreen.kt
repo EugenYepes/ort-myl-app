@@ -24,6 +24,7 @@ import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button3
 import com.ar.mylapp.components.buttons.Button4
+import com.ar.mylapp.components.card.CardGrid
 import com.ar.mylapp.components.dialog.DialogWithText
 import com.ar.mylapp.components.dialog.DialogWithoutText
 import com.ar.mylapp.components.entryData.InputThree
@@ -71,16 +72,10 @@ fun DeckDetailScreen(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text3(
-            text = if (deck.description.isNotBlank()) deck.description else "Sin descripción",
+            text = if (deck.description.isNotBlank()) deck.description else stringResource(R.string.no_description),
             fontSize = 14.sp,
             textAlign = TextAlign.Justify,
             modifier = Modifier.fillMaxWidth(),
-        )
-
-        Text(
-            text = stringResource(R.string.no_cards),
-            fontSize = 14.sp,
-            color = GoldDark
         )
 
         Row(
@@ -138,6 +133,22 @@ fun DeckDetailScreen(
                     }
                 )
             }
+        }
+
+        if(!deck.cards.isEmpty()){
+            CardGrid(
+                navController = navController,
+                cards = deck.cards.flatMap { deckCard ->
+                    List(deckCard.quantity) { deckCard.card }
+                },
+                enablePagination = false
+            )
+        } else {
+            Text(
+                text = stringResource(R.string.no_cards),
+                fontSize = 14.sp,
+                color = GoldDark
+            )
         }
     }
 }

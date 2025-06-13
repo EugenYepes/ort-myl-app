@@ -1,6 +1,7 @@
 package com.ar.mylapp.network
 
 import ar.com.myldtos.users.DeckDTO
+import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.models.cardProperties.DeckProperties
 import javax.inject.Inject
 
@@ -37,6 +38,16 @@ class DeckRetrofit @Inject constructor(
             response.isSuccessful
         } catch (e: Exception) {
             println("Error al eliminar el mazo: ${e.message}")
+            false
+        }
+    }
+
+    override suspend fun addCardToDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean {
+        return try {
+            val response = service.addCardToDeck(token, cardId, deckList)
+            response.isSuccessful
+        } catch (e: Exception) {
+            println("Error al agregar carta a mazos: ${e.message}")
             false
         }
     }

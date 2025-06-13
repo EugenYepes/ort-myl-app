@@ -294,4 +294,7 @@
     <string name="delete_deck_text">El mazo se eliminara por siempre y no podras recuperarlo</string>
     <string name="delete">Eliminar</string>
     <string name="cancel">Cancelar</string>
+    <string name="no_description">Sin descripción</string>
+    <string name="add_to_deck">Agregar a mis Mazos</string>
+    <string name="confirm">Confirmar</string>
 </resources>

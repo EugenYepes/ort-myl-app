@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.com.myldtos.users.DeckDTO
+import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.repository.DeckRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,6 +17,8 @@ import javax.inject.Inject
 class DecksViewModel @Inject constructor(
     private val repository: DeckRepository
 ) : ViewModel() {
+
+    var selectedCardId: Int? by mutableStateOf(null)
 
     var decks by mutableStateOf(listOf<DeckDTO>())
         private set
@@ -78,6 +81,32 @@ class DecksViewModel @Inject constructor(
                 decks = decks.filter { it.id != id }
             }
             onResult(success)
+        }
+    }
+
+    fun addCardToDecks(
+        token: String,
+        cardId: Int,
+        deckList: List<DeckCardProperties>,
+        onResult: (Boolean) -> Unit
+    ) {
+        viewModelScope.launch {
+            try {
+                val success = repository.addCardToDeck("Bearer $token", cardId, deckList)
+                onResult(success)
+            } catch (e: Exception) {
+                Log.e("DecksViewModel", "Error al agregar carta a mazos: ${e.message}")
+                onResult(false)
+            }
+        }
+    }
+
+    fun getCardQuantitiesForCard(cardId: Int): Map<Int, Int> {
+        return decks.associate { deck ->
+            val quantity = deck.cards
+                ?.firstOrNull { it.card.id == cardId }
+                ?.quantity ?: 0
+            deck.id to quantity
         }
     }
 }

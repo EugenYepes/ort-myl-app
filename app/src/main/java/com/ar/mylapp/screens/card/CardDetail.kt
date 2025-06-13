@@ -26,6 +26,7 @@ import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
 import com.ar.mylapp.viewmodel.CardViewModel
+import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
 @Composable
@@ -33,7 +34,8 @@ fun CardDetail(
     id: Int,
     topBarViewModel: TopBarViewModel,
     viewModel: CardViewModel,
-    userAuthenticationViewModel: UserAuthenticationViewModel
+    userAuthenticationViewModel: UserAuthenticationViewModel,
+    decksViewModel: DecksViewModel,
 ) {
     val card = viewModel.selectedCard
     val isLoading = viewModel.isCardDetailLoading
@@ -78,14 +80,24 @@ fun CardDetail(
                     Spacer(modifier = Modifier.size(22.dp))
                     ShowButtons(
                         onClickShowInfo = { showCardDetailPopup = true },
-                        onClickAddToDeck = { showAddToDeckPopup = true },
+                        onClickAddToDeck = {
+                            card.let {
+                                decksViewModel.selectedCardId = it.id
+                                showAddToDeckPopup = true
+                            }
+                        },
                         userAuthenticationViewModel = userAuthenticationViewModel
                     )
                     if (showCardDetailPopup) {
                         CardDetailPopup(onDismiss = { showCardDetailPopup = false }, card)
                     }
                     if (showAddToDeckPopup) {
-                        AddToDeckPopup(onDismiss = { showAddToDeckPopup = false })
+                        AddToDeckPopup(
+                            onDismiss = { showAddToDeckPopup = false },
+                            decksViewModel = decksViewModel,
+                            userAuthenticationViewModel = userAuthenticationViewModel,
+                            cardId = card.id,
+                        )
                     }
                 }
             }

@@ -1,5 +1,6 @@
 package com.ar.mylapp.screens.deck
 
+import android.util.Log
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
+import ar.com.myldtos.users.DeckDTO
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
@@ -68,8 +70,9 @@ fun DecksScreen(
         decksViewModel.decks.forEach { deck ->
             DeckNameCard(
                 title2 = deck.name,
-                title3 = deck.cards.size.toString(),
+                title3 = calculateTotalCards(deck),
                 modifier = Modifier.clickable {
+                    Log.d("DecksScreen", "Click en deck -> ID: ${deck.id}, Nombre: ${deck.name}")
                     navController.navigate(Screens.DeckDetail.withArgs(deck.id))
                 }
             )
@@ -99,6 +102,14 @@ fun DecksScreen(
             )
         }
     }
+}
+
+private fun calculateTotalCards(deck: DeckDTO): String {
+    var total = 0
+    deck.cards.forEach { card ->
+        total += card.quantity
+    }
+    return total.toString()
 }
 
 @Composable
