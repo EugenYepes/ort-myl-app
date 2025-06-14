@@ -155,7 +155,7 @@ fun CreateDeckPopup(
                     Title1(title = stringResource(R.string.new_deck))
 
                     InputTwo(
-                        label = stringResource(R.string.name),
+                        label = stringResource(R.string.deck_name),
                         initialValue = name,
                         onValueChange = { name = it }
                     )

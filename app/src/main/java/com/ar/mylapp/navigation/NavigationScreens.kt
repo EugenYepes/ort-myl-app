@@ -29,6 +29,7 @@ import com.ar.mylapp.screens.welcome.register.RegisterScreen
 import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
 import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
@@ -44,6 +45,7 @@ fun NavigationScreens(
     deckViewModel: DecksViewModel,
     storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
+    accountViewModel: AccountViewModel,
     isLoggedIn: Boolean,
 ){
     NavHost(
@@ -203,7 +205,7 @@ fun NavigationScreens(
         composable(Screens.Account.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { AccountScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { AccountScreen(navController, userAuthenticationViewModel, topBarViewModel, accountViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }

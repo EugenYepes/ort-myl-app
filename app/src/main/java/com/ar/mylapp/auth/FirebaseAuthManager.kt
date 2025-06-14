@@ -42,14 +42,17 @@ object FirebaseAuthManager {
                     user.getIdToken(true)
                         .addOnSuccessListener { tokenResult ->
                             val idToken = tokenResult.token
-                            if (idToken != null) { onSuccess(idToken) }
-                            else { onError("No se pudo obtener el token") }
+                            Log.d("AuthToken", "Token de ID: $idToken")
+                            if (idToken != null) onSuccess(idToken)
+                            else onError("No se pudo obtener el token")
                         }
                         .addOnFailureListener {
                             onError("Error al obtener el token: ${it.message}")
                             Log.d("LOGIN", "Error al obtener el token: ${it.message}")
                         }
                 } else {
+                    // Se hace un signout porque para verificar el email verificado
+                    // primero tiene que conectarse
                     FirebaseAuth.getInstance().signOut()
                     onError("Debes verificar tu correo antes de ingresar. Revisa tu bandeja de entrada.")
                     Log.d("LOGIN", "Correo no verificado")
@@ -84,6 +87,30 @@ object FirebaseAuthManager {
             .addOnSuccessListener { onSuccess() }
             //.addOnFailureListener { exception -> onError(exception.message ?: "Error al enviar el correo") }
             .addOnFailureListener { exception -> onError(getTranslatedErrorMessage(exception)) }
+    }
+
+    // metodo necesario para borrar la cuenta
+    // o cambiar de email
+    fun reAuthenticateFirebase(
+        email: String,
+        password: String,
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
+        val user = FirebaseAuth.getInstance().currentUser
+        if (user == null) {
+            onError("No hay usuario logueado.")
+            return
+        }
+
+        val credential = com.google.firebase.auth.EmailAuthProvider.getCredential(email, password)
+        user.reauthenticate(credential)
+            .addOnSuccessListener {
+                onSuccess() // se reautentica para despues borrar
+            }
+            .addOnFailureListener { ex ->
+                onError(getTranslatedErrorMessage(ex))
+            }
     }
 
     fun getTranslatedErrorMessage(exception: Exception): String {

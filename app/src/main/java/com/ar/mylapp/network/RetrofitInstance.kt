@@ -1,8 +1,10 @@
 package com.ar.mylapp.network
 
 import com.ar.mylapp.repository.DeckRepository
+import ar.com.myldtos.users.UserDTO
 import com.ar.mylapp.repository.GetServiceCardRepository
 import com.ar.mylapp.repository.StoreRepository
+import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +29,13 @@ object RetrofitInstance {
     @Singleton
     @Provides
     fun provideRetrofit():Retrofit{
+        val gson = GsonBuilder()
+            .registerTypeAdapter(UserDTO::class.java, UserDtoDeserializer())
+            .create()
+
         return Retrofit.Builder()
             .baseUrl(Config.baseUrl)
-            .addConverterFactory(GsonConverterFactory.create())
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .client(client)
             .build()
     }
