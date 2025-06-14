@@ -280,10 +280,27 @@
 
     <!-- Decks -->
     <string name="new_deck">Nuevo Mazo</string>
-    <string name="name">Nombre</string>
+    <string name="deck_name">Nombre</string>
     <string name="description">Descripcion</string>
     <string name="create_deck">Crear Mazo</string>
     <string name="deck_not_found">Mazo no encontrado</string>
     <string name="no_cards">Todavía no hay cartas.</string>
     <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
+    <string name="delete_account_toast">Cuenta eliminada. Hasta la próxima!</string>
+
+    <!-- Account -->
+    <string name="update_info_toast">Datos actualizados correctamente</string>
+    <string name="loading_info">Cargando datos del usuario…</string>
+    <string name="account_name">Nombre</string>
+    <string name="store_url">Página Web</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="update_account">Actualizar Datos</string>
+    <string name="delete_account">Eliminar Cuenta</string>
+    <string name="confirm_delete">Confirmar eliminación</string>
+    <string name="confirm_delete_desc">Para eliminar la cuenta, confirmá tu contraseña:</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="complete_all_fields">Completá todos los campos</string>
+    <string name="update_error_adress">La dirección no puede estar vacía</string>
+    <string name="update_error_url">Ingresá una URL válida (ej: www.tienda.com)</string>
 </resources>

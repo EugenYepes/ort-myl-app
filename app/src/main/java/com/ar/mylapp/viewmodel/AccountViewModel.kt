@@ -22,6 +22,34 @@ class AccountViewModel @Inject constructor(
     var updateError by mutableStateOf<String?>(null)
     var deleteSuccess by mutableStateOf(false)
     var updateSuccess by mutableStateOf(false)
+    var isLoading by mutableStateOf(false)
+    var storeDTO by mutableStateOf<StoreDTO?>(null)
+    var playerDTO by mutableStateOf<PlayerDTO?>(null)
+
+    fun getFullUserInfo(token: String) {
+        viewModelScope.launch {
+            isLoading = true
+            val response = authRepository.login(token)
+            if (response.isSuccessful) {
+                playerDTO = null
+                storeDTO = null
+
+                val body = response.body()
+                if (body is PlayerDTO) {
+                    playerDTO = body
+                } else if (body is StoreDTO) {
+                    storeDTO = body
+                }
+                updateError = null
+            } else {
+                updateError = "No se pudo obtener los datos del usuario"
+            }
+            isLoading = false
+        }
+    }
+
+    fun isStoreUser(): Boolean = storeDTO != null
+    fun isPlayerUser(): Boolean = playerDTO != null
 
     fun updatePlayer(token: String, dto: PlayerDTO) {
         viewModelScope.launch {
@@ -83,4 +111,12 @@ class AccountViewModel @Inject constructor(
         }
     }
 
+    fun clearUserData() {
+        storeDTO = null
+        playerDTO = null
+        updateError = null
+        updateSuccess = false
+        deleteSuccess = false
+        isLoading = false
+    }
 }

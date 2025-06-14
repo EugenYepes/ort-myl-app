@@ -36,5 +36,4 @@ class AuthRepository @Inject constructor(
     suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> = withContext(Dispatchers.IO) {
         authRetrofit.updateStore(token, store)
     }
-
 }
