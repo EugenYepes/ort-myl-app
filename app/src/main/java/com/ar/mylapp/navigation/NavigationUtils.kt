@@ -73,7 +73,24 @@ fun normalizeUrl(rawUrl: String?): String {
     }
 }
 
-fun isValidUrl(url: String): Boolean {
-    val pattern = Regex("^(https?://)?[\\w.-]+\\.[a-z]{2,}(/\\S*)?$", RegexOption.IGNORE_CASE)
-    return pattern.matches(url.trim())
+fun prepareUrl(rawUrl: String): String? {
+    val trimmed = rawUrl.trim()
+    if (trimmed.isBlank()) return null
+
+    val fixed = if (!trimmed.startsWith("http://") && !trimmed.startsWith("https://")) {
+        "https://$trimmed"
+    } else trimmed
+
+    val regex = Regex("^(https?://)?[\\w.-]+\\.[a-z]{2,}(/\\S*)?$", RegexOption.IGNORE_CASE)
+    return if (regex.matches(fixed)) fixed else null
+}
+
+fun getDisplayUrl(rawUrl: String?): String {
+    if (rawUrl.isNullOrBlank()) return ""
+    return rawUrl
+        .removePrefix("https://")
+        .removePrefix("http://")
+        .let {
+            if (!it.startsWith("www.")) "www.$it" else it
+        }
 }

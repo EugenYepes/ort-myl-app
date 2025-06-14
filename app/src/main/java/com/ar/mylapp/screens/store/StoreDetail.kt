@@ -16,14 +16,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ar.com.myldtos.users.StoreDTO
-import android.net.Uri
 import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.WhatsAppButton
 import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.core.net.toUri
+import com.ar.mylapp.components.text.Text1
+import com.ar.mylapp.navigation.getDisplayUrl
 import com.ar.mylapp.navigation.normalizeUrl
+import com.ar.mylapp.navigation.prepareUrl
 
 @Composable
 fun StoreDetailScreen(
@@ -35,6 +38,7 @@ fun StoreDetailScreen(
     }
 
     val context = LocalContext.current
+    val preparedUrl = prepareUrl(store.url)
 
     Column(
         modifier = Modifier
@@ -65,18 +69,19 @@ fun StoreDetailScreen(
             )
         }
 
-        if (!store.url.isNullOrBlank()) {
-            val normalizedUrl = normalizeUrl(store.url)
+        if (!store.url.isNullOrBlank() && preparedUrl != null) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
                     painter = painterResource(id = R.drawable.link_icon),
                     contentDescription = null,
                     modifier = Modifier.padding(end = 8.dp)
                 )
-                Text5(
-                    text = store.url,
-                    modifier = Modifier.clickable {
-                        val intent = Intent(Intent.ACTION_VIEW, normalizedUrl.toUri())
+                Text1(
+                    text = getDisplayUrl(store.url),
+                    fontSize = 18.sp,
+                    modifier = Modifier
+                        .clickable {
+                        val intent = Intent(Intent.ACTION_VIEW, preparedUrl.toUri())
                         context.startActivity(intent)
                     }
                 )

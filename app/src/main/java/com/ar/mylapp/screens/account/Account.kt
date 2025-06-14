@@ -25,6 +25,7 @@ import ar.com.myldtos.users.PlayerDTO
 import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.R
+import com.ar.mylapp.navigation.prepareUrl
 
 @Composable
 fun AccountScreen(
@@ -152,6 +153,12 @@ fun AccountScreen(
                                 return@Button
                             }
 
+                            val preparedUrl = prepareUrl(url)
+                            if (preparedUrl == null) {
+                                accountViewModel.updateError = "Ingresá una URL válida (ej: www.tienda.com)"
+                                return@Button
+                            }
+
                             val store = accountViewModel.storeDTO!!
                             val updatedStore = StoreDTO().apply {
                                 uuid = store.uuid
@@ -159,7 +166,7 @@ fun AccountScreen(
                                 setName(name)
                                 this.address = address
                                 this.phoneNumber = phone
-                                this.url = url
+                                this.url = preparedUrl
                             }
                             accountViewModel.updateStore(bearerToken, updatedStore)
                         } else if (accountViewModel.isPlayerUser()) {
