@@ -42,7 +42,7 @@ fun AddToDeckPopup(
     val currentQuantities = decksViewModel.getCardQuantitiesForCard(cardId)
     val numbers = remember {
         mutableStateMapOf<Int, Int>().apply {
-            decksViewModel.decks.forEach { deck ->
+            decksViewModel.decks.value.forEach { deck ->
                 this[deck.id] = currentQuantities[deck.id] ?: 0
             }
         }
@@ -74,8 +74,8 @@ fun AddToDeckPopup(
                     .weight(1f)
                     .padding(bottom = 16.dp)
             ) {
-                items(decksViewModel.decks.size) { index ->
-                    val deck = decksViewModel.decks[index]
+                items(decksViewModel.decks.value.size) { index ->
+                    val deck = decksViewModel.decks.value[index]
                     val number = numbers[deck.id] ?: 0
                     Row(
                         modifier = Modifier

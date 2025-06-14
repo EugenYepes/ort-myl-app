@@ -68,7 +68,7 @@ fun DecksScreen(
     ) {
         LazyColumn(
             modifier = Modifier
-                .weight(1f), // Ocupa todo el espacio disponible excepto el del botón
+                .weight(1f),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
@@ -84,7 +84,7 @@ fun DecksScreen(
             }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Button1(
             onClick = { showDialog = true },
