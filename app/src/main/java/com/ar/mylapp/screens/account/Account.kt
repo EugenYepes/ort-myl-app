@@ -9,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -25,6 +26,7 @@ import ar.com.myldtos.users.PlayerDTO
 import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.R
+import com.ar.mylapp.components.buttons.Button6
 import com.ar.mylapp.navigation.prepareUrl
 
 @Composable
@@ -71,12 +73,16 @@ fun AccountScreen(
     LaunchedEffect(accountViewModel.deleteSuccess) {
         if (accountViewModel.deleteSuccess) {
             userAuthenticationViewModel.clearSession()
-            Toast.makeText(context, "Cuenta eliminada. Hasta la próxima!", Toast.LENGTH_LONG).apply {
+            Toast.makeText(
+                context,
+                context.getString(R.string.delete_account_toast),
+                Toast.LENGTH_LONG
+            ).apply {
                 setGravity(Gravity.CENTER, 0, 0)
                 show()
             }
             navController.navigate(Screens.Login.screen) {
-                popUpTo("home") { inclusive = true }
+                popUpTo(Screens.Home.screen) { inclusive = true }
             }
             accountViewModel.deleteSuccess = false
         }
@@ -88,7 +94,10 @@ fun AccountScreen(
             userAuthenticationViewModel.token?.let { token ->
                 accountViewModel.getFullUserInfo("Bearer $token")
             }
-            Toast.makeText(context, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(
+                context,
+                context.getString(R.string.update_info_toast), Toast.LENGTH_SHORT
+            ).show()
             accountViewModel.updateSuccess = false
         }
     }
@@ -104,7 +113,7 @@ fun AccountScreen(
         ) {
 
             if (!accountViewModel.isStoreUser() && !accountViewModel.isPlayerUser()) {
-                Text4("Cargando datos del usuario...")
+                Text4(stringResource(R.string.loading_info))
                 return@Column
             }
 
@@ -114,22 +123,22 @@ fun AccountScreen(
             }
 
             InputOne(
-                label = "Email",
+                label = stringResource(R.string.email),
                 value = accountViewModel.storeDTO?.email ?: accountViewModel.playerDTO?.email ?: "",
                 onValueChange = {},
                 enabled = false
             )
 
             InputOne(
-                label = "Nombre",
+                label = stringResource(R.string.account_name),
                 value = name,
                 onValueChange = { name = it }
             )
 
             if (accountViewModel.isStoreUser()) {
-                InputOne("Dirección", address, { address = it })
-                InputOne("Teléfono", phone, { phone = it })
-                InputOne("URL", url, { url = it })
+                InputOne(stringResource(R.string.store_adress), address, { address = it })
+                InputOne(stringResource(R.string.store_phone), phone, { phone = it })
+                InputOne(stringResource(R.string.store_url), url, { url = it })
             }
 
             accountViewModel.updateError?.let { errorText ->
@@ -144,92 +153,98 @@ fun AccountScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Button(onClick = {
-                    userAuthenticationViewModel.token?.let { token ->
-                        val bearerToken = token
-                        if (accountViewModel.isStoreUser()) {
-                            if (address.isBlank()) {
-                                accountViewModel.updateError = "La dirección no puede estar vacía"
-                                return@Button
-                            }
+                Button6(
+                    text = stringResource(R.string.update_account),
+                    icon = painterResource(id = R.drawable.account_edit_icon),
+                    onClick = {
+                        userAuthenticationViewModel.token?.let { token ->
+                            val bearerToken = token
+                            if (accountViewModel.isStoreUser()) {
+                                if (address.isBlank()) {
+                                    accountViewModel.updateError =
+                                        context.getString(R.string.update_error_adress)
+                                    return@let
+                                }
 
-                            val preparedUrl = prepareUrl(url)
-                            if (preparedUrl == null) {
-                                accountViewModel.updateError = "Ingresá una URL válida (ej: www.tienda.com)"
-                                return@Button
-                            }
+                                val preparedUrl = prepareUrl(url)
+                                if (preparedUrl == null) {
+                                    accountViewModel.updateError =
+                                        context.getString(R.string.update_error_url)
+                                    return@let
+                                }
 
-                            val store = accountViewModel.storeDTO!!
-                            val updatedStore = StoreDTO().apply {
-                                uuid = store.uuid
-                                email = store.email
-                                setName(name)
-                                this.address = address
-                                this.phoneNumber = phone
-                                this.url = preparedUrl
+                                val store = accountViewModel.storeDTO!!
+                                val updatedStore = StoreDTO().apply {
+                                    uuid = store.uuid
+                                    email = store.email
+                                    setName(name)
+                                    this.address = address
+                                    this.phoneNumber = phone
+                                    this.url = preparedUrl
+                                }
+                                accountViewModel.updateStore(bearerToken, updatedStore)
+                            } else if (accountViewModel.isPlayerUser()) {
+                                val player = accountViewModel.playerDTO!!
+                                val updatedPlayer = PlayerDTO().apply {
+                                    uuid = player.uuid
+                                    email = player.email
+                                    setName(name)
+                                }
+                                accountViewModel.updatePlayer(bearerToken, updatedPlayer)
                             }
-                            accountViewModel.updateStore(bearerToken, updatedStore)
-                        } else if (accountViewModel.isPlayerUser()) {
-                            val player = accountViewModel.playerDTO!!
-                            val updatedPlayer = PlayerDTO().apply {
-                                uuid = player.uuid
-                                email = player.email
-                                setName(name)
-                            }
-                            accountViewModel.updatePlayer(bearerToken, updatedPlayer)
                         }
                     }
-                }) {
-                    Text("Actualizar Datos")
-                }
-
-                Button(onClick = {
-                    FirebaseAuthManager.logout(context)
-                    userAuthenticationViewModel.clearSession()
-                    accountViewModel.clearUserData()
-                    navController.navigate(Screens.Login.screen) {
-                        popUpTo("home") { inclusive = true }
+                )
+                Button6(
+                    text = stringResource(R.string.sign_out),
+                    icon = painterResource(id = R.drawable.logout_icon),
+                    onClick = {
+                        FirebaseAuthManager.logout(context)
+                        userAuthenticationViewModel.clearSession()
+                        accountViewModel.clearUserData()
+                        navController.navigate(Screens.Login.screen) {
+                            popUpTo(Screens.Home.screen) { inclusive = true }
+                        }
                     }
-                }) {
-                    Text("Cerrar sesión")
-                }
+                )
             }
 
             Button4(
-                text = "Eliminar Cuenta",
+                text = stringResource(R.string.delete_account),
                 onClick = { showDialog = true }
             )
-        }
 
-        if (showDialog) {
-            Dialog(onDismissRequest = {
-                showDialog = false
-                passwordInput = ""
-                accountViewModel.updateError = null
-            }) {
-                ConfirmDeleteDialog(
-                    title = "Confirmar eliminación",
-                    description = "Para eliminar la cuenta, confirmá tu contraseña:",
-                    password = passwordInput,
-                    onPasswordChange = { passwordInput = it },
-                    confirmButtonText = "Eliminar",
-                    cancelButtonText = "Cancelar",
-                    onConfirm = {
-                        val email = userAuthenticationViewModel.email
-                        val password = passwordInput
-                        if (email.isNotBlank() && password.isNotBlank()) {
-                            accountViewModel.deleteAccountWithPassword(email, password)
-                        } else {
-                            accountViewModel.updateError = "Completá todos los campos"
-                        }
-                    },
-                    onCancel = {
-                        showDialog = false
-                        passwordInput = ""
-                        accountViewModel.updateError = null
-                    },
-                    errorMessage = localError
-                )
+            if (showDialog) {
+                Dialog(onDismissRequest = {
+                    showDialog = false
+                    passwordInput = ""
+                    accountViewModel.updateError = null
+                }) {
+                    ConfirmDeleteDialog(
+                        title = stringResource(R.string.confirm_delete),
+                        description = stringResource(R.string.confirm_delete_desc),
+                        password = passwordInput,
+                        onPasswordChange = { passwordInput = it },
+                        confirmButtonText = stringResource(R.string.delete),
+                        cancelButtonText = stringResource(R.string.cancel),
+                        onConfirm = {
+                            val email = userAuthenticationViewModel.email
+                            val password = passwordInput
+                            if (email.isNotBlank() && password.isNotBlank()) {
+                                accountViewModel.deleteAccountWithPassword(email, password)
+                            } else {
+                                accountViewModel.updateError =
+                                    context.getString(R.string.complete_all_fields)
+                            }
+                        },
+                        onCancel = {
+                            showDialog = false
+                            passwordInput = ""
+                            accountViewModel.updateError = null
+                        },
+                        errorMessage = localError
+                    )
+                }
             }
         }
     }
