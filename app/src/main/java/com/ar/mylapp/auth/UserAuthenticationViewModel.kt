@@ -168,10 +168,6 @@ class UserAuthenticationViewModel @Inject constructor(
         return this.token != null
     }
 
-    fun resetRegistrationState() {
-        registrationSuccess = false
-    }
-
     private fun validarCampos(isStore: Boolean = false): Boolean {
         if (email.isBlank() || password.isBlank() || confirmPassword.isBlank()) {
             error = "Completá email y contraseña"

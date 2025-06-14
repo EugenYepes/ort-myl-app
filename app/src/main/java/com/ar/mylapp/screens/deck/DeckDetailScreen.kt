@@ -192,7 +192,7 @@ fun EditDeckPopup(
                     Title1(title = stringResource(R.string.edit_deck))
 
                     InputTwo(
-                        label = stringResource(R.string.name),
+                        label = stringResource(R.string.deck_name),
                         initialValue = name,
                         onValueChange = { name = it }
                     )

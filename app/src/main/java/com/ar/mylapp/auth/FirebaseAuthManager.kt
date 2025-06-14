@@ -64,19 +64,9 @@ object FirebaseAuthManager {
             }
     }
 
-    fun logout(context: Context) {
+    fun logout() {
         FirebaseAuth.getInstance().signOut()
-        // Cerrar sesión exclusivamente de Google
-        /* GoogleSignIn.getClient(
-            context,
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("1055501727698-j0umm7kllbvpgoufnbvrnsfu1ap2mm5b.apps.googleusercontent.com")
-                .requestEmail()
-                .build()
-        ).signOut() */
     }
-
-    fun getCurrentUserEmail(): String? = auth.currentUser?.email
 
     fun resetPassword(
         email: String,
