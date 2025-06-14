@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,16 +36,22 @@ import com.ar.mylapp.viewmodel.DecksViewModel
 @Composable
 fun AddToDeckPopup(
     onDismiss: () -> Unit,
+    onSuccess: () -> Unit,
     decksViewModel: DecksViewModel,
     cardId: Int,
     userAuthenticationViewModel: UserAuthenticationViewModel
 ){
-    val currentQuantities = decksViewModel.getCardQuantitiesForCard(cardId)
-    val numbers = remember {
-        mutableStateMapOf<Int, Int>().apply {
-            decksViewModel.decks.value.forEach { deck ->
-                this[deck.id] = currentQuantities[deck.id] ?: 0
-            }
+    val currentQuantities = remember { mutableStateMapOf<Int, Int>() }
+    val numbers = remember { mutableStateMapOf<Int, Int>() }
+
+    LaunchedEffect(decksViewModel.decks.value, cardId) {
+        val updatedQuantities = decksViewModel.getCardQuantitiesForCard(cardId)
+        currentQuantities.clear()
+        currentQuantities.putAll(updatedQuantities)
+
+        numbers.clear()
+        decksViewModel.decks.value.forEach { deck ->
+            numbers[deck.id] = updatedQuantities[deck.id] ?: 0
         }
     }
 
@@ -119,7 +126,7 @@ fun AddToDeckPopup(
                             deckList = decksToAdd
                         ) { success ->
                             if (success) {
-                                onDismiss()
+                                onSuccess()
                             } else {
                                 println("Error al agregar la carta a los mazos")
                             }

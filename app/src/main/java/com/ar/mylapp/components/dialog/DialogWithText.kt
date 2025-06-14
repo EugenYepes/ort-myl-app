@@ -89,17 +89,18 @@ fun DialogWithText(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Button7(
                     onClick = onClick,
-                    text = button7Text
+                    text = button7Text,
+                    modifier = Modifier.weight(1f)
                 )
-                Spacer(modifier = Modifier.width(4.dp))
                 Button8(
-                    onClick = { onConfirm() },
-                    text = button8Text
+                    onClick = onConfirm,
+                    text = button8Text,
+                    modifier = Modifier.weight(1f)
                 )
             }
         }

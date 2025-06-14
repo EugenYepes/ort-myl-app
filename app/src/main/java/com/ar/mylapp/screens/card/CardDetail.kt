@@ -19,12 +19,16 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.window.Dialog
+import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.card.AddToDeckPopup
 import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
+import com.ar.mylapp.components.dialog.DialogWithText
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
@@ -36,10 +40,14 @@ fun CardDetail(
     viewModel: CardViewModel,
     userAuthenticationViewModel: UserAuthenticationViewModel,
     decksViewModel: DecksViewModel,
+    navController: NavController
 ) {
     val card = viewModel.selectedCard
     val isLoading = viewModel.isCardDetailLoading
     val error = viewModel.cardDetailError
+    var showCardDetailPopup by remember { mutableStateOf(false) }
+    var showAddToDeckPopup by remember { mutableStateOf(false) }
+    var showSuccessDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(id) {
         viewModel.loadCardById(id)
@@ -52,8 +60,6 @@ fun CardDetail(
         }
     }
 
-    var showCardDetailPopup by remember { mutableStateOf(false) }
-    var showAddToDeckPopup by remember { mutableStateOf(false) }
 
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -94,10 +100,30 @@ fun CardDetail(
                     if (showAddToDeckPopup) {
                         AddToDeckPopup(
                             onDismiss = { showAddToDeckPopup = false },
+                            onSuccess = {
+                                showAddToDeckPopup = false
+                                showSuccessDialog = true
+                            },
                             decksViewModel = decksViewModel,
                             userAuthenticationViewModel = userAuthenticationViewModel,
-                            cardId = card.id,
+                            cardId = card.id
                         )
+                    }
+                    if (showSuccessDialog) {
+                        Dialog(onDismissRequest = { showSuccessDialog = false }) {
+                            DialogWithText(
+                                title = "¡Éxito!",
+                                text = "La carta se ha agregado correctamente a tu mazo",
+                                button7Text = "Volver",
+                                button8Text = "Ir a mazos",
+                                onClick = {
+                                    showSuccessDialog = false
+                                },
+                                onConfirm = {
+                                    navController.navigate(Screens.Decks.screen)
+                                }
+                            )
+                        }
                     }
                 }
             }

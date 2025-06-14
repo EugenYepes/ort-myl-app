@@ -98,6 +98,9 @@ class DecksViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val success = repository.addCardToDeck("Bearer $token", cardId, deckList)
+                if (success) {
+                    loadDecks(token)
+                }
                 onResult(success)
             } catch (e: Exception) {
                 Log.e("DecksViewModel", "Error al agregar carta a mazos: ${e.message}")
