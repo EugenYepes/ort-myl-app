@@ -29,6 +29,7 @@ import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.navigation.showTopBar
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
 
@@ -59,6 +60,7 @@ class MainActivity : ComponentActivity() {
                 val deckViewModel: DecksViewModel = viewModel()
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
+                val accountViewModel: AccountViewModel = viewModel()
                 val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
 
                 // Ruta actual
@@ -102,6 +104,7 @@ class MainActivity : ComponentActivity() {
                             deckViewModel = deckViewModel,
                             storeViewModel = storeViewModel,
                             topBarViewModel = topBarViewModel,
+                            accountViewModel = accountViewModel,
                             isLoggedIn = isLoggedIn,
                         )
                     }

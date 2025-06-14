@@ -22,4 +22,16 @@ class AuthRetrofit @Inject constructor(
         return service.me(token)
     }
 
+    suspend fun deleteAccount(token: String): Response<Unit> {
+        return service.deleteAccount(token)
+    }
+
+    suspend fun updatePlayer(token: String, player: PlayerDTO): Response<Unit> {
+        return service.updatePlayer("Bearer $token", player)
+    }
+
+    suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> {
+        return service.updateStore("Bearer $token", store)
+    }
+
 }

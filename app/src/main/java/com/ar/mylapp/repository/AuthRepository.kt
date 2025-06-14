@@ -25,4 +25,16 @@ class AuthRepository @Inject constructor(
         authRetrofit.login(token)
     }
 
+    suspend fun deleteAccount(token: String): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.deleteAccount(token)
+    }
+
+    suspend fun updatePlayer(token: String, player: PlayerDTO): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.updatePlayer(token, player)
+    }
+
+    suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.updateStore(token, store)
+    }
+
 }
