@@ -11,7 +11,6 @@ import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
 
-
 interface AuthApiService {
     @POST("/api/players/register")
     suspend fun registerUser(@Body request: PlayerDTO): Response<Unit>

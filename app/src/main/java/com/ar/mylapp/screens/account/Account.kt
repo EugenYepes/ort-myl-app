@@ -9,6 +9,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.ar.mylapp.auth.FirebaseAuthManager
@@ -23,6 +24,7 @@ import androidx.compose.ui.window.Dialog
 import ar.com.myldtos.users.PlayerDTO
 import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.components.entryData.InputOne
+import com.ar.mylapp.R
 
 @Composable
 fun AccountScreen(
@@ -31,6 +33,15 @@ fun AccountScreen(
     topBarViewModel: TopBarViewModel,
     accountViewModel: AccountViewModel
 ) {
+    var title = stringResource(R.string.topbar_account_title)
+    LaunchedEffect(Unit) {
+        topBarViewModel.setTopBar(title)
+        userAuthenticationViewModel.token?.let { token ->
+            accountViewModel.clearUserData()
+            accountViewModel.getFullUserInfo("Bearer $token")
+        }
+    }
+
     val context = LocalContext.current
     var showDialog by remember { mutableStateOf(false) }
     var passwordInput by remember { mutableStateOf("") }
@@ -39,26 +50,20 @@ fun AccountScreen(
     val storeDto = accountViewModel.storeDTO
     val playerDto = accountViewModel.playerDTO
 
-
     var name by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable { mutableStateOf("") }
     var url by rememberSaveable { mutableStateOf("") }
 
-    LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("MI CUENTA")
-        userAuthenticationViewModel.token?.let { token ->
-            accountViewModel.getFullUserInfo("Bearer $token")
-        }
+    fun initializeUserFieldsIfEmpty(store: StoreDTO?, player: PlayerDTO?) {
+        if (name.isBlank()) name = store?.name ?: player?.name ?: ""
+        if (address.isBlank()) address = store?.address ?: ""
+        if (phone.isBlank()) phone = store?.phoneNumber ?: ""
+        if (url.isBlank()) url = store?.url ?: ""
     }
 
-    LaunchedEffect(storeDto?.uuid) {
-        storeDto?.let {
-            if (!it.name.isNullOrBlank()) name = it.name
-            if (!it.address.isNullOrBlank()) address = it.address
-            if (!it.phoneNumber.isNullOrBlank()) phone = it.phoneNumber
-            if (!it.url.isNullOrBlank()) url = it.url
-        }
+    LaunchedEffect(storeDto, playerDto) {
+        initializeUserFieldsIfEmpty(storeDto, playerDto)
     }
 
     // Cuando se elimina la cuente
@@ -79,6 +84,9 @@ fun AccountScreen(
     // Cuando se actualizan los datos
     LaunchedEffect(accountViewModel.updateSuccess) {
         if (accountViewModel.updateSuccess) {
+            userAuthenticationViewModel.token?.let { token ->
+                accountViewModel.getFullUserInfo("Bearer $token")
+            }
             Toast.makeText(context, "Datos actualizados correctamente", Toast.LENGTH_SHORT).show()
             accountViewModel.updateSuccess = false
         }
@@ -94,14 +102,19 @@ fun AccountScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            if (storeDto == null) {
+            if (!accountViewModel.isStoreUser() && !accountViewModel.isPlayerUser()) {
                 Text4("Cargando datos del usuario...")
+                return@Column
+            }
+
+            if (accountViewModel.isLoading) {
+                CircularProgressIndicator()
                 return@Column
             }
 
             InputOne(
                 label = "Email",
-                value = storeDto.email ?: "",
+                value = accountViewModel.storeDTO?.email ?: accountViewModel.playerDTO?.email ?: "",
                 onValueChange = {},
                 enabled = false
             )
@@ -112,22 +125,10 @@ fun AccountScreen(
                 onValueChange = { name = it }
             )
 
-            if (storeDto.url != null || storeDto.address != null || storeDto.phoneNumber != null) {
-                InputOne(
-                    label = "Dirección",
-                    value = address,
-                    onValueChange = { address = it }
-                )
-                InputOne(
-                    label = "Teléfono",
-                    value = phone,
-                    onValueChange = { phone = it }
-                )
-                InputOne(
-                    label = "URL",
-                    value = url,
-                    onValueChange = { url = it }
-                )
+            if (accountViewModel.isStoreUser()) {
+                InputOne("Dirección", address, { address = it })
+                InputOne("Teléfono", phone, { phone = it })
+                InputOne("URL", url, { url = it })
             }
 
             accountViewModel.updateError?.let { errorText ->
@@ -145,33 +146,30 @@ fun AccountScreen(
                 Button(onClick = {
                     userAuthenticationViewModel.token?.let { token ->
                         val bearerToken = token
-
-                        storeDto.let { user ->
-                            if (user.url != null) {
-                                if (address.isBlank()) {
-                                    accountViewModel.updateError = "La dirección no puede estar vacía"
-                                    return@Button
-                                }
-
-                                val updatedStore = StoreDTO().also {
-                                    it.uuid = user.uuid
-                                    it.email = user.email
-                                    it.name = name
-                                    it.address = address
-                                    it.phoneNumber = phone
-                                    it.url = url
-                                }
-
-                                accountViewModel.updateStore(bearerToken, updatedStore)
-                            } else {
-                                val updatedPlayer = PlayerDTO().also {
-                                    it.uuid = user.uuid
-                                    it.email = user.email
-                                    it.name = name
-                                }
-
-                                accountViewModel.updatePlayer(bearerToken, updatedPlayer)
+                        if (accountViewModel.isStoreUser()) {
+                            if (address.isBlank()) {
+                                accountViewModel.updateError = "La dirección no puede estar vacía"
+                                return@Button
                             }
+
+                            val store = accountViewModel.storeDTO!!
+                            val updatedStore = StoreDTO().apply {
+                                uuid = store.uuid
+                                email = store.email
+                                setName(name)
+                                this.address = address
+                                this.phoneNumber = phone
+                                this.url = url
+                            }
+                            accountViewModel.updateStore(bearerToken, updatedStore)
+                        } else if (accountViewModel.isPlayerUser()) {
+                            val player = accountViewModel.playerDTO!!
+                            val updatedPlayer = PlayerDTO().apply {
+                                uuid = player.uuid
+                                email = player.email
+                                setName(name)
+                            }
+                            accountViewModel.updatePlayer(bearerToken, updatedPlayer)
                         }
                     }
                 }) {
@@ -181,6 +179,7 @@ fun AccountScreen(
                 Button(onClick = {
                     FirebaseAuthManager.logout(context)
                     userAuthenticationViewModel.clearSession()
+                    accountViewModel.clearUserData()
                     navController.navigate(Screens.Login.screen) {
                         popUpTo("home") { inclusive = true }
                     }

@@ -63,3 +63,17 @@ fun AuthGate(
         onDenied()
     }
 }
+
+fun normalizeUrl(rawUrl: String?): String {
+    if (rawUrl.isNullOrBlank()) return ""
+    return if (rawUrl.startsWith("http://") || rawUrl.startsWith("https://")) {
+        rawUrl
+    } else {
+        "https://$rawUrl"
+    }
+}
+
+fun isValidUrl(url: String): Boolean {
+    val pattern = Regex("^(https?://)?[\\w.-]+\\.[a-z]{2,}(/\\S*)?$", RegexOption.IGNORE_CASE)
+    return pattern.matches(url.trim())
+}
