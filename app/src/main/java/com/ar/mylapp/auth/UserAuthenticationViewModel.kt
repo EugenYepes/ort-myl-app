@@ -7,12 +7,14 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import ar.com.myldtos.users.PlayerDTO
+import ar.com.myldtos.users.StoreDTO
+import androidx.navigation.NavController
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.repository.AuthRepository
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import users.PlayerDTO
-import users.StoreDTO
 import javax.inject.Inject
 
 @HiltViewModel
@@ -31,7 +33,9 @@ class UserAuthenticationViewModel @Inject constructor(
     var token by mutableStateOf<String?>(null)
     var navigateToConfirmScreen by mutableStateOf(false)
 
-    fun onLoginClicked() {
+    fun onLoginClicked(
+        navController: NavController,
+    ) {
         if (email.isBlank() || password.isBlank()) {
             error = "Completá email y contraseña"
             return
@@ -48,6 +52,9 @@ class UserAuthenticationViewModel @Inject constructor(
                         val loginData = response.body()
                         loginData?.let {
                             Log.d("LOGIN", "UUID: ${it.uuid}, Email: ${it.email}")
+                        }
+                        navController.navigate(Screens.Home.screen) {
+                            popUpTo(0) { inclusive = true }
                         }
                     } else {
                         val errorBody = response.errorBody()?.string()
@@ -88,7 +95,7 @@ class UserAuthenticationViewModel @Inject constructor(
                             storeRequest.name = storeName
                             storeRequest.phoneNumber = phone
                             storeRequest.address = address
-                            storeRequest.valid = true
+                            storeRequest.valid = false
                             storeRequest.url = ""
 
                             authRepository.registerStore(storeRequest)
@@ -131,7 +138,7 @@ class UserAuthenticationViewModel @Inject constructor(
                 }
             }
             .addOnFailureListener { e ->
-                error = "Error al registrar usuario en Firebase: ${e.message}"
+                error = FirebaseAuthManager.getTranslatedErrorMessage(e)
             }
     }
 
@@ -179,7 +186,12 @@ class UserAuthenticationViewModel @Inject constructor(
             return false
         }
 
-        if (isStore && (storeName.isBlank() || address.isBlank() || phone.isBlank())) {
+        if (!isPasswordSecure(password)) {
+            error = "La contraseña debe tener al menos 8 caracteres, un número y un símbolo"
+            return false
+        }
+
+        if (isStore && (storeName.isBlank() || address.isBlank())) {
             error = "Completá los campos faltantes"
             return false
         }
@@ -194,6 +206,13 @@ class UserAuthenticationViewModel @Inject constructor(
         } catch (e: Exception) {
             "Ocurrió un error inesperado: ${e.message ?: "desconocido"}"
         }
+    }
+
+    fun isPasswordSecure(password: String): Boolean {
+        val minLength = 8
+        val hasDigit = password.any { it.isDigit() }
+        val hasSymbol = password.any { !it.isLetterOrDigit() }
+        return password.length >= minLength && hasDigit && hasSymbol
     }
 
 }

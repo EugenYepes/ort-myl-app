@@ -23,9 +23,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.deck.DeckNameCard
 import com.ar.mylapp.components.entryData.InputThree
@@ -45,8 +47,9 @@ fun DecksScreen(
     viewModel: DecksViewModel
 ){
     var showDialog by remember { mutableStateOf(false) }
+    val title = stringResource(R.string.topbar_decks_title)
     LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar("MIS MAZOS")
+        topBarViewModel.setTopBar(title)
     }
 
     Column(
@@ -71,7 +74,7 @@ fun DecksScreen(
 
         Button1(
             onClick = { showDialog = true },
-            text = "Nuevo Mazo"
+            text = stringResource(R.string.new_deck)
         )
 
         if (showDialog) {
@@ -119,16 +122,16 @@ fun CreateDeckPopup(
                         .fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    Title1(title = "Nuevo Mazo")
+                    Title1(title = stringResource(R.string.new_deck))
 
                     InputTwo(
-                        label = "Nombre",
+                        label = stringResource(R.string.deck_name),
                         initialValue = name,
                         onValueChange = { name = it }
                     )
 
                     InputThree(
-                        label = "Descripcion",
+                        label = stringResource(R.string.description),
                         initialValue = description,
                         onValueChange = { description = it }
                     )
@@ -141,7 +144,7 @@ fun CreateDeckPopup(
                                 onConfirm(name, description)
                             }
                         },
-                        text = "Crear Mazo"
+                        text = stringResource(R.string.create_deck)
                     )
                 }
             }

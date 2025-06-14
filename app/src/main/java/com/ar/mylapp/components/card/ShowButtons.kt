@@ -11,10 +11,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.ar.mylapp.components.buttons.ButtonIcon
 import com.ar.mylapp.R
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 
 @Composable
 fun ShowButtons(
-    onClick: () -> Unit
+    onClickShowInfo: () -> Unit,
+    onClickAddToDeck: () -> Unit,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ) {
     Row(
         modifier = Modifier
@@ -23,7 +26,14 @@ fun ShowButtons(
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ButtonIcon(onClick = onClick, image = painterResource(id = R.drawable.search))
-        ButtonIcon(onClick = onClick, image = painterResource(id = R.drawable.folder_plus))
+        ButtonIcon(
+            onClick = onClickShowInfo,
+            image = painterResource(id = R.drawable.search)
+        )
+        ButtonIcon(
+            onClick = onClickAddToDeck, 
+            image = painterResource(id = R.drawable.folder_plus),
+            enabled = userAuthenticationViewModel.isLoggedIn()
+        )
     }
 }

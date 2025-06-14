@@ -30,6 +30,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -66,13 +67,13 @@ fun CardDetailPopup(onDismiss: () -> Unit, card: CardDTO) {
 @Composable
 fun ShowInfo(card: CardDTO) {
     Column(modifier = Modifier.verticalScroll(rememberScrollState())) {
-        InfoRow(label = "Tipo", value = card.type?.name ?: "-")
-        InfoRow(label = "Fuerza", value = card.damage?.toString() ?: "-")
-        InfoRow(label = "Coste de Oro", value = card.cost?.toString() ?: "-")
-        InfoRow(label = "Raza", value = card.race?.name ?: "-")
-        InfoRow(label = "Rareza", value = card.rarity?.name ?: "-")
+        InfoRow(label = stringResource(R.string.card_type), value = card.type?.name ?: stringResource(R.string.card_no_info))
+        InfoRow(label = stringResource(R.string.card_damage), value = card.damage?.toString() ?: stringResource(R.string.card_no_info))
+        InfoRow(label = stringResource(R.string.card_cost), value = card.cost?.toString() ?: stringResource(R.string.card_no_info))
+        InfoRow(label = stringResource(R.string.card_race), value = card.race?.name ?: stringResource(R.string.card_no_info))
+        InfoRow(label = stringResource(R.string.card_rarity), value = card.rarity?.name ?: stringResource(R.string.card_no_info))
         Spacer(modifier = Modifier.size(24.dp))
-        InfoAbility(label = "Habilidad", ability = card.description ?: "-")
+        InfoAbility(label = stringResource(R.string.card_ability), ability = card.description ?: stringResource(R.string.card_no_info))
     }
 }
 
@@ -160,7 +161,7 @@ fun CloseIcon(onDismiss: () -> Unit, modifier: Modifier = Modifier) {
     ) {
         Icon(
             imageVector = Icons.Default.Close,
-            contentDescription = "Close",
+            contentDescription = stringResource(R.string.close),
             tint = Red
         )
     }

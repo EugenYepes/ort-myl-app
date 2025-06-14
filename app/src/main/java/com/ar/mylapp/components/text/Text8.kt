@@ -2,7 +2,6 @@ package com.ar.mylapp.components.text
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
@@ -18,27 +17,27 @@ import com.ar.mylapp.ui.theme.GoldBeige
 @Composable
 fun Text8Preview(){
     Text8(
-        text = "Texto #8"
+        text = "Texto #8",
+        maxLines = 1
     )
 }
 
 @Composable
 fun Text8(
     text: String,
-    modifier: Modifier = Modifier
+    maxLines: Int
 ){
     Text(
         text = text,
-        modifier = modifier,
         style = TextStyle(
             fontSize = 16.sp,
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
             color = GoldBeige,
-            textAlign = TextAlign.Center,
+            textAlign = TextAlign.Left
         ),
-        maxLines = 1,
+        maxLines = maxLines,
         softWrap = true,
         overflow = TextOverflow.Ellipsis
     )

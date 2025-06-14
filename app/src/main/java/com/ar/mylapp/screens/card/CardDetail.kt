@@ -20,6 +20,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.res.stringResource
 import com.ar.mylapp.R
+import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.card.AddToDeckPopup
 import com.ar.mylapp.components.card.CardDetailImage
 import com.ar.mylapp.components.card.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
@@ -30,7 +32,8 @@ import com.ar.mylapp.viewmodel.TopBarViewModel
 fun CardDetail(
     id: Int,
     topBarViewModel: TopBarViewModel,
-    viewModel: CardViewModel
+    viewModel: CardViewModel,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ) {
     val card = viewModel.selectedCard
     val isLoading = viewModel.isCardDetailLoading
@@ -47,7 +50,9 @@ fun CardDetail(
         }
     }
 
-    var showPopup by remember { mutableStateOf(false) }
+    var showCardDetailPopup by remember { mutableStateOf(false) }
+    var showAddToDeckPopup by remember { mutableStateOf(false) }
+
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -74,9 +79,16 @@ fun CardDetail(
                         Alignment.Center
                     )
                     Spacer(modifier = Modifier.size(22.dp))
-                    ShowButtons(onClick = { showPopup = true })
-                    if (showPopup) {
-                        CardDetailPopup(onDismiss = { showPopup = false }, card)
+                    ShowButtons(
+                        onClickShowInfo = { showCardDetailPopup = true },
+                        onClickAddToDeck = { showAddToDeckPopup = true },
+                        userAuthenticationViewModel = userAuthenticationViewModel
+                    )
+                    if (showCardDetailPopup) {
+                        CardDetailPopup(onDismiss = { showCardDetailPopup = false }, card)
+                    }
+                    if (showAddToDeckPopup) {
+                        AddToDeckPopup(onDismiss = { showAddToDeckPopup = false })
                     }
                 }
             }

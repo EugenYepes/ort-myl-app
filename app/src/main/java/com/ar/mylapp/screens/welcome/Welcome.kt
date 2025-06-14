@@ -10,8 +10,10 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.buttons.Button5
 import com.ar.mylapp.components.image.ImageLogoMyl
@@ -43,15 +45,15 @@ fun WelcomeScreen(
             ) {
                 Button1(
                     onClick = { navController.navigate(Screens.Login.screen) },
-                    text = "INICIAR SESIÓN"
+                    text = stringResource(R.string.login_mayus)
                 )
                 Button1(
                     onClick = { navController.navigate(Screens.Register.screen) },
-                    text = "REGISTRARSE"
+                    text = stringResource(R.string.register_mayus)
                 )
                 Button5(
                     onClick = { navController.navigate(Screens.Guidebook.screen) },
-                    text = "APRENDE A JUGAR"
+                    text = stringResource(R.string.guidebook_mayus)
                 )
             }
 

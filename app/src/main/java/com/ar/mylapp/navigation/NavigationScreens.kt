@@ -29,6 +29,7 @@ import com.ar.mylapp.screens.welcome.register.RegisterScreen
 import com.ar.mylapp.screens.welcome.register.RegisterStoreScreen
 import com.ar.mylapp.screens.welcome.register.RegisterUserScreen
 import com.ar.mylapp.screens.welcome.restorePassword.RestorePasswordScreen
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.StoreViewModel
@@ -44,7 +45,8 @@ fun NavigationScreens(
     deckViewModel: DecksViewModel,
     storeViewModel: StoreViewModel,
     topBarViewModel: TopBarViewModel,
-    isLoggedIn: Boolean
+    accountViewModel: AccountViewModel,
+    isLoggedIn: Boolean,
 ){
     NavHost(
         navController = navController,
@@ -68,7 +70,7 @@ fun NavigationScreens(
             arguments = listOf(navArgument("cardId") { type = NavType.IntType })
         ) { backStackEntry ->
             val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
-            CardDetail(id = cardId, topBarViewModel = topBarViewModel, viewModel = cardViewModel)
+            CardDetail(cardId, topBarViewModel, cardViewModel, userAuthenticationViewModel)
         }
 
         composable(Screens.AdvanceSearch.screen) {
@@ -109,7 +111,7 @@ fun NavigationScreens(
 
         //* Guidebook
         composable(Screens.Guidebook.screen) {
-            GuidebookScreen(navController, topBarViewModel)
+            GuidebookScreen(topBarViewModel)
         }
 
         //? Pantallas solo para usuarios sin sesion iniciada
@@ -127,7 +129,7 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, topBarViewModel, cardViewModel) },
-                onDenied = {  LoginScreen(navController, userAuthenticationViewModel) }
+                onDenied = { LoginScreen(navController, userAuthenticationViewModel) }
             )
         }
 
@@ -203,7 +205,7 @@ fun NavigationScreens(
         composable(Screens.Account.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { AccountScreen(navController, userAuthenticationViewModel, topBarViewModel) },
+                onAllowed = { AccountScreen(navController, userAuthenticationViewModel, topBarViewModel, accountViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }

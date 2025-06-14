@@ -58,14 +58,20 @@ fun StoreInfoCard(
                     contentDescription = null,
                     contentScale = ContentScale.None
                 )
-                Text8(text = text)
+                Text8(
+                    text = text,
+                    maxLines = 1
+                )
             }
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.End
             ) {
-                WhatsAppButton(phoneNumber = phoneNumber)
+                WhatsAppButton(
+                    phoneNumber = phoneNumber,
+                    enabled = !phoneNumber.isEmpty()
+                )
             }
         }
     }

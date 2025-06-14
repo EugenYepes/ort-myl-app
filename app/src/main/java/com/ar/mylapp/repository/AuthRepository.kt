@@ -1,12 +1,12 @@
 package com.ar.mylapp.repository
 
+import ar.com.myldtos.users.PlayerDTO
+import ar.com.myldtos.users.StoreDTO
+import ar.com.myldtos.users.UserDTO
 import com.ar.mylapp.network.AuthRetrofit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
-import users.PlayerDTO
-import users.StoreDTO
-import users.UserDTO
 import javax.inject.Inject
 
 class AuthRepository @Inject constructor(
@@ -25,4 +25,15 @@ class AuthRepository @Inject constructor(
         authRetrofit.login(token)
     }
 
+    suspend fun deleteAccount(token: String): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.deleteAccount(token)
+    }
+
+    suspend fun updatePlayer(token: String, player: PlayerDTO): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.updatePlayer(token, player)
+    }
+
+    suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.updateStore(token, store)
+    }
 }

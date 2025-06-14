@@ -44,7 +44,7 @@ fun MyBottomAppBar(
                 IconButton(
                     onClick = {
                         navController.navigate(item.route) {
-                            popUpTo(0)
+                            launchSingleTop = true
                         }
                     },
                     modifier = Modifier.weight(1f)

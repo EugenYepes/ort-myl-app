@@ -17,27 +17,18 @@ import androidx.core.net.toUri
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.GoldLight
+import com.ar.mylapp.ui.theme.Gray
 import com.ar.mylapp.ui.theme.GreenDark
 import com.ar.mylapp.ui.theme.labelStyle
 
 @Composable
 fun WhatsAppButton(
-    phoneNumber: String
+    phoneNumber: String,
+    enabled: Boolean = true
 ) {
     val context = LocalContext.current
 
     Button(
-        modifier = Modifier
-            .border(
-                width = 1.dp,
-                color = GoldLight,
-                shape = RoundedCornerShape(size = 20.dp),
-            ),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = GreenDark,
-            contentColor = GoldDark
-        ),
-        shape = RoundedCornerShape(20.dp),
         onClick = {
             val uri = "https://wa.me/$phoneNumber".toUri()
             val intent = Intent(Intent.ACTION_VIEW, uri)
@@ -45,13 +36,32 @@ fun WhatsAppButton(
             try {
                 context.startActivity(intent)
             } catch (e: ActivityNotFoundException) {
-                Toast.makeText(context, "WhatsApp no está instalado", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    context,
+                    context.getString(
+                        R.string.whatsapp_not_installed
+                    ),
+                    Toast.LENGTH_SHORT
+                ).show()
             }
-        }
+        },
+        enabled = enabled,
+        modifier = Modifier
+            .border(
+                width = 1.dp,
+                color = if (enabled) GoldLight else Gray,
+                shape = RoundedCornerShape(size = 20.dp),
+            ),
+        colors = ButtonDefaults.buttonColors(
+            containerColor = GreenDark,
+            contentColor = GreenDark
+        ),
+        shape = RoundedCornerShape(20.dp)
     ) {
         Text(
             text = stringResource(R.string.button_wpp),
-            style = labelStyle
+            style = labelStyle,
+            color = if (enabled) GoldDark else Gray
         )
     }
 }

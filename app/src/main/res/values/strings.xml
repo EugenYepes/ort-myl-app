@@ -1,14 +1,61 @@
 <resources>
+    <!-- App general -->
     <string name="app_name">MYL APP</string>
+    <string name="close">Close</string>
+    <string name="search">Search</string>
+    <string name="location">Location</string>
+    <string name="back">Volver</string>
+    <string name="account">Cuenta</string>
+    <string name="logo">Logo de la Aplicación</string>
+    <string name="image_background">Image Background</string>
+
+    <!-- Card Detail -->
+    <string name="card_type">Tipo</string>
+    <string name="card_damage">Fuerza</string>
+    <string name="card_cost">Coste</string>
+    <string name="card_race">Raza</string>
+    <string name="card_rarity">Rareza</string>
+    <string name="card_ability">Habilidad</string>
+    <string name="card_no_info">-</string>
+
+    <!-- Homepage -->
+    <string name="quick_access">Acceso rápido</string>
+    <string name="cards_grid">Algunas Cartas</string>
+
+    <!-- Routes -->
+    <string name="bottom_menu_home_section">Home</string>
+    <string name="bottom_menu_cards_section">Cards</string>
+    <string name="bottom_menu_decks_section">Decks</string>
+    <string name="bottom_menu_store_section">Stores</string>
+    <string name="bottom_menu_guide_section">Guidebook</string>
+
+    <!-- Bottom Menu Content -->
+    <string name="bottom_menu_home_label">Inicio</string>
+    <string name="bottom_menu_cards_label">Cartas</string>
+    <string name="bottom_menu_decks_label">Mazos</string>
+    <string name="bottom_menu_store_label">Tiendas</string>
+    <string name="bottom_menu_guide_label">Guia</string>
+
+    <!-- Log In -->
+    <string name="login_label">Iniciar Sesion</string>
+    <string name="login_section">Login</string>
+    <string name="register_label">Registrarme</string>
+    <string name="register_section">Register</string>
+    <string name="show_password">Mostrar contraseña</string>
+    <string name="hide_password">Ocultar contraseña</string>
+
+    <!-- Number Picker -->
+    <string name="add">+</string>
+    <string name="remove">-</string>
 
     <!-- Top Bar -->
     <string name="topbar_home_title">INICIO</string>
     <string name="topbar_cards_title">CARTAS</string>
     <string name="topbar_decks_title">MIS MAZOS</string>
+    <string name="topbar_deck_details">DETALLE MAZO</string>
     <string name="topbar_stores_title">TIENDAS</string>
     <string name="topbar_guidebook_title">¿COMÓ JUGAR?</string>
     <string name="topbar_account_title">MI CUENTA</string>
-
     <string name="topbar_advancesearch_subtitle">Busqueda Avanzada</string>
     <string name="topbar_editaccount_subtitle">Editar</string>
     <string name="topbar_home_subtitle">👋Bienvenido a Mitos y Leyendas Companion</string>
@@ -17,6 +64,7 @@
     <string name="advance_search">Busqueda Avanzada</string>
     <string name="cards_not_found">No se encontro ninguna carta</string>
     <string name="button_search">BUSCAR</string>
+    <string name="searchbar_placeholder">Buscar carta por nombre…</string>
 
     <!-- Stores-->
     <string name="button_wpp">Comunicarme por WhatsApp</string>
@@ -28,7 +76,6 @@
     <string name="guidebook_four_objective_title">4 - Las zonas de juego</string>
     <string name="guidebook_five_objective_title">5 - Fases del turno</string>
     <string name="guidebook_six_objective_title">6 - Jugar una carta</string>
-
     <string name="guidebook_one_objective_text">
         En Mitos y Leyendas, cada jugador debe defender su Castillo, representado por un mazo de cartas, mientras ataca a los Castillos enemigos para conquistar sus territorios.
         \n Tu Castillo está compuesto por:
@@ -210,7 +257,50 @@
         \n 🎉 ¡Listo! Ya jugaste una carta con éxito.
         \n
     </string>
-    <string name="quick_access">Acceso rápido</string>
-    <string name="cards_grid">Algunas Cartas</string>
 
+    <!-- Login - Register -->
+    <string name="email">Correo Electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="confirm_password">Confirmar Contraseña</string>
+    <string name="restore_password">Recuperar Contraseña</string>
+    <string name="register_mayus">REGISTRARSE</string>
+    <string name="login_mayus">INICIAR SESIÓN</string>
+    <string name="no_account">¿No tienes una cuenta?</string>
+    <string name="verify_email_title">Su Correo Electrónico ha sido verificado</string>
+    <string name="verify_email_subtitle">Gracias por unirte a Mitos y Leyendas Companion!\nA continuacion se le ha enviado un correo electronico a su mail.\nPor favor confirme su registro para poder ingresar</string>
+    <string name="user_mayus">USUARIO</string>
+    <string name="store_mayus">TIENDA</string>
+    <string name="store_name">Nombre de la Tienda</string>
+    <string name="store_adress">Dirección</string>
+    <string name="store_phone">Teléfono</string>
+    <string name="has_an_account">¿Ya tienes una cuenta?</string>
+    <string name="guidebook_mayus">APRENDE A JUGAR</string>
+    <string name="required_field_icon">*</string>
+    <string name="required_fields">* campos obligatorios</string>
+
+    <!-- Decks -->
+    <string name="new_deck">Nuevo Mazo</string>
+    <string name="deck_name">Nombre</string>
+    <string name="description">Descripcion</string>
+    <string name="create_deck">Crear Mazo</string>
+    <string name="deck_not_found">Mazo no encontrado</string>
+    <string name="no_cards">Todavía no hay cartas.</string>
+    <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
+    <string name="delete_account_toast">Cuenta eliminada. Hasta la próxima!</string>
+
+    <!-- Account -->
+    <string name="update_info_toast">Datos actualizados correctamente</string>
+    <string name="loading_info">Cargando datos del usuario…</string>
+    <string name="account_name">Nombre</string>
+    <string name="store_url">Página Web</string>
+    <string name="sign_out">Cerrar sesión</string>
+    <string name="update_account">Actualizar Datos</string>
+    <string name="delete_account">Eliminar Cuenta</string>
+    <string name="confirm_delete">Confirmar eliminación</string>
+    <string name="confirm_delete_desc">Para eliminar la cuenta, confirmá tu contraseña:</string>
+    <string name="delete">Eliminar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="complete_all_fields">Completá todos los campos</string>
+    <string name="update_error_adress">La dirección no puede estar vacía</string>
+    <string name="update_error_url">Ingresá una URL válida (ej: www.tienda.com)</string>
 </resources>
