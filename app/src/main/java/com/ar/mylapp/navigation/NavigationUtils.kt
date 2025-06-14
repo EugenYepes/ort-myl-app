@@ -64,15 +64,6 @@ fun AuthGate(
     }
 }
 
-fun normalizeUrl(rawUrl: String?): String {
-    if (rawUrl.isNullOrBlank()) return ""
-    return if (rawUrl.startsWith("http://") || rawUrl.startsWith("https://")) {
-        rawUrl
-    } else {
-        "https://$rawUrl"
-    }
-}
-
 fun prepareUrl(rawUrl: String): String? {
     val trimmed = rawUrl.trim()
     if (trimmed.isBlank()) return null

@@ -25,7 +25,6 @@ import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.core.net.toUri
 import com.ar.mylapp.components.text.Text1
 import com.ar.mylapp.navigation.getDisplayUrl
-import com.ar.mylapp.navigation.normalizeUrl
 import com.ar.mylapp.navigation.prepareUrl
 
 @Composable
