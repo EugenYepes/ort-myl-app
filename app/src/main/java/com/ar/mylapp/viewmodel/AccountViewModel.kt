@@ -23,13 +23,18 @@ class AccountViewModel @Inject constructor(
     var deleteSuccess by mutableStateOf(false)
     var updateSuccess by mutableStateOf(false)
 
-    var userData by mutableStateOf<StoreDTO?>(null)
+    var storeDTO by mutableStateOf<StoreDTO?>(null)
+    var playerDTO by mutableStateOf<PlayerDTO?>(null)
 
     fun getFullUserInfo(token: String) {
         viewModelScope.launch {
-            val response = authRepository.getFullUserInfo(token)
+            val response = authRepository.login(token)
             if (response.isSuccessful) {
-                userData = response.body()
+                if (response.body() is PlayerDTO) {
+                    playerDTO = response.body() as PlayerDTO?
+                } else if (response.body() is StoreDTO) {
+                    storeDTO = response.body() as StoreDTO?
+                }
                 updateError = null
             } else {
                 updateError = "No se pudo obtener los datos del usuario"

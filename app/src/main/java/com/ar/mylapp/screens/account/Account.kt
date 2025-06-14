@@ -36,7 +36,9 @@ fun AccountScreen(
     var passwordInput by remember { mutableStateOf("") }
 
     val localError by rememberUpdatedState(accountViewModel.updateError)
-    val userData = accountViewModel.userData
+    val storeDto = accountViewModel.storeDTO
+    val playerDto = accountViewModel.playerDTO
+
 
     var name by rememberSaveable { mutableStateOf("") }
     var address by rememberSaveable { mutableStateOf("") }
@@ -50,8 +52,8 @@ fun AccountScreen(
         }
     }
 
-    LaunchedEffect(userData?.uuid) {
-        userData?.let {
+    LaunchedEffect(storeDto?.uuid) {
+        storeDto?.let {
             if (!it.name.isNullOrBlank()) name = it.name
             if (!it.address.isNullOrBlank()) address = it.address
             if (!it.phoneNumber.isNullOrBlank()) phone = it.phoneNumber
@@ -92,14 +94,14 @@ fun AccountScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            if (userData == null) {
+            if (storeDto == null) {
                 Text4("Cargando datos del usuario...")
                 return@Column
             }
 
             InputOne(
                 label = "Email",
-                value = userData.email ?: "",
+                value = storeDto.email ?: "",
                 onValueChange = {},
                 enabled = false
             )
@@ -110,7 +112,7 @@ fun AccountScreen(
                 onValueChange = { name = it }
             )
 
-            if (userData.url != null || userData.address != null || userData.phoneNumber != null) {
+            if (storeDto.url != null || storeDto.address != null || storeDto.phoneNumber != null) {
                 InputOne(
                     label = "Dirección",
                     value = address,
@@ -144,7 +146,7 @@ fun AccountScreen(
                     userAuthenticationViewModel.token?.let { token ->
                         val bearerToken = token
 
-                        userData.let { user ->
+                        storeDto.let { user ->
                             if (user.url != null) {
                                 if (address.isBlank()) {
                                     accountViewModel.updateError = "La dirección no puede estar vacía"

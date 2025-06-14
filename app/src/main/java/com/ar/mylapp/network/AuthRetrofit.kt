@@ -33,9 +33,4 @@ class AuthRetrofit @Inject constructor(
     suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> {
         return service.updateStore("Bearer $token", store)
     }
-
-    suspend fun getFullUserInfo(token: String): Response<StoreDTO> {
-        return service.getFullUserInfo(token)
-    }
-
 }

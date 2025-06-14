@@ -6,6 +6,7 @@ import ar.com.myldtos.users.UserDTO
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.DELETE
+import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -18,7 +19,7 @@ interface AuthApiService {
     @POST("/api/stores/register")
     suspend fun registerStore(@Body request: StoreDTO): Response<Unit>
 
-    @POST("/api/auth/me")
+    @GET("/api/auth/me")
     suspend fun me(@Header("Authorization") token: String): Response<UserDTO>
 
     @DELETE("/api/users")
@@ -31,8 +32,4 @@ interface AuthApiService {
     @PUT("/api/stores")
     suspend fun updateStore(@Header("Authorization") token: String, @Body store: StoreDTO
     ): Response<Unit>
-
-    @POST("/api/auth/full")
-    suspend fun getFullUserInfo(@Header("Authorization") token: String): Response<StoreDTO>
-
 }
