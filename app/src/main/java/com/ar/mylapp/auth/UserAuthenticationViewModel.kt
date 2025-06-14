@@ -52,7 +52,7 @@ class UserAuthenticationViewModel @Inject constructor(
                         loginData?.let {
                             Log.d("LOGIN", "UUID: ${it.uuid}, Email: ${it.email}")
                         }
-                        navController.navigate(Screens.Cards.screen) {
+                        navController.navigate(Screens.Home.screen) {
                             popUpTo(0) { inclusive = true }
                         }
                     } else {
