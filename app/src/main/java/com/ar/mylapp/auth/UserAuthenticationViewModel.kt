@@ -40,7 +40,6 @@ class UserAuthenticationViewModel @Inject constructor(
             error = "Completá email y contraseña"
             return
         }
-        //
         FirebaseAuthManager.login(
             email,
             password,
@@ -53,7 +52,7 @@ class UserAuthenticationViewModel @Inject constructor(
                         loginData?.let {
                             Log.d("LOGIN", "UUID: ${it.uuid}, Email: ${it.email}")
                         }
-                        navController.navigate(Screens.Home.screen) {
+                        navController.navigate(Screens.Cards.screen) {
                             popUpTo(0) { inclusive = true }
                         }
                     } else {
@@ -68,8 +67,6 @@ class UserAuthenticationViewModel @Inject constructor(
         )
     }
 
-    // La función onRegisterClicked ahora acepta un parámetro isStore
-    // que indica si el registro es para un usuario normal o una tienda.
     fun onRegisterClicked(isStore: Boolean = false) {
         if (!validarCampos(isStore)) return
 

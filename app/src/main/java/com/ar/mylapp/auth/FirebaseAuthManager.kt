@@ -1,6 +1,7 @@
 package com.ar.mylapp.auth
 
 import android.content.Context
+import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -41,21 +42,23 @@ object FirebaseAuthManager {
                     user.getIdToken(true)
                         .addOnSuccessListener { tokenResult ->
                             val idToken = tokenResult.token
-                            if (idToken != null) onSuccess(idToken)
-                            else onError("No se pudo obtener el token")
+                            if (idToken != null) { onSuccess(idToken) }
+                            else { onError("No se pudo obtener el token") }
                         }
                         .addOnFailureListener {
                             onError("Error al obtener el token: ${it.message}")
+                            Log.d("LOGIN", "Error al obtener el token: ${it.message}")
                         }
                 } else {
-                    // Se hace un signout porque para verificar el email verificado
-                    // primero tiene que conectarse
                     FirebaseAuth.getInstance().signOut()
                     onError("Debes verificar tu correo antes de ingresar. Revisa tu bandeja de entrada.")
+                    Log.d("LOGIN", "Correo no verificado")
                 }
             }
-            //.addOnFailureListener { onError(it.message ?: "Login fallido") }
-            .addOnFailureListener { onError(getTranslatedErrorMessage(it)) }
+            .addOnFailureListener {
+                onError(it.message ?: "Login Fallido")
+                Log.d("LOGIN", ("Error en el Login -> " + it.message))
+            }
     }
 
     fun logout(context: Context) {
