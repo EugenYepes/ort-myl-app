@@ -47,7 +47,8 @@ fun CardDetail(
     val error = viewModel.cardDetailError
     var showCardDetailPopup by remember { mutableStateOf(false) }
     var showAddToDeckPopup by remember { mutableStateOf(false) }
-    var showSuccessDialog by remember { mutableStateOf(false) }
+    var showAddSuccessDialog by remember { mutableStateOf(false) }
+    var showDeleteSuccessDialog by remember { mutableStateOf(false) }
 
     LaunchedEffect(id) {
         viewModel.loadCardById(id)
@@ -59,8 +60,6 @@ fun CardDetail(
             topBarViewModel.setTopBar(title, capitalizeTitle(it.name))
         }
     }
-
-
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {
@@ -100,24 +99,44 @@ fun CardDetail(
                     if (showAddToDeckPopup) {
                         AddToDeckPopup(
                             onDismiss = { showAddToDeckPopup = false },
-                            onSuccess = {
+                            onAddSuccess = {
                                 showAddToDeckPopup = false
-                                showSuccessDialog = true
+                                showAddSuccessDialog = true
+                            },
+                            onDeleteSuccess = {
+                                showAddToDeckPopup = false
+                                showDeleteSuccessDialog = true
                             },
                             decksViewModel = decksViewModel,
                             userAuthenticationViewModel = userAuthenticationViewModel,
                             cardId = card.id
                         )
                     }
-                    if (showSuccessDialog) {
-                        Dialog(onDismissRequest = { showSuccessDialog = false }) {
+                    if (showAddSuccessDialog) {
+                        Dialog(onDismissRequest = { showAddSuccessDialog = false }) {
                             DialogWithText(
-                                title = "¡Éxito!",
-                                text = "La carta se ha agregado correctamente a tu mazo",
-                                button7Text = "Volver",
+                                title = stringResource(R.string.success),
+                                text = stringResource(R.string.add_to_deck_success_msg),
+                                button7Text = stringResource(R.string.back),
+                                button8Text = stringResource(R.string.go_to_decks),
+                                onClick = {
+                                    showAddSuccessDialog = false
+                                },
+                                onConfirm = {
+                                    navController.navigate(Screens.Decks.screen)
+                                }
+                            )
+                        }
+                    }
+                    if (showDeleteSuccessDialog) {
+                        Dialog(onDismissRequest = { showAddSuccessDialog = false }) {
+                            DialogWithText(
+                                title = stringResource(R.string.success),
+                                text = stringResource(R.string.delete_card_from_deck_success_msg),
+                                button7Text = stringResource(R.string.back),
                                 button8Text = "Ir a mazos",
                                 onClick = {
-                                    showSuccessDialog = false
+                                    showAddSuccessDialog = false
                                 },
                                 onConfirm = {
                                     navController.navigate(Screens.Decks.screen)

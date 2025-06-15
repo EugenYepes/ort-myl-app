@@ -1,6 +1,5 @@
 package com.ar.mylapp.auth
 
-import android.content.Context
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 

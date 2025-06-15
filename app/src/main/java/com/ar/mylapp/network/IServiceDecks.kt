@@ -13,4 +13,6 @@ interface IServiceDecks {
     suspend fun getDecks(token: String): List<DeckDTO>
 
     suspend fun addCardToDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean
+
+    suspend fun deleteCardFromDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean
 }

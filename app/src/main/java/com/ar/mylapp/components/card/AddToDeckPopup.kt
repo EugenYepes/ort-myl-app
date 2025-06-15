@@ -1,6 +1,7 @@
 package com.ar.mylapp.components.card
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -36,7 +37,8 @@ import com.ar.mylapp.viewmodel.DecksViewModel
 @Composable
 fun AddToDeckPopup(
     onDismiss: () -> Unit,
-    onSuccess: () -> Unit,
+    onAddSuccess: () -> Unit,
+    onDeleteSuccess: () -> Unit,
     decksViewModel: DecksViewModel,
     cardId: Int,
     userAuthenticationViewModel: UserAuthenticationViewModel
@@ -107,28 +109,38 @@ fun AddToDeckPopup(
             }
             Button1(
                 onClick = {
-                    val decksToAdd = numbers.mapNotNull { (deckId, newQuantity) ->
+                    val decksToAdd = mutableListOf<DeckCardProperties>()
+                    val decksToRemove = mutableListOf<DeckCardProperties>()
+
+                    numbers.forEach { (deckId, newQuantity) ->
                         val current = currentQuantities[deckId] ?: 0
                         val difference = newQuantity - current
 
-                        // Solo agregar si se quiere aumentar y no se pasa de 3
-                        if (difference > 0 && current + difference <= 3) {
-                            DeckCardProperties(deckId, difference)
-                        } else {
-                            null
+                        if (difference > 0 && newQuantity <= 3) {
+                            decksToAdd.add(DeckCardProperties(deckId, difference))
+                        } else if (difference < 0) {
+                            decksToRemove.add(DeckCardProperties(deckId, -difference))
                         }
                     }
 
-                    if (decksToAdd.isNotEmpty()) {
-                        decksViewModel.addCardToDecks(
-                            token = userAuthenticationViewModel.token.toString(),
-                            cardId = decksViewModel.selectedCardId ?: return@Button1,
-                            deckList = decksToAdd
-                        ) { success ->
+                    val token = userAuthenticationViewModel.token ?: return@Button1
+                    val cardId = decksViewModel.selectedCardId ?: return@Button1
+
+                    if (decksToRemove.isNotEmpty()) {
+                        decksViewModel.deleteCardFromDeck(token, cardId, decksToRemove) { success ->
                             if (success) {
-                                onSuccess()
+                                onDeleteSuccess()
                             } else {
-                                println("Error al agregar la carta a los mazos")
+                                Log.d("DEBUG_FLOW", "Error al eliminar cartas del mazo")
+                            }
+                        }
+                    } else if (decksToAdd.isNotEmpty()) {
+                        decksViewModel.addCardToDecks(token, cardId, decksToAdd) { success ->
+                            if (success) {
+                                onAddSuccess()
+                            }
+                            else {
+                                Log.d("DEBUG_FLOW","Error agregando la carta al mazo")
                             }
                         }
                     }

@@ -1,5 +1,6 @@
 package com.ar.mylapp.network
 
+import android.util.Log
 import ar.com.myldtos.users.DeckDTO
 import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.models.cardProperties.DeckProperties
@@ -48,6 +49,22 @@ class DeckRetrofit @Inject constructor(
             response.isSuccessful
         } catch (e: Exception) {
             println("Error al agregar carta a mazos: ${e.message}")
+            false
+        }
+    }
+
+    override suspend fun deleteCardFromDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean {
+        return try {
+            Log.d("DEBUG_DELETE", "Petición DELETE a /api/player/deckcard/$cardId")
+            deckList.forEach {
+                Log.d("DEBUG_DELETE", "DeckID: ${it.deckId}, Quantity: ${it.quantity}")
+            }
+
+            val response = service.deleteCardFromDeck(token, cardId, deckList)
+            Log.d("DEBUG_DELETE", "Código de respuesta: ${response.code()}")
+            response.isSuccessful
+        } catch (e: Exception) {
+            Log.e("DEBUG_DELETE", "Error al eliminar carta de los mazos: ${e.message}")
             false
         }
     }

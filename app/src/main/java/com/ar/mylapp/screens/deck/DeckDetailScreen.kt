@@ -12,6 +12,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -22,6 +23,7 @@ import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
+import com.ar.mylapp.components.buttons.Button2
 import com.ar.mylapp.components.buttons.Button3
 import com.ar.mylapp.components.buttons.Button4
 import com.ar.mylapp.components.card.CardGrid
@@ -31,6 +33,7 @@ import com.ar.mylapp.components.entryData.InputThree
 import com.ar.mylapp.components.entryData.InputTwo
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.title.Title1
+import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.BlackLight
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.GoldLight
@@ -136,20 +139,41 @@ fun DeckDetailScreen(
             }
         }
 
-        if(!deck.cards.isEmpty()){
-            CardGrid(
-                navController = navController,
-                cards = deck.cards.flatMap { deckCard ->
-                    List(deckCard.quantity) { deckCard.card }
-                },
-                enablePagination = false
-            )
-        } else {
-            Text(
-                text = stringResource(R.string.no_cards),
-                fontSize = 14.sp,
-                color = GoldDark
-            )
+        Column(
+            modifier = Modifier.fillMaxSize(),
+        ) {
+            Box(
+                modifier = Modifier.weight(1f).fillMaxWidth()
+            ) {
+                if (deck.cards.isNotEmpty()) {
+                    CardGrid(
+                        navController = navController,
+                        cards = deck.cards.flatMap { deckCard ->
+                            List(deckCard.quantity) { deckCard.card }
+                        },
+                        enablePagination = false
+                    )
+                } else {
+                    Text(
+                        text = stringResource(R.string.no_cards),
+                        fontSize = 14.sp,
+                        color = GoldDark,
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            }
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 8.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Button2(
+                    onClick = { navController.navigate(Screens.Cards.screen) },
+                    text = stringResource(R.string.add_cards_to_deck)
+                )
+            }
         }
     }
 }

@@ -312,4 +312,9 @@
     <string name="complete_all_fields">Completá todos los campos</string>
     <string name="update_error_adress">La dirección no puede estar vacía</string>
     <string name="update_error_url">Ingresá una URL válida (ej: www.tienda.com)</string>
+    <string name="add_cards_to_deck">AGREGAR CARTAS</string>
+    <string name="success">¡Éxito!</string>
+    <string name="add_to_deck_success_msg">La carta se ha agregado correctamente a tu mazo</string>
+    <string name="delete_card_from_deck_success_msg">La carta se ha eliminado correctamente de tu mazo</string>
+    <string name="go_to_decks">Ir a mazos</string>
 </resources>

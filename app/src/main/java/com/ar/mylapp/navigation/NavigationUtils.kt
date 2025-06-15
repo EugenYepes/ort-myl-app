@@ -17,17 +17,13 @@ fun getSectionForRoute(route: String?): String? {
     return when {
         route == Screens.Home.screen -> "Home"
         route == Screens.Cards.screen || route?.startsWith(Screens.CardDetail.screen) == true -> "Cards"
-        route == Screens.Decks.screen -> "Decks"
+        route == Screens.Decks.screen || route?.startsWith(Screens.DeckDetail.screen) == true -> "Decks"
         route == Screens.Account.screen -> "Account"
-        route == Screens.Stores.screen -> "Stores"
-        route == Screens.StoreDetail.screen -> "StoreDetail"
-        route == Screens.Hand.screen -> "Hand"
+        route == Screens.Stores.screen || route?.startsWith(Screens.StoreDetail.screen) == true -> "Stores"
         route == Screens.Guidebook.screen -> "Guidebook"
-        route == Screens.Welcome.screen -> "Welcome"
         route == Screens.Login.screen -> "Login"
         route == Screens.Register.screen -> "Register"
-        route == Screens.RestorePassword.screen -> "RestorePassword"
-        route == Screens.RegisterUser.screen -> "Register"
+        route == Screens.RegisterUser.screen  -> "Register"
         route == Screens.RegisterStore.screen -> "Register"
         else -> null
     }
@@ -47,7 +43,8 @@ private fun getNoTopBarRoutes(): List<String> {
         Screens.Register.screen,
         Screens.RegisterUser.screen,
         Screens.RegisterStore.screen,
-        Screens.RestorePassword.screen
+        Screens.RestorePassword.screen,
+        Screens.ConfirmRegister.screen
     )
 }
 

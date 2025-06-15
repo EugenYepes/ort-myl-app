@@ -9,6 +9,7 @@ import retrofit2.http.Path
 import retrofit2.Response
 import retrofit2.http.DELETE
 import retrofit2.http.GET
+import retrofit2.http.HTTP
 import retrofit2.http.Header
 import retrofit2.http.POST
 
@@ -27,6 +28,13 @@ interface DeckApiService {
 
     @POST("/api/player/deckcard/{cardId}")
     suspend fun addCardToDeck(
+        @Header("Authorization") token: String,
+        @Path("cardId") cardId: Int,
+        @Body deckList: List<DeckCardProperties>
+    ): Response<Void>
+
+    @HTTP(method = "DELETE", path = "/api/player/deckcard/{cardId}", hasBody = true)
+    suspend fun deleteCardFromDeck(
         @Header("Authorization") token: String,
         @Path("cardId") cardId: Int,
         @Body deckList: List<DeckCardProperties>

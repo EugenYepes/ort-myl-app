@@ -27,4 +27,8 @@ class DeckRepository @Inject constructor(
     suspend fun addCardToDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean {
         return deckRetrofit.addCardToDeck(token, cardId, deckList)
     }
+
+    suspend fun deleteCardFromDeck(token: String, cardId: Int, deckList: List<DeckCardProperties>): Boolean {
+        return deckRetrofit.deleteCardFromDeck(token, cardId, deckList)
+    }
 }
