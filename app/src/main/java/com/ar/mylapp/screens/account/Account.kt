@@ -27,7 +27,7 @@ import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button6
-import com.ar.mylapp.navigation.prepareUrl
+import com.ar.mylapp.utils.prepareUrl
 
 @Composable
 fun AccountScreen(

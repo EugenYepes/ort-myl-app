@@ -28,7 +28,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
-import ar.com.myldtos.users.DeckDTO
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
@@ -40,6 +39,7 @@ import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.BlackLight
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.GoldLight
+import com.ar.mylapp.utils.calculateTotalCards
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
@@ -56,9 +56,6 @@ fun DecksScreen(
 
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title)
-        authViewModel.token?.let { token ->
-            decksViewModel.loadDecks(token)
-        }
     }
 
     Column(
@@ -109,14 +106,6 @@ fun DecksScreen(
             }
         )
     }
-}
-
-private fun calculateTotalCards(deck: DeckDTO): String {
-    var total = 0
-    deck.cards.forEach { card ->
-        total += card.quantity
-    }
-    return total.toString()
 }
 
 @Composable

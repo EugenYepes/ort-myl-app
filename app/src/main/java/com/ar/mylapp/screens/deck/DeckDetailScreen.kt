@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -32,6 +31,7 @@ import com.ar.mylapp.components.dialog.DialogWithoutText
 import com.ar.mylapp.components.entryData.InputThree
 import com.ar.mylapp.components.entryData.InputTwo
 import com.ar.mylapp.components.text.Text3
+import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.components.title.Title1
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.BlackLight
@@ -59,11 +59,9 @@ fun DeckDetailScreen(
     }
 
     if (deck == null) {
-        Text(
+        Text5(
             text = stringResource(R.string.deck_not_found),
             modifier = Modifier.padding(24.dp),
-            fontSize = 16.sp,
-            color = GoldDark
         )
         return
     }
@@ -154,10 +152,8 @@ fun DeckDetailScreen(
                         enablePagination = false
                     )
                 } else {
-                    Text(
+                    Text5(
                         text = stringResource(R.string.no_cards),
-                        fontSize = 14.sp,
-                        color = GoldDark,
                         modifier = Modifier.align(Alignment.Center)
                     )
                 }
