@@ -20,6 +20,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import ar.com.myldtos.users.DeckDTO
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1

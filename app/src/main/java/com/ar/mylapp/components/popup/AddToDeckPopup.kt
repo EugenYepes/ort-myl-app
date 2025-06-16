@@ -20,6 +20,7 @@ import androidx.compose.ui.window.Dialog
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
+import com.ar.mylapp.components.card.DeckQuantityRow
 import com.ar.mylapp.components.title.Title1
 import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.ui.theme.BlackLight

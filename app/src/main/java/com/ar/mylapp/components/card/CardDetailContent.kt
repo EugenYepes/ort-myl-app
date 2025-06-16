@@ -13,6 +13,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.popup.AddToDeckPopup
+import com.ar.mylapp.components.popup.CardDetailPopup
 import com.ar.mylapp.viewmodel.DecksViewModel
 
 @Composable
@@ -56,7 +58,9 @@ fun CardDetailContent(
                 onDeleteSuccess = onDeleteSuccess,
                 decksViewModel = decksViewModel,
                 userAuthenticationViewModel = userAuthenticationViewModel,
-                cardId = card.id
+                cardId = card.id,
+                onAddFail = {},
+                onDeleteFail = {}
             )
         }
     }
