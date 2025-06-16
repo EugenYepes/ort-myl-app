@@ -1,5 +1,6 @@
 package com.ar.mylapp.screens.deck
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -9,6 +10,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -29,6 +31,7 @@ import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun DeckDetailScreen(
     deckId: Int,
@@ -54,6 +57,11 @@ fun DeckDetailScreen(
         )
         return
     }
+
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp
+    val buttonTextSize = if (screenHeightDp < 700) 16.sp else 20.sp
+
     if (showDialog) {
         EditDeckPopup(
             id = deck.id,
@@ -119,11 +127,15 @@ fun DeckDetailScreen(
         ) {
             Button3(
                 onClick = { showDialog = true },
-                text = stringResource(R.string.edit_deck)
+                text = stringResource(R.string.edit_deck),
+                buttonTextSize = buttonTextSize,
+                modifier = Modifier.weight(1f)
             )
             Button4(
                 onClick = { showDeleteDialog = true },
-                text = stringResource(R.string.delete_deck)
+                text = stringResource(R.string.delete_deck),
+                buttonTextSize = buttonTextSize,
+                modifier = Modifier.weight(1f)
             )
         }
         Column(

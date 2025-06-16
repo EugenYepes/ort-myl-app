@@ -1,14 +1,16 @@
 package com.ar.mylapp.components.buttons
 
 import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ar.mylapp.components.text.Text6
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.GoldLight
@@ -26,12 +28,15 @@ fun Button3Preview() {
 @Composable
 fun Button3(
     onClick: () -> Unit,
-    text: String
+    text: String,
+    buttonTextSize: TextUnit = 20.sp,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
         modifier = Modifier
-            .size(width = 160.dp, height = 50.dp)
+            //.size(width = 160.dp, height = 50.dp)
+            .height(50.dp)
             .border(
                 width = 1.dp,
                 color = GoldLight,
@@ -44,7 +49,8 @@ fun Button3(
     )
     {
         Text6(
-            text = text
+            text = text,
+            buttonTextSize = buttonTextSize
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.ar.mylapp.components.card
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -24,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -32,6 +34,7 @@ import coil3.compose.AsyncImage
 import com.ar.mylapp.R
 import com.ar.mylapp.navigation.Screens
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun CardGrid(
     navController: NavController,
@@ -41,10 +44,14 @@ fun CardGrid(
     enablePagination: Boolean = true
 ) {
 
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp
+    val minCardSize = if (screenHeightDp < 700) 85.dp else 100.dp
+
     val listState = rememberLazyGridState()
 
     LazyVerticalGrid(
-        columns = GridCells.Adaptive(minSize = 100.dp),
+        columns = GridCells.Adaptive(minSize = minCardSize),
         contentPadding = PaddingValues(8.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp),

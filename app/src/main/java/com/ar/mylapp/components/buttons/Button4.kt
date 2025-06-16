@@ -8,7 +8,9 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ar.mylapp.components.text.Text7
 import com.ar.mylapp.ui.theme.DarkRed
 import com.ar.mylapp.ui.theme.GoldDark
@@ -26,7 +28,9 @@ fun Button4Preview() {
 @Composable
 fun Button4(
     onClick: () -> Unit,
-    text: String
+    text: String,
+    buttonTextSize: TextUnit = 20.sp,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
@@ -46,7 +50,8 @@ fun Button4(
     ) {
         Text7(
             text = text,
-            modifier = Modifier
+            modifier = Modifier,
+            buttonTextSize = buttonTextSize
         )
     }
 }

@@ -1,5 +1,6 @@
 package com.ar.mylapp.screens.account
 
+import android.annotation.SuppressLint
 import android.view.Gravity
 import android.widget.Toast
 import androidx.compose.foundation.layout.*
@@ -29,6 +30,7 @@ import com.ar.mylapp.R
 import com.ar.mylapp.components.buttons.Button6
 import com.ar.mylapp.utils.prepareUrl
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun AccountScreen(
     navController: NavController,
@@ -36,7 +38,7 @@ fun AccountScreen(
     topBarViewModel: TopBarViewModel,
     accountViewModel: AccountViewModel
 ) {
-    var title = stringResource(R.string.topbar_account_title)
+    val title = stringResource(R.string.topbar_account_title)
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title)
         userAuthenticationViewModel.token?.let { token ->
@@ -156,6 +158,7 @@ fun AccountScreen(
                 Button6(
                     text = stringResource(R.string.update_account),
                     icon = painterResource(id = R.drawable.account_edit_icon),
+                    modifier = Modifier.width(150.dp),
                     onClick = {
                         userAuthenticationViewModel.token?.let { token ->
                             val bearerToken = token
@@ -197,6 +200,7 @@ fun AccountScreen(
                 )
                 Button6(
                     text = stringResource(R.string.sign_out),
+                    modifier = Modifier.width(150.dp),
                     icon = painterResource(id = R.drawable.logout_icon),
                     onClick = {
                         FirebaseAuthManager.logout()

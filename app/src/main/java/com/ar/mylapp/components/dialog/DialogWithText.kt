@@ -19,7 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ar.mylapp.components.buttons.Button7
 import com.ar.mylapp.components.buttons.Button8
 import com.ar.mylapp.components.text.Text8
@@ -48,7 +50,8 @@ fun DialogWithText(
     button8Text: String,
     onClick: () -> Unit,
     onConfirm: () -> Unit,
-    borderColor: Color = GoldDark
+    borderColor: Color = GoldDark,
+    buttonTextSize: TextUnit = 14.sp
 ) {
     Card(
         modifier = Modifier
@@ -96,12 +99,14 @@ fun DialogWithText(
                 Button7(
                     onClick = onClick,
                     text = button7Text,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    buttonTextSize = buttonTextSize
                 )
                 Button8(
                     onClick = onConfirm,
                     text = button8Text,
-                    modifier = Modifier.weight(1f)
+                    modifier = Modifier.weight(1f),
+                    buttonTextSize = buttonTextSize
                 )
             }
         }

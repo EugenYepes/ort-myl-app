@@ -1,10 +1,12 @@
 package com.ar.mylapp.screens.card
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -18,8 +20,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import com.ar.mylapp.R
@@ -39,6 +43,7 @@ import com.ar.mylapp.viewmodel.TopBarViewModel
 
 private enum class DialogType { ADD_SUCCESS, ADD_FAIL, DELETE_SUCCESS, DELETE_FAIL }
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun CardDetail(
     id: Int,
@@ -67,6 +72,10 @@ fun CardDetail(
         }
     }
 
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp
+    val buttonTextSize = if (screenHeightDp < 700) 12.sp else 14.sp
+
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             isLoading -> {
@@ -83,6 +92,7 @@ fun CardDetail(
                     modifier = Modifier
                         .fillMaxSize()
                         .align(Alignment.Center)
+                        .padding(top = 20.dp)
                         .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
@@ -177,7 +187,8 @@ fun CardDetail(
                                     showDialog = false
                                     navController.navigate(Screens.Decks.screen)
                                 },
-                                borderColor = borderColor
+                                borderColor = borderColor,
+                                buttonTextSize = buttonTextSize
                             )
                         }
                     }

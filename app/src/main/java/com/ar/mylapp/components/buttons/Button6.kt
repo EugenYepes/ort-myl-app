@@ -33,7 +33,8 @@ import com.ar.mylapp.ui.theme.White
 fun Button6(
     onClick: () -> Unit,
     text: String,
-    icon: Painter
+    icon: Painter,
+    modifier: Modifier = Modifier
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val textStartPadding = (screenWidth * 0.05).dp
@@ -54,7 +55,7 @@ fun Button6(
 
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .width(buttonWidth)
             .height(56.dp)
             .border(

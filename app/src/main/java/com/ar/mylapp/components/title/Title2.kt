@@ -10,6 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.R
@@ -25,14 +26,15 @@ fun Title2Preview(){
 @Composable
 fun Title2(
     title: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    titleSize: TextUnit = 32.sp
 ){
     Text(
         text = title,
         modifier = modifier,
         style = TextStyle(
-            fontSize = 32.sp,
-            lineHeight = 40.sp,
+            fontSize = titleSize,
+            lineHeight = titleSize * 1.25,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
             color = GoldDark,

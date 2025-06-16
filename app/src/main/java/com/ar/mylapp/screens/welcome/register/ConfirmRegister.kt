@@ -31,7 +31,7 @@ fun ConfirmRegister(
             verticalArrangement = Arrangement.spacedBy(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
-                .padding(top = 20.dp)
+                .padding(20.dp)
                 .align(Alignment.TopCenter)
                 .verticalScroll(rememberScrollState())
         ) {
