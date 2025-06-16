@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -38,7 +37,6 @@ import com.ar.mylapp.R
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.Black
 import com.ar.mylapp.ui.theme.GoldBeige
-import com.ar.mylapp.ui.theme.GoldDark
 
 @Composable
 fun CardGrid(

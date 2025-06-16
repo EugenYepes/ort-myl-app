@@ -30,9 +30,6 @@ sealed class Screens (val screen: String) {
     // Guidebook
     data object Guidebook: Screens("guidebook")
 
-    // Hand
-    data object Hand: Screens("hand")
-
     // Home
     data object Home: Screens("home")
 
