@@ -29,9 +29,7 @@ fun FilteredResultsScreen(
 
     val title = stringResource(R.string.topbar_cards_title)
     val subtitle = stringResource(R.string.topbar_advancesearch_subtitle)
-    LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar(title, subtitle)
-    }
+    LaunchedEffect(Unit) { topBarViewModel.setTopBar(title, subtitle) }
 
     Column(Modifier.fillMaxSize()) {
         if (error != null) {

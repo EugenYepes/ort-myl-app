@@ -57,11 +57,12 @@
     <string name="topbar_guidebook_title">¿COMÓ JUGAR?</string>
     <string name="topbar_account_title">MI CUENTA</string>
     <string name="topbar_advancesearch_subtitle">Busqueda Avanzada</string>
+    <string name="topbar_user_cards_subtitle">Mis Cartas</string>
     <string name="topbar_editaccount_subtitle">Editar</string>
     <string name="topbar_home_subtitle">👋Bienvenido a Mitos y Leyendas Companion</string>
 
     <!-- Cards -->
-    <string name="advance_search">Busqueda Avanzada</string>
+    <string name="advance_search">Filtros</string>
     <string name="cards_not_found">No se encontro ninguna carta</string>
     <string name="button_search">BUSCAR</string>
     <string name="searchbar_placeholder">Buscar carta por nombre…</string>
@@ -320,4 +321,5 @@
     <string name="fail">¡Error!</string>
     <string name="add_to_deck_error_msg">No se pudo agregar esta carta a tu/s mazo/s</string>
     <string name="delete_card_from_deck_error_msg">No se pudo eliminar esta carta de tu/s mazo/s</string>
+    <string name="user_cards">Mis Cartas</string>
 </resources>
