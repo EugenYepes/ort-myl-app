@@ -14,7 +14,7 @@ class UserDtoDeserializer : JsonDeserializer<UserDTO> {
         typeOfT: Type?,
         context: JsonDeserializationContext?
     ): UserDTO? {
-        if (json == null || context == null) return UserDTO();
+        if (json == null || context == null) return UserDTO()
 
         val jsonObject = json.asJsonObject
 

@@ -34,7 +34,9 @@ fun DialogWithTextPreview() {
         title = "Title",
         text = "Amet minim mollit non deserunt ullamco est sit aliqua dolor do amet sint. ",
         button7Text = "Label",
-        button8Text = "Label"
+        button8Text = "Label",
+        onClick = {},
+        onConfirm = {}
     )
 }
 
@@ -44,10 +46,13 @@ fun DialogWithText(
     text: String,
     button7Text: String,
     button8Text: String,
+    onClick: () -> Unit,
+    onConfirm: () -> Unit,
+    borderColor: Color = GoldDark
 ) {
     Card(
         modifier = Modifier
-            .border(width = 1.dp, color = GoldDark, shape = RoundedCornerShape(20.dp))
+            .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(20.dp))
             .shadow(
                 elevation = 16.dp,
                 spotColor = Color(0x47000000),
@@ -85,17 +90,18 @@ fun DialogWithText(
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.End,
-                verticalAlignment = Alignment.Top,
+                horizontalArrangement = Arrangement.spacedBy(8.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Button7(
-                    onClick = {},
-                    text = button7Text
+                    onClick = onClick,
+                    text = button7Text,
+                    modifier = Modifier.weight(1f)
                 )
-                Spacer(modifier = Modifier.width(4.dp))
                 Button8(
-                    onClick = {},
-                    text = button8Text
+                    onClick = onConfirm,
+                    text = button8Text,
+                    modifier = Modifier.weight(1f)
                 )
             }
         }

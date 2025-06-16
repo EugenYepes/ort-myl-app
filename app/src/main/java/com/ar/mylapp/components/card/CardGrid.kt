@@ -36,8 +36,9 @@ import com.ar.mylapp.navigation.Screens
 fun CardGrid(
     navController: NavController,
     cards: List<CardDTO>,
-    isLoading: Boolean,
-    onLoadMore: () -> Unit
+    isLoading: Boolean = false,
+    onLoadMore: () -> Unit = {},
+    enablePagination: Boolean = true
 ) {
 
     val listState = rememberLazyGridState()
@@ -56,7 +57,7 @@ fun CardGrid(
             )
         }
 
-        if (isLoading) {
+        if (enablePagination && isLoading) {
             item(span = { GridItemSpan(maxLineSpan) }) {
                 CircularProgressIndicator(
                     modifier = Modifier
@@ -68,18 +69,20 @@ fun CardGrid(
         }
     }
 
-    val shouldLoadMore = remember {
-        derivedStateOf {
-            val layoutInfo = listState.layoutInfo
-            val totalItems = layoutInfo.totalItemsCount
-            val lastVisible = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
-            lastVisible >= totalItems - 1
+    if (enablePagination) {
+        val shouldLoadMore = remember {
+            derivedStateOf {
+                val layoutInfo = listState.layoutInfo
+                val totalItems = layoutInfo.totalItemsCount
+                val lastVisible = layoutInfo.visibleItemsInfo.lastOrNull()?.index ?: 0
+                lastVisible >= totalItems - 1
+            }
         }
-    }
 
-    LaunchedEffect(shouldLoadMore.value) {
-        if (shouldLoadMore.value && !isLoading) {
-            onLoadMore()
+        LaunchedEffect(shouldLoadMore.value) {
+            if (shouldLoadMore.value && !isLoading) {
+                onLoadMore()
+            }
         }
     }
 }

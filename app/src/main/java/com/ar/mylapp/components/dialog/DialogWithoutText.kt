@@ -29,7 +29,8 @@ import com.ar.mylapp.ui.theme.GoldDark
 fun DialogWithoutTextPreview() {
     DialogWithoutText(
         title = "Title",
-        button8Text = "Label"
+        button8Text = "Label",
+        onClick = {}
     )
 }
 
@@ -37,6 +38,7 @@ fun DialogWithoutTextPreview() {
 fun DialogWithoutText(
     title: String,
     button8Text: String,
+    onClick: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -72,7 +74,7 @@ fun DialogWithoutText(
                 verticalAlignment = Alignment.Top,
             ) {
                 Button8(
-                    onClick = {},
+                    onClick = onClick,
                     text = button8Text
                 )
             }

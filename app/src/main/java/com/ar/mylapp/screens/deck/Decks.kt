@@ -1,20 +1,14 @@
 package com.ar.mylapp.screens.deck
 
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardColors
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,18 +19,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
+import ar.com.myldtos.users.DeckDTO
 import com.ar.mylapp.R
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.deck.DeckNameCard
-import com.ar.mylapp.components.entryData.InputThree
-import com.ar.mylapp.components.entryData.InputTwo
-import com.ar.mylapp.components.title.Title1
+import com.ar.mylapp.components.popup.CreateDeckPopup
 import com.ar.mylapp.navigation.Screens
-import com.ar.mylapp.ui.theme.BlackLight
-import com.ar.mylapp.ui.theme.GoldDark
-import com.ar.mylapp.ui.theme.GoldLight
+import com.ar.mylapp.utils.calculateTotalCards
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
@@ -44,9 +35,12 @@ import com.ar.mylapp.viewmodel.TopBarViewModel
 fun DecksScreen(
     navController: NavController,
     topBarViewModel: TopBarViewModel,
-    viewModel: DecksViewModel
+    decksViewModel: DecksViewModel,
+    authViewModel: UserAuthenticationViewModel
 ){
     var showDialog by remember { mutableStateOf(false) }
+    val decks by decksViewModel.decks
+
     val title = stringResource(R.string.topbar_decks_title)
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title)
@@ -56,98 +50,56 @@ fun DecksScreen(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
-            .verticalScroll(rememberScrollState()),
-        verticalArrangement = Arrangement.spacedBy(12.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        viewModel.decks.forEach { deck ->
-            DeckNameCard(
-                title2 = deck.name,
-                title3 = deck.cards.size.toString(),
-                modifier = Modifier.clickable {
-                    navController.navigate(Screens.DeckDetail.withArgs(deck.id))
-                }
-            )
+        LazyColumn(
+            modifier = Modifier
+                .weight(1f),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            items(decks) { deck ->
+                DeckNameCard(
+                    title2 = deck.name,
+                    title3 = calculateTotalCards(deck),
+                    modifier = Modifier.clickable {
+                        navController.navigate(Screens.DeckDetail.withArgs(deck.id))
+                    }
+                )
+            }
         }
 
-        Spacer(modifier = Modifier.weight(1f))
+        Spacer(modifier = Modifier.height(16.dp))
 
         Button1(
             onClick = { showDialog = true },
-            text = stringResource(R.string.new_deck)
+            text = stringResource(R.string.new_deck),
+            modifier = Modifier.align(Alignment.CenterHorizontally)
         )
-
-        if (showDialog) {
-            CreateDeckPopup(
-                onDismiss = { showDialog = false },
-                onConfirm = { name, desc ->
-                    viewModel.addDeck(name, desc)
-                    showDialog = false
-                }
-            )
-        }
     }
-}
 
-@Composable
-fun CreateDeckPopup(
-    onDismiss: () -> Unit,
-    onConfirm: (String, String) -> Unit
-) {
-    var name by remember { mutableStateOf("") }
-    var description by remember { mutableStateOf("") }
 
-    Dialog(onDismissRequest = onDismiss) {
-        Box(
-            modifier = Modifier
-                .width(400.dp)
-                .height(600.dp)
-                .padding(16.dp)
-                .border(2.dp, GoldLight, shape = RoundedCornerShape(12.dp))
-        ) {
-            Card(
-                colors = CardColors(
-                    containerColor = BlackLight,
-                    contentColor = GoldDark,
-                    disabledContentColor = GoldDark,
-                    disabledContainerColor = BlackLight
-                ),
-                modifier = Modifier
-                    .fillMaxSize(),
-                shape = RoundedCornerShape(12.dp)
-            ) {
-                Column(
-                    modifier = Modifier
-                        .padding(24.dp)
-                        .fillMaxSize(),
-                    verticalArrangement = Arrangement.spacedBy(20.dp)
-                ) {
-                    Title1(title = stringResource(R.string.new_deck))
-
-                    InputTwo(
-                        label = stringResource(R.string.deck_name),
-                        initialValue = name,
-                        onValueChange = { name = it }
-                    )
-
-                    InputThree(
-                        label = stringResource(R.string.description),
-                        initialValue = description,
-                        onValueChange = { description = it }
-                    )
-
-                    Spacer(modifier = Modifier.weight(1f))
-
-                    Button1(
-                        onClick = {
-                            if (name.isNotBlank()) {
-                                onConfirm(name, description)
-                            }
-                        },
-                        text = stringResource(R.string.create_deck)
+    if (showDialog) {
+        CreateDeckPopup(
+            onDismiss = { showDialog = false },
+            onConfirm = { name, description ->
+                authViewModel.token?.let { token ->
+                    decksViewModel.addDeck(
+                        token = token,
+                        name = name,
+                        description = description,
+                        onResult = { showDialog = false }
                     )
                 }
             }
-        }
+        )
     }
 }
+
+private fun calculateTotalCards(deck: DeckDTO): String {
+    var total = 0
+    deck.cards.forEach { card ->
+        total += card.quantity
+    }
+    return total.toString()
+}
+

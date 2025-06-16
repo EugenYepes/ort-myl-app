@@ -24,8 +24,8 @@ import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.core.net.toUri
 import com.ar.mylapp.components.text.Text1
-import com.ar.mylapp.navigation.getDisplayUrl
-import com.ar.mylapp.navigation.prepareUrl
+import com.ar.mylapp.utils.getDisplayUrl
+import com.ar.mylapp.utils.prepareUrl
 
 @Composable
 fun StoreDetailScreen(

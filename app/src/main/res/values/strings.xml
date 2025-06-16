@@ -287,6 +287,15 @@
     <string name="no_cards">Todavía no hay cartas.</string>
     <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
     <string name="delete_account_toast">Cuenta eliminada. Hasta la próxima!</string>
+    <string name="edit_deck">Editar Mazo</string>
+    <string name="delete_deck">Eliminar Mazo</string>
+    <string name="edit_success_title">Se ha editado el mazo</string>
+    <string name="edit_success_button">Volver</string>
+    <string name="delete_deck_title">Confirmar eliminación</string>
+    <string name="delete_deck_text">El mazo se eliminara por siempre y no podras recuperarlo</string>
+    <string name="no_description">Sin descripción</string>
+    <string name="add_to_deck">Agregar a mis Mazos</string>
+    <string name="confirm">Confirmar</string>
 
     <!-- Account -->
     <string name="update_info_toast">Datos actualizados correctamente</string>
@@ -303,4 +312,12 @@
     <string name="complete_all_fields">Completá todos los campos</string>
     <string name="update_error_adress">La dirección no puede estar vacía</string>
     <string name="update_error_url">Ingresá una URL válida (ej: www.tienda.com)</string>
+    <string name="add_cards_to_deck">AGREGAR CARTAS</string>
+    <string name="success">¡Éxito!</string>
+    <string name="add_to_deck_success_msg">La carta se ha agregado correctamente a tu mazo</string>
+    <string name="delete_card_from_deck_success_msg">La carta se ha eliminado correctamente de tu mazo</string>
+    <string name="go_to_decks">Ir a mazos</string>
+    <string name="fail">¡Error!</string>
+    <string name="add_to_deck_error_msg">No se pudo agregar esta carta a tu/s mazo/s</string>
+    <string name="delete_card_from_deck_error_msg">No se pudo eliminar esta carta de tu/s mazo/s</string>
 </resources>
