@@ -47,11 +47,12 @@ fun DialogWithText(
     button7Text: String,
     button8Text: String,
     onClick: () -> Unit,
-    onConfirm: () -> Unit
+    onConfirm: () -> Unit,
+    borderColor: Color = GoldDark
 ) {
     Card(
         modifier = Modifier
-            .border(width = 1.dp, color = GoldDark, shape = RoundedCornerShape(20.dp))
+            .border(width = 1.dp, color = borderColor, shape = RoundedCornerShape(20.dp))
             .shadow(
                 elevation = 16.dp,
                 spotColor = Color(0x47000000),

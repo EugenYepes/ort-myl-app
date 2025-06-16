@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.card
+package com.ar.mylapp.components.popup
 
 import android.annotation.SuppressLint
 import android.util.Log
@@ -39,14 +39,18 @@ fun AddToDeckPopup(
     onDismiss: () -> Unit,
     onAddSuccess: () -> Unit,
     onDeleteSuccess: () -> Unit,
+    onAddFail: () -> Unit,
+    onDeleteFail: () -> Unit,
     decksViewModel: DecksViewModel,
     cardId: Int,
     userAuthenticationViewModel: UserAuthenticationViewModel
-){
+) {
     val currentQuantities = remember { mutableStateMapOf<Int, Int>() }
     val numbers = remember { mutableStateMapOf<Int, Int>() }
+    val hasLoaded = remember { mutableStateMapOf<String, Boolean>() } // evita múltiple carga
 
-    LaunchedEffect(decksViewModel.decks.value, cardId) {
+    LaunchedEffect(key1 = true) {
+        if (hasLoaded["$cardId"] == true) return@LaunchedEffect
         val updatedQuantities = decksViewModel.getCardQuantitiesForCard(cardId)
         currentQuantities.clear()
         currentQuantities.putAll(updatedQuantities)
@@ -55,6 +59,8 @@ fun AddToDeckPopup(
         decksViewModel.decks.value.forEach { deck ->
             numbers[deck.id] = updatedQuantities[deck.id] ?: 0
         }
+
+        hasLoaded["$cardId"] = true
     }
 
     Dialog(onDismissRequest = onDismiss) {
@@ -107,6 +113,7 @@ fun AddToDeckPopup(
                     }
                 }
             }
+
             Button1(
                 onClick = {
                     val decksToAdd = mutableListOf<DeckCardProperties>()
@@ -124,23 +131,22 @@ fun AddToDeckPopup(
                     }
 
                     val token = userAuthenticationViewModel.token ?: return@Button1
-                    val cardId = decksViewModel.selectedCardId ?: return@Button1
 
                     if (decksToRemove.isNotEmpty()) {
                         decksViewModel.deleteCardFromDeck(token, cardId, decksToRemove) { success ->
                             if (success) {
+                                decksViewModel.loadDecks(token)
                                 onDeleteSuccess()
                             } else {
-                                Log.d("DEBUG_FLOW", "Error al eliminar cartas del mazo")
+                                onDeleteFail()
                             }
                         }
                     } else if (decksToAdd.isNotEmpty()) {
                         decksViewModel.addCardToDecks(token, cardId, decksToAdd) { success ->
                             if (success) {
                                 onAddSuccess()
-                            }
-                            else {
-                                Log.d("DEBUG_FLOW","Error agregando la carta al mazo")
+                            } else {
+                                onAddFail()
                             }
                         }
                     }

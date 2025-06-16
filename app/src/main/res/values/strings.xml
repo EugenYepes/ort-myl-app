@@ -317,4 +317,7 @@
     <string name="add_to_deck_success_msg">La carta se ha agregado correctamente a tu mazo</string>
     <string name="delete_card_from_deck_success_msg">La carta se ha eliminado correctamente de tu mazo</string>
     <string name="go_to_decks">Ir a mazos</string>
+    <string name="fail">¡Error!</string>
+    <string name="add_to_deck_error_msg">No se pudo agregar esta carta a tu/s mazo/s</string>
+    <string name="delete_card_from_deck_error_msg">No se pudo eliminar esta carta de tu/s mazo/s</string>
 </resources>

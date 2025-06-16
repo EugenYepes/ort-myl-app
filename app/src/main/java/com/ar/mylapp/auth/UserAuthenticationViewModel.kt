@@ -12,6 +12,7 @@ import ar.com.myldtos.users.StoreDTO
 import androidx.navigation.NavController
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.repository.AuthRepository
+import com.ar.mylapp.viewmodel.DecksViewModel
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -35,6 +36,7 @@ class UserAuthenticationViewModel @Inject constructor(
 
     fun onLoginClicked(
         navController: NavController,
+        decksViewModel: DecksViewModel
     ) {
         if (email.isBlank() || password.isBlank()) {
             error = "Completá email y contraseña"
@@ -48,10 +50,7 @@ class UserAuthenticationViewModel @Inject constructor(
                 viewModelScope.launch {
                     val response = authRepository.login("Bearer $idToken")
                     if (response.isSuccessful) {
-                        val loginData = response.body()
-                        loginData?.let {
-                            Log.d("LOGIN", "UUID: ${it.uuid}, Email: ${it.email}")
-                        }
+                        decksViewModel.loadDecks(idToken)
                         navController.navigate(Screens.Home.screen) {
                             popUpTo(0) { inclusive = true }
                         }
