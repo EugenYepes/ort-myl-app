@@ -32,7 +32,6 @@ import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.deck.DeckNameCard
 import com.ar.mylapp.components.popup.CreateDeckPopup
 import com.ar.mylapp.navigation.Screens
-import com.ar.mylapp.utils.calculateTotalCards
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
