@@ -1,4 +1,4 @@
-package com.ar.mylapp.components.card
+package com.ar.mylapp.components.popup
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border

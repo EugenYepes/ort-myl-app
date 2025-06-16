@@ -199,7 +199,7 @@ fun AccountScreen(
                     text = stringResource(R.string.sign_out),
                     icon = painterResource(id = R.drawable.logout_icon),
                     onClick = {
-                        FirebaseAuthManager.logout(context)
+                        FirebaseAuthManager.logout()
                         userAuthenticationViewModel.clearSession()
                         accountViewModel.clearUserData()
                         navController.navigate(Screens.Login.screen) {

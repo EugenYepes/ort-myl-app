@@ -36,11 +36,12 @@ fun Button7Preview() {
 @Composable
 fun Button7(
     onClick: () -> Unit,
-    text: String
+    text: String,
+    modifier: Modifier = Modifier
 ) {
     Button(
         onClick = onClick,
-        modifier = Modifier
+        modifier = modifier
             .wrapContentWidth()
             .height(50.dp)
             .padding(horizontal = 6.dp)

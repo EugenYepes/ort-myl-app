@@ -4,7 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -13,7 +13,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -23,61 +22,49 @@ import com.ar.mylapp.ui.theme.BlackLight
 import com.ar.mylapp.ui.theme.GoldBeige
 import com.ar.mylapp.viewmodel.NumberPickerViewModel
 
-@Preview(showBackground = true, backgroundColor = 0xFF00FF00)
-@Composable
-fun NumberPickerPreview(){
-    NumberPicker(
-        modifier = Modifier.width(150.dp),
-        min = 0,
-        max = 5,
-    )
-}
-
 @Composable
 fun NumberPicker(
     modifier: Modifier = Modifier,
     min: Int = 0,
     max: Int = 3,
-    viewModel: NumberPickerViewModel = viewModel()
+    number: Int,
+    onValueChange: (Int) -> Unit
 ) {
-    val number = viewModel.number
-
     Row(
         modifier = modifier
-            .width(200.dp)
             .background(
                 color = BlackLight,
-                shape = RoundedCornerShape(100.dp)
+                shape = RoundedCornerShape(50.dp)
             )
-            .padding(
-                horizontal = 20.dp,
-                vertical = 8.dp
-            ),
+            .padding(horizontal = 8.dp, vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
     ) {
-
         PickerButton(
             icon = stringResource(R.string.remove),
-            modifier = Modifier.weight(1f),
-            onClick = { viewModel.decrement(min) }
+            modifier = Modifier.size(28.dp),
+            onClick = {
+                val newValue = (number - 1).coerceAtLeast(min)
+                onValueChange(newValue)
+            }
         )
 
         Text(
             text = number.toString(),
             color = GoldBeige,
-            fontSize = 24.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center,
-            modifier = Modifier.weight(1f),
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
 
         PickerButton(
             icon = stringResource(R.string.add),
-            modifier = Modifier.weight(1f),
-            onClick = { viewModel.increment(max) }
+            modifier = Modifier.size(28.dp),
+            onClick = {
+                val newValue = (number + 1).coerceAtMost(max)
+                onValueChange(newValue)
+            }
         )
     }
 }
-
-

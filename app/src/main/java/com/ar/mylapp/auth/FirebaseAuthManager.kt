@@ -1,6 +1,5 @@
 package com.ar.mylapp.auth
 
-import android.content.Context
 import android.util.Log
 import com.google.firebase.auth.FirebaseAuth
 
@@ -48,31 +47,25 @@ object FirebaseAuthManager {
                         }
                         .addOnFailureListener {
                             onError("Error al obtener el token: ${it.message}")
+                            Log.d("LOGIN", "Error al obtener el token: ${it.message}")
                         }
                 } else {
                     // Se hace un signout porque para verificar el email verificado
                     // primero tiene que conectarse
                     FirebaseAuth.getInstance().signOut()
                     onError("Debes verificar tu correo antes de ingresar. Revisa tu bandeja de entrada.")
+                    Log.d("LOGIN", "Correo no verificado")
                 }
             }
-            //.addOnFailureListener { onError(it.message ?: "Login fallido") }
-            .addOnFailureListener { onError(getTranslatedErrorMessage(it)) }
+            .addOnFailureListener {
+                onError(it.message ?: "Login Fallido")
+                Log.d("LOGIN", ("Error en el Login -> " + it.message))
+            }
     }
 
-    fun logout(context: Context) {
+    fun logout() {
         FirebaseAuth.getInstance().signOut()
-        // Cerrar sesión exclusivamente de Google
-        /* GoogleSignIn.getClient(
-            context,
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("1055501727698-j0umm7kllbvpgoufnbvrnsfu1ap2mm5b.apps.googleusercontent.com")
-                .requestEmail()
-                .build()
-        ).signOut() */
     }
-
-    fun getCurrentUserEmail(): String? = auth.currentUser?.email
 
     fun resetPassword(
         email: String,
