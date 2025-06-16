@@ -63,7 +63,7 @@ fun NavigationScreens(
 
         //* Cards
         composable(Screens.Cards.screen) {
-            CardsScreen(navController, cardViewModel, topBarViewModel)
+            CardsScreen(navController, cardViewModel, topBarViewModel, userAuthenticationViewModel)
         }
 
         composable(
@@ -88,15 +88,6 @@ fun NavigationScreens(
             FilteredResultsScreen(
                 navController = navController,
                 viewModel = cardViewModel,
-                topBarViewModel = topBarViewModel
-            )
-        }
-
-        composable(Screens.UserCards.screen) {
-            UserCards(
-                navController = navController,
-                cardViewModel = cardViewModel,
-                userAuthenticationViewModel = userAuthenticationViewModel,
                 topBarViewModel = topBarViewModel
             )
         }
@@ -203,12 +194,21 @@ fun NavigationScreens(
                 onDenied = { WelcomeScreen(navController) }
             )
         }
+
         composable(
             route = "${Screens.DeckDetail.screen}/{deckId}",
             arguments = listOf(navArgument("deckId") { type = NavType.IntType })
         ) { backStackEntry ->
             val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
             DeckDetailScreen(deckId, topBarViewModel, deckViewModel, authViewModel = userAuthenticationViewModel, navController)
+        }
+
+        composable(Screens.UserCards.screen) {
+            AuthGate(
+                isAllowed = isLoggedIn,
+                onAllowed = { UserCards(navController, cardViewModel, userAuthenticationViewModel, topBarViewModel) },
+                onDenied = { WelcomeScreen(navController) }
+            )
         }
 
         //* Account

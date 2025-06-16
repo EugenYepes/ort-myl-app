@@ -1,6 +1,7 @@
 package com.ar.mylapp.components.buttons
 
 import android.annotation.SuppressLint
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldLight
+import com.ar.mylapp.ui.theme.Gray
 import com.ar.mylapp.ui.theme.GreenDark
 import com.ar.mylapp.ui.theme.White
 
@@ -33,7 +35,8 @@ import com.ar.mylapp.ui.theme.White
 fun Button6(
     onClick: () -> Unit,
     text: String,
-    icon: Painter
+    icon: Painter,
+    enabled: Boolean = true
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val textStartPadding = (screenWidth * 0.05).dp
@@ -54,23 +57,27 @@ fun Button6(
 
     Button(
         onClick = onClick,
+        enabled = enabled,
         modifier = Modifier
             .width(buttonWidth)
             .height(56.dp)
             .border(
                 width = 1.dp,
-                color = GoldLight,
+                color = if (enabled) GoldLight else Gray,
                 shape = RoundedCornerShape(size = 20.dp)
             ),
         contentPadding = PaddingValues(horizontal = 12.dp),
         colors = ButtonDefaults.buttonColors(
             containerColor = GreenDark,
-            contentColor = White
+            contentColor = White,
+            disabledContainerColor = GreenDark.copy(alpha = 0.5f),
+            disabledContentColor = White.copy(alpha = 0.5f)
         ),
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = icon,
+                colorFilter = if (!enabled) ColorFilter.tint(Gray) else null,
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier

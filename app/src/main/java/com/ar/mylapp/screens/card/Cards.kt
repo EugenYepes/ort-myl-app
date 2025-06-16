@@ -20,6 +20,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ar.mylapp.R
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button6
 import com.ar.mylapp.components.card.CardGrid
 import com.ar.mylapp.components.entryData.MySearchBar
@@ -34,6 +35,7 @@ fun CardsScreen(
     navController: NavController,
     viewModel: CardViewModel = viewModel(),
     topBarViewModel: TopBarViewModel,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ) {
     val title = stringResource(R.string.topbar_cards_title)
     LaunchedEffect(Unit) { topBarViewModel.setTopBar(title) }
@@ -72,7 +74,8 @@ fun CardsScreen(
                 Button6(
                     onClick = { navController.navigate(Screens.UserCards.screen) },
                     icon = painterResource(id = R.drawable.user_cards_icon),
-                    text = stringResource(R.string.user_cards)
+                    text = stringResource(R.string.user_cards),
+                    enabled = userAuthenticationViewModel.isLoggedIn()
                 )
             }
 
