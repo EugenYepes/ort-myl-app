@@ -26,6 +26,7 @@ import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.popup.AddToDeckPopup
 import com.ar.mylapp.components.card.CardDetailImage
+import com.ar.mylapp.components.card.UserCardsPicker
 import com.ar.mylapp.components.popup.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
 import com.ar.mylapp.components.dialog.DialogWithText
@@ -42,21 +43,21 @@ private enum class DialogType { ADD_SUCCESS, ADD_FAIL, DELETE_SUCCESS, DELETE_FA
 fun CardDetail(
     id: Int,
     topBarViewModel: TopBarViewModel,
-    viewModel: CardViewModel,
+    cardViewModel: CardViewModel,
     userAuthenticationViewModel: UserAuthenticationViewModel,
     decksViewModel: DecksViewModel,
     navController: NavController
 ) {
-    val card = viewModel.selectedCard
-    val isLoading = viewModel.isCardDetailLoading
-    val error = viewModel.cardDetailError
+    val card = cardViewModel.selectedCard
+    val isLoading = cardViewModel.isCardDetailLoading
+    val error = cardViewModel.cardDetailError
     var showCardDetailPopup by remember { mutableStateOf(false) }
     var showAddToDeckPopup by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var dialogType by remember { mutableStateOf<DialogType?>(null) }
 
     LaunchedEffect(id) {
-        viewModel.loadCardById(id)
+        cardViewModel.loadCardById(id)
     }
 
     val title = stringResource(R.string.topbar_cards_title)
@@ -98,6 +99,12 @@ fun CardDetail(
                         },
                         userAuthenticationViewModel = userAuthenticationViewModel
                     )
+                    UserCardsPicker(
+                        cardId = card.id,
+                        cardViewModel = cardViewModel,
+                        token = userAuthenticationViewModel.token
+                    )
+
                     if (showCardDetailPopup) {
                         CardDetailPopup(onDismiss = { showCardDetailPopup = false }, card)
                     }

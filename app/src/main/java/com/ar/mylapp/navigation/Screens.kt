@@ -19,6 +19,7 @@ sealed class Screens (val screen: String) {
     }
     data object AdvanceSearch: Screens("advanceSearch")
     data object FilteredResults: Screens("filteredResults")
+    data object UserCards: Screens("userCards")
 
     // Decks
     data object Decks: Screens("decks")

@@ -3,6 +3,8 @@ package com.ar.mylapp.network
 import android.util.Log
 import ar.com.myldtos.cards.CardDTO
 import com.ar.mylapp.models.cardProperties.CardPropertiesDTO
+import com.ar.mylapp.models.cardProperties.PlayerCardProperties
+import com.ar.mylapp.models.cardProperties.PlayerCardRequest
 import javax.inject.Inject
 
 class CardRetrofit @Inject constructor(
@@ -74,6 +76,22 @@ class CardRetrofit @Inject constructor(
             "Colecciones" to service.getCollections(),
             "Palabras clave" to service.getKeywords()
         )
+    }
+
+    suspend fun getPlayerCards(token: String, page: Int, pageSize: Int): List<PlayerCardProperties> {
+        val response = service.getPlayerCards(token, page, pageSize)
+        if (response.isSuccessful) return response.body().orEmpty()
+        else throw Exception("Error al obtener cartas del jugador: ${response.code()}")
+    }
+
+    suspend fun addPlayerCards(token: String, cards: List<PlayerCardRequest>): Boolean {
+        val response = service.addPlayerCards(token, cards)
+        return response.isSuccessful
+    }
+
+    suspend fun deletePlayerCards(token: String, cards: List<PlayerCardRequest>): Boolean {
+        val response = service.deletePlayerCards(token, cards)
+        return response.isSuccessful
     }
 }
 

@@ -16,6 +16,7 @@ import com.ar.mylapp.screens.card.AdvancedSearchScreen
 import com.ar.mylapp.screens.card.CardDetail
 import com.ar.mylapp.screens.card.CardsScreen
 import com.ar.mylapp.screens.card.FilteredResultsScreen
+import com.ar.mylapp.screens.card.UserCards
 import com.ar.mylapp.screens.deck.DeckDetailScreen
 import com.ar.mylapp.screens.deck.DecksScreen
 import com.ar.mylapp.screens.guidebook.GuidebookScreen
@@ -87,6 +88,15 @@ fun NavigationScreens(
             FilteredResultsScreen(
                 navController = navController,
                 viewModel = cardViewModel,
+                topBarViewModel = topBarViewModel
+            )
+        }
+
+        composable(Screens.UserCards.screen) {
+            UserCards(
+                navController = navController,
+                cardViewModel = cardViewModel,
+                userAuthenticationViewModel = userAuthenticationViewModel,
                 topBarViewModel = topBarViewModel
             )
         }
