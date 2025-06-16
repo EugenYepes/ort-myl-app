@@ -50,9 +50,7 @@ class UserAuthenticationViewModel @Inject constructor(
                 viewModelScope.launch {
                     val response = authRepository.login("Bearer $idToken")
                     if (response.isSuccessful) {
-                        token?.let { token ->
-                            decksViewModel.loadDecks(token)
-                        }
+                        decksViewModel.loadDecks(idToken)
                         navController.navigate(Screens.Home.screen) {
                             popUpTo(0) { inclusive = true }
                         }

@@ -117,19 +117,13 @@ class DecksViewModel @Inject constructor(
     ) {
         viewModelScope.launch {
             try {
-                Log.d("DEBUG_DELETE", "Llamando a deleteCardFromDeck con:")
-                Log.d("DEBUG_DELETE", "Token: $token")
-                Log.d("DEBUG_DELETE", "Card ID: $cardId")
-                deckList.forEach {
-                    Log.d("DEBUG_DELETE", "deckId: ${it.deckId}, quantity: ${it.quantity}")
-                }
-
                 val success = repository.deleteCardFromDeck("Bearer $token", cardId, deckList)
-                Log.d("DEBUG_DELETE", "Resultado: $success")
-
+                if (success) {
+                    loadDecks(token)
+                }
                 onResult(success)
             } catch (e: Exception) {
-                Log.e("DEBUG_DELETE", "Error al eliminar carta del mazo: ${e.message}")
+                Log.e("DecksViewModel", "Error al eliminar carta del mazo: ${e.message}")
                 onResult(false)
             }
         }
