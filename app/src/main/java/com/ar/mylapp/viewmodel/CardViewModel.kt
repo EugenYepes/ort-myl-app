@@ -6,6 +6,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ar.com.myldtos.cards.CardDTO
+import com.ar.mylapp.models.cardProperties.CardId
+import com.ar.mylapp.models.cardProperties.PlayerCardProperties
+import com.ar.mylapp.models.cardProperties.PlayerCardRequest
 import com.ar.mylapp.repository.GetServiceCardRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -25,13 +28,6 @@ class CardViewModel @Inject constructor(
     var errorMessage by mutableStateOf<String?>(null)
         private set
 
-    var filteredCards by mutableStateOf<List<CardDTO>>(emptyList())
-    private var filters: Map<String, List<Int>> = emptyMap()
-
-    private var currentPage = 1
-    private val pageSize = 15
-    private var endReached = false
-
     var selectedCard by mutableStateOf<CardDTO?>(null)
         private set
 
@@ -40,6 +36,13 @@ class CardViewModel @Inject constructor(
 
     var cardDetailError by mutableStateOf<String?>(null)
         private set
+
+    var filteredCards by mutableStateOf<List<CardDTO>>(emptyList())
+    private var filters: Map<String, List<Int>> = emptyMap()
+
+    private var currentPage = 1
+    private val pageSize = 15
+    private var endReached = false
 
     init {
         loadMoreCards()
@@ -134,5 +137,72 @@ class CardViewModel @Inject constructor(
                 isLoading = false
             }
         }
+    }
+
+    private var currentUserCardsPage = 1
+    private val userCardsPageSize = 15
+    private var userCardsEndReached = false
+    var userCards by mutableStateOf<List<PlayerCardProperties>>(emptyList())
+        private set
+
+    fun loadMoreUserCards(token: String) {
+        if (isLoading || userCardsEndReached) return
+
+        viewModelScope.launch {
+            isLoading = true
+            try {
+                val result = cardRepository.getUserCards("Bearer $token", currentUserCardsPage, userCardsPageSize)
+                if (result.isEmpty()) {
+                    userCardsEndReached = true
+                } else {
+                    userCards = userCards + result
+                    currentUserCardsPage++
+                    errorMessage = null
+                }
+            } catch (e: Exception) {
+                errorMessage = "Error al obtener cartas obtenidas: ${e.message}"
+            } finally {
+                isLoading = false
+            }
+        }
+    }
+
+    fun resetAndLoadUserCards(token: String) {
+        userCards = emptyList()
+        currentUserCardsPage = 1
+        userCardsEndReached = false
+        loadMoreUserCards(token)
+    }
+
+    fun addCardToUserCards(token: String, cardId: Int, quantity: Int) {
+        viewModelScope.launch {
+            try {
+                val success = cardRepository.addPlayerCards(
+                    "Bearer $token",
+                    listOf(PlayerCardRequest(CardId(cardId), quantity))
+                )
+                if (success) loadMoreUserCards(token) else errorMessage = "Error al agregar carta"
+            } catch (e: Exception) {
+                errorMessage = "Error al agregar carta: ${e.message}"
+            }
+        }
+    }
+
+    fun removeCardFromUserCards(token: String, cardId: Int, quantity: Int) {
+        viewModelScope.launch {
+            try {
+                val success = cardRepository.deletePlayerCards(
+                    "Bearer $token",
+                    listOf(PlayerCardRequest(CardId(cardId), quantity))
+                )
+                if (success) loadMoreUserCards(token) else errorMessage = "Error al eliminar carta"
+            } catch (e: Exception) {
+                errorMessage = "Error al eliminar carta: ${e.message}"
+            }
+        }
+    }
+
+    fun getQuantityOfObtainedCard(cardId: Int): Int {
+        return userCards.firstOrNull { it.card.id == cardId }?.quantity ?: 0
     }
 }

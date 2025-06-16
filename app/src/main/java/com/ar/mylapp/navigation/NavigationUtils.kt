@@ -16,7 +16,7 @@ fun getHomeButtonsGridInfo() : List<Triple<String, Int, String>> {
 fun getSectionForRoute(route: String?): String? {
     return when {
         route == Screens.Home.screen -> "Home"
-        route == Screens.Cards.screen || route?.startsWith(Screens.CardDetail.screen) == true -> "Cards"
+        route == Screens.Cards.screen || route?.startsWith(Screens.CardDetail.screen) == true || route?.startsWith(Screens.UserCards.screen) == true || route?.startsWith(Screens.AdvanceSearch.screen) == true || route?.startsWith(Screens.FilteredResults.screen) == true -> "Cards"
         route == Screens.Decks.screen || route?.startsWith(Screens.DeckDetail.screen) == true -> "Decks"
         route == Screens.Account.screen -> "Account"
         route == Screens.Stores.screen || route?.startsWith(Screens.StoreDetail.screen) == true -> "Stores"

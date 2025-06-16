@@ -1,7 +1,9 @@
 package com.ar.mylapp.repository
 
 import ar.com.myldtos.cards.CardDTO
+import com.ar.mylapp.models.cardProperties.PlayerCardProperties
 import com.ar.mylapp.models.cardProperties.CardPropertiesDTO
+import com.ar.mylapp.models.cardProperties.PlayerCardRequest
 import com.ar.mylapp.network.CardRetrofit
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -30,4 +32,15 @@ class GetServiceCardRepository @Inject constructor(
         cardRetrofit.searchCardsByName(name, page, pageSize)
     }
 
+    suspend fun getUserCards(token: String, page: Int = 1, pageSize: Int = 10): List<PlayerCardProperties> {
+        return cardRetrofit.getPlayerCards(token, page, pageSize)
+    }
+
+    suspend fun addPlayerCards(token: String, cards: List<PlayerCardRequest>): Boolean {
+        return cardRetrofit.addPlayerCards(token, cards)
+    }
+
+    suspend fun deletePlayerCards(token: String, cards: List<PlayerCardRequest>): Boolean {
+        return cardRetrofit.deletePlayerCards(token, cards)
+    }
 }

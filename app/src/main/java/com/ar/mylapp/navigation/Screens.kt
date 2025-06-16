@@ -19,6 +19,7 @@ sealed class Screens (val screen: String) {
     }
     data object AdvanceSearch: Screens("advanceSearch")
     data object FilteredResults: Screens("filteredResults")
+    data object UserCards: Screens("userCards")
 
     // Decks
     data object Decks: Screens("decks")
@@ -28,9 +29,6 @@ sealed class Screens (val screen: String) {
 
     // Guidebook
     data object Guidebook: Screens("guidebook")
-
-    // Hand
-    data object Hand: Screens("hand")
 
     // Home
     data object Home: Screens("home")

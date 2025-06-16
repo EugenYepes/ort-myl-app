@@ -32,14 +32,11 @@ fun AdvancedSearchScreen(
     val options = viewModel.dropdownOptions
     val isLoading = viewModel.isLoading
     val error = viewModel.error
+
     val title = stringResource(R.string.topbar_cards_title)
     val subtitle = stringResource(R.string.topbar_advancesearch_subtitle)
-
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title, subtitle)
-    }
-
-    LaunchedEffect(Unit) {
         viewModel.loadOptions()
     }
 
