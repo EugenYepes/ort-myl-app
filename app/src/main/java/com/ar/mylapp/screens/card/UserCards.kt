@@ -19,30 +19,20 @@ fun UserCards(
 ){
     val title = stringResource(R.string.topbar_cards_title)
     val subtitle = stringResource(R.string.topbar_user_cards_subtitle)
-    LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar(title, subtitle)
-    }
+    LaunchedEffect(Unit) { topBarViewModel.setTopBar(title, subtitle) }
 
     val token = userAuthenticationViewModel.token
     LaunchedEffect(token) {
-        token?.let {
-            cardViewModel.resetAndLoadUserCards(it)
-        }
+        token?.let { cardViewModel.resetAndLoadUserCards(it) }
     }
 
     CardGrid(
         navController = navController,
         cards = cardViewModel.userCards.map { it.card },
         isLoading = cardViewModel.isLoading,
-        onLoadMore = {
-            token?.let {
-                cardViewModel.loadMoreUserCards(it)
-            }
-        },
+        onLoadMore = { token?.let { cardViewModel.loadMoreUserCards(it) } },
         enablePagination = true,
         showQuantityNumber = true,
-        getQuantityForCard = { card ->
-            cardViewModel.userCards.firstOrNull { it.card.id == card.id }?.quantity ?: 0
-        }
+        getQuantityForCard = { card -> cardViewModel.userCards.firstOrNull { it.card.id == card.id }?.quantity ?: 0 }
     )
 }

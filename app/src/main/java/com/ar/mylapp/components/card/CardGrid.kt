@@ -50,7 +50,6 @@ fun CardGrid(
     showQuantityNumber: Boolean = false,
     getQuantityForCard: ((CardDTO) -> Int)? = null
 ) {
-
     val listState = rememberLazyGridState()
 
     LazyVerticalGrid(
@@ -96,9 +95,7 @@ fun CardGrid(
         }
 
         LaunchedEffect(shouldLoadMore.value) {
-            if (shouldLoadMore.value && !isLoading) {
-                onLoadMore()
-            }
+            if (shouldLoadMore.value && !isLoading) { onLoadMore() }
         }
     }
 }

@@ -36,9 +36,7 @@ fun CardsScreen(
     topBarViewModel: TopBarViewModel,
 ) {
     val title = stringResource(R.string.topbar_cards_title)
-    LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar(title)
-    }
+    LaunchedEffect(Unit) { topBarViewModel.setTopBar(title) }
 
     val searchCardViewModel: SearchCardViewModel = hiltViewModel()
     val searchQuery = searchCardViewModel.searchQuery
@@ -58,9 +56,7 @@ fun CardsScreen(
             MySearchBar(
                 placeholder = stringResource(R.string.searchbar_placeholder),
                 searchQuery = searchCardViewModel.searchQuery,
-                onValueChange = {
-                    searchCardViewModel.updateQuery(it)
-                }
+                onValueChange = { searchCardViewModel.updateQuery(it) }
             )
             Spacer(modifier = Modifier.size(10.dp))
 
