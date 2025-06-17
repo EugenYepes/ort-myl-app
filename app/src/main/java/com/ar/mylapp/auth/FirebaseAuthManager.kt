@@ -58,8 +58,9 @@ object FirebaseAuthManager {
                 }
             }
             .addOnFailureListener {
-                onError(it.message ?: "Login Fallido")
-                Log.d("LOGIN", ("Error en el Login -> " + it.message))
+                val translated = getTranslatedErrorMessage(it)
+                onError(translated)
+                Log.d("LOGIN", "Error en el Login -> $translated")
             }
     }
 
@@ -103,7 +104,11 @@ object FirebaseAuthManager {
     }
 
     fun getTranslatedErrorMessage(exception: Exception): String {
+        val message = exception.message ?: ""
         val errorCode = (exception as? com.google.firebase.auth.FirebaseAuthException)?.errorCode
+
+        Log.d("FirebaseAuthError", "Código: $errorCode | Mensaje: $message")
+
         return when {
             errorCode == "ERROR_INVALID_EMAIL" -> "El email no tiene un formato válido"
             errorCode == "ERROR_USER_NOT_FOUND" -> "No existe una cuenta con este email"
@@ -115,9 +120,12 @@ object FirebaseAuthManager {
             errorCode == "ERROR_OPERATION_NOT_ALLOWED" -> "Este tipo de autenticación no está habilitado"
             errorCode == "ERROR_NETWORK_REQUEST_FAILED" -> "Error de red. Verificá tu conexión a Internet"
             errorCode == "ERROR_INVALID_CREDENTIAL" -> "Las credenciales son inválidas o han expirado"
-            exception.message?.contains("auth credential is incorrect", ignoreCase = true) == true ->
-                "Las credenciales ingresadas son incorrectas o han expirado"
-            else -> exception.message ?: "Ocurrió un error inesperado"
+
+            // Nuevo: detectamos mensaje exacto
+            message.contains("The supplied auth credential is incorrect", ignoreCase = true) ->
+                "Las credenciales ingresadas son incorrectas, están mal formadas o han expirado"
+
+            else -> message.ifBlank { "Ocurrió un error inesperado" }
         }
     }
 }
