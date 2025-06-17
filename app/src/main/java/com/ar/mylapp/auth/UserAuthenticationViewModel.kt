@@ -202,9 +202,10 @@ class UserAuthenticationViewModel @Inject constructor(
 
     fun isPasswordSecure(password: String): Boolean {
         val minLength = 8
+        val hasUpperCase = password.any { it.isUpperCase() }
         val hasDigit = password.any { it.isDigit() }
         val hasSymbol = password.any { !it.isLetterOrDigit() }
-        return password.length >= minLength && hasDigit && hasSymbol
+        return password.length >= minLength && hasDigit && hasSymbol && hasUpperCase
     }
 
 }

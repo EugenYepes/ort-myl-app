@@ -104,19 +104,20 @@ object FirebaseAuthManager {
 
     fun getTranslatedErrorMessage(exception: Exception): String {
         val errorCode = (exception as? com.google.firebase.auth.FirebaseAuthException)?.errorCode
-        return when (errorCode) {
-            "ERROR_INVALID_EMAIL" -> "El email no tiene un formato válido"
-            "ERROR_USER_NOT_FOUND" -> "No existe una cuenta con este email"
-            "ERROR_WRONG_PASSWORD" -> "La contraseña es incorrecta"
-            "ERROR_EMAIL_ALREADY_IN_USE" -> "Ya hay una cuenta con este email"
-            "ERROR_WEAK_PASSWORD" -> "La contraseña es demasiado débil (mínimo 6 caracteres)"
-            "ERROR_USER_DISABLED" -> "Esta cuenta fue deshabilitada"
-            "ERROR_TOO_MANY_REQUESTS" -> "Demasiados intentos fallidos. Intentá más tarde"
-            "ERROR_OPERATION_NOT_ALLOWED" -> "Este tipo de autenticación no está habilitado"
-            "ERROR_NETWORK_REQUEST_FAILED" -> "Error de red. Verificá tu conexión a Internet"
-            "ERROR_INVALID_CREDENTIAL" -> "Las credenciales son inválidas o han expirado"
+        return when {
+            errorCode == "ERROR_INVALID_EMAIL" -> "El email no tiene un formato válido"
+            errorCode == "ERROR_USER_NOT_FOUND" -> "No existe una cuenta con este email"
+            errorCode == "ERROR_WRONG_PASSWORD" -> "La contraseña es incorrecta"
+            errorCode == "ERROR_EMAIL_ALREADY_IN_USE" -> "Ya hay una cuenta con este email"
+            errorCode == "ERROR_WEAK_PASSWORD" -> "La contraseña es demasiado débil (mínimo 6 caracteres)"
+            errorCode == "ERROR_USER_DISABLED" -> "Esta cuenta fue deshabilitada"
+            errorCode == "ERROR_TOO_MANY_REQUESTS" -> "Demasiados intentos fallidos. Intentá más tarde"
+            errorCode == "ERROR_OPERATION_NOT_ALLOWED" -> "Este tipo de autenticación no está habilitado"
+            errorCode == "ERROR_NETWORK_REQUEST_FAILED" -> "Error de red. Verificá tu conexión a Internet"
+            errorCode == "ERROR_INVALID_CREDENTIAL" -> "Las credenciales son inválidas o han expirado"
+            exception.message?.contains("auth credential is incorrect", ignoreCase = true) == true ->
+                "Las credenciales ingresadas son incorrectas o han expirado"
             else -> exception.message ?: "Ocurrió un error inesperado"
         }
     }
-
 }
