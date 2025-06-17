@@ -34,6 +34,7 @@ import com.ar.mylapp.components.popup.CardDetailPopup
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.utils.DialogType
 import com.ar.mylapp.utils.capitalizeTitle
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
@@ -46,7 +47,8 @@ fun CardDetail(
     cardViewModel: CardViewModel,
     userAuthenticationViewModel: UserAuthenticationViewModel,
     decksViewModel: DecksViewModel,
-    navController: NavController
+    navController: NavController,
+    accountViewModel: AccountViewModel
 ) {
     val card = cardViewModel.selectedCard
     val isLoading = cardViewModel.isCardDetailLoading
@@ -97,11 +99,13 @@ fun CardDetail(
                         },
                         userAuthenticationViewModel = userAuthenticationViewModel
                     )
-                    UserCardsPicker(
-                        cardId = card.id,
-                        cardViewModel = cardViewModel,
-                        token = userAuthenticationViewModel.token
-                    )
+                    if(userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()){
+                        UserCardsPicker(
+                            cardId = card.id,
+                            cardViewModel = cardViewModel,
+                            token = userAuthenticationViewModel.token
+                        )
+                    }
 
                     if (showCardDetailPopup) {
                         CardDetailPopup(onDismiss = { showCardDetailPopup = false }, card)

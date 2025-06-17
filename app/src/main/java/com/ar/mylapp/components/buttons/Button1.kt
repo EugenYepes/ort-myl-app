@@ -14,37 +14,29 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.GoldLight
+import com.ar.mylapp.ui.theme.Gray
 import com.ar.mylapp.ui.theme.GreenDark
-
-@Preview
-@Composable
-fun Button1Preview() {
-    Button1(
-        onClick = {},
-        text = "Botón #1",
-        modifier = Modifier.padding(16.dp)
-    )
-}
 
 @Composable
 fun Button1(
     onClick: () -> Unit,
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true
 ) {
     Button(
         onClick = onClick,
+        enabled = enabled,
         modifier = modifier
             .size(width = 270.dp, height = 85.dp)
             .border(
                 width = 1.dp,
-                color = GoldLight,
+                color = if(enabled) GoldLight else Gray,
                 shape = RoundedCornerShape(size = 20.dp)),
         colors = ButtonDefaults.buttonColors(
             containerColor = GreenDark,
@@ -60,7 +52,7 @@ fun Button1(
                 fontSize = 30.sp,
                 fontFamily = FontFamily(Font(R.font.patua_one_regular)),
                 fontWeight = FontWeight(400),
-                color = GoldDark,
+                color = if(enabled) GoldDark else Gray,
                 textAlign = TextAlign.Center,
             ),
             maxLines = 2,
