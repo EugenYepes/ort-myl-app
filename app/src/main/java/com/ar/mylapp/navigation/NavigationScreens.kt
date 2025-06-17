@@ -63,7 +63,7 @@ fun NavigationScreens(
 
         //* Cards
         composable(Screens.Cards.screen) {
-            CardsScreen(navController, cardViewModel, topBarViewModel, userAuthenticationViewModel)
+            CardsScreen(navController, cardViewModel, topBarViewModel, userAuthenticationViewModel, accountViewModel)
         }
 
         composable(
@@ -71,7 +71,7 @@ fun NavigationScreens(
             arguments = listOf(navArgument("cardId") { type = NavType.IntType })
         ) { backStackEntry ->
             val cardId = backStackEntry.arguments?.getInt("cardId") ?: return@composable
-            CardDetail(cardId, topBarViewModel, cardViewModel, userAuthenticationViewModel, deckViewModel, navController)
+            CardDetail(cardId, topBarViewModel, cardViewModel, userAuthenticationViewModel, deckViewModel, navController, accountViewModel)
         }
 
         composable(Screens.AdvanceSearch.screen) {
@@ -130,7 +130,7 @@ fun NavigationScreens(
             AuthGate(
                 isAllowed = isLoggedIn,
                 onAllowed = { HomeScreen(navController, topBarViewModel, cardViewModel) },
-                onDenied = { LoginScreen(navController, userAuthenticationViewModel, deckViewModel) }
+                onDenied = { LoginScreen(navController, userAuthenticationViewModel, deckViewModel, accountViewModel) }
             )
         }
 
@@ -190,7 +190,7 @@ fun NavigationScreens(
         composable(Screens.Decks.screen) {
             AuthGate(
                 isAllowed = isLoggedIn,
-                onAllowed = { DecksScreen(navController, topBarViewModel, deckViewModel, authViewModel = userAuthenticationViewModel) },
+                onAllowed = { DecksScreen(navController, topBarViewModel, deckViewModel, userAuthenticationViewModel, accountViewModel) },
                 onDenied = { WelcomeScreen(navController) }
             )
         }
@@ -200,7 +200,7 @@ fun NavigationScreens(
             arguments = listOf(navArgument("deckId") { type = NavType.IntType })
         ) { backStackEntry ->
             val deckId = backStackEntry.arguments?.getInt("deckId") ?: return@composable
-            DeckDetailScreen(deckId, topBarViewModel, deckViewModel, authViewModel = userAuthenticationViewModel, navController)
+            DeckDetailScreen(deckId, topBarViewModel, deckViewModel, userAuthenticationViewModel, navController)
         }
 
         composable(Screens.UserCards.screen) {

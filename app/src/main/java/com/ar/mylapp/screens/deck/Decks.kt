@@ -32,6 +32,7 @@ import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.deck.DeckNameCard
 import com.ar.mylapp.components.popup.CreateDeckPopup
 import com.ar.mylapp.navigation.Screens
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
@@ -41,7 +42,8 @@ fun DecksScreen(
     navController: NavController,
     topBarViewModel: TopBarViewModel,
     decksViewModel: DecksViewModel,
-    authViewModel: UserAuthenticationViewModel
+    authViewModel: UserAuthenticationViewModel,
+    accountViewModel: AccountViewModel
 ){
     var showDialog by remember { mutableStateOf(false) }
     val decks by decksViewModel.decks
@@ -83,6 +85,7 @@ fun DecksScreen(
         Spacer(modifier = Modifier.height(16.dp))
 
         Button1(
+            enabled = accountViewModel.isPlayerUser(),
             onClick = { showDialog = true },
             text = stringResource(R.string.new_deck),
             modifier = Modifier.align(Alignment.CenterHorizontally)

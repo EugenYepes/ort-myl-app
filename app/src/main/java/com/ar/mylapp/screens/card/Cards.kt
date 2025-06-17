@@ -26,6 +26,7 @@ import com.ar.mylapp.components.card.CardGrid
 import com.ar.mylapp.components.entryData.MySearchBar
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.Red
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.SearchCardViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
@@ -35,7 +36,8 @@ fun CardsScreen(
     navController: NavController,
     viewModel: CardViewModel = viewModel(),
     topBarViewModel: TopBarViewModel,
-    userAuthenticationViewModel: UserAuthenticationViewModel
+    userAuthenticationViewModel: UserAuthenticationViewModel,
+    accountViewModel: AccountViewModel
 ) {
     val title = stringResource(R.string.topbar_cards_title)
     LaunchedEffect(Unit) { topBarViewModel.setTopBar(title) }
@@ -75,7 +77,7 @@ fun CardsScreen(
                     onClick = { navController.navigate(Screens.UserCards.screen) },
                     icon = painterResource(id = R.drawable.user_cards_icon),
                     text = stringResource(R.string.user_cards),
-                    enabled = userAuthenticationViewModel.isLoggedIn()
+                    enabled = userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()
                 )
             }
 
