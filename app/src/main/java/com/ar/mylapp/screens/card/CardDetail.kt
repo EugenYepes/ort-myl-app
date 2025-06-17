@@ -1,10 +1,12 @@
 package com.ar.mylapp.screens.card
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -12,23 +14,25 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
-import com.ar.mylapp.components.popup.AddToDeckPopup
 import com.ar.mylapp.components.card.CardDetailImage
-import com.ar.mylapp.components.card.UserCardsPicker
-import com.ar.mylapp.components.popup.CardDetailPopup
 import com.ar.mylapp.components.card.ShowButtons
+import com.ar.mylapp.components.card.UserCardsPicker
 import com.ar.mylapp.components.dialog.ShowDialogCard
+import com.ar.mylapp.components.popup.AddToDeckPopup
+import com.ar.mylapp.components.popup.CardDetailPopup
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.utils.DialogType
 import com.ar.mylapp.utils.capitalizeTitle
@@ -36,6 +40,7 @@ import com.ar.mylapp.viewmodel.CardViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun CardDetail(
     id: Int,
@@ -60,6 +65,10 @@ fun CardDetail(
         card?.let { topBarViewModel.setTopBar(title, capitalizeTitle(it.name)) }
     }
 
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp
+    val buttonTextSize = if (screenHeightDp < 700) 12.sp else 14.sp
+
     Box(modifier = Modifier.fillMaxSize()) {
         when {
             isLoading -> { CircularProgressIndicator(Modifier.align(Alignment.Center)) }
@@ -74,11 +83,15 @@ fun CardDetail(
                     modifier = Modifier
                         .fillMaxSize()
                         .align(Alignment.Center)
+                        .padding(top = 20.dp)
                         .verticalScroll(rememberScrollState()),
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CardDetailImage(card)
+                    CardDetailImage(
+                        card,
+                        Alignment.Center
+                    )
                     Spacer(modifier = Modifier.size(22.dp))
                     ShowButtons(
                         onClickShowInfo = { showCardDetailPopup = true },

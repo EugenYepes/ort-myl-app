@@ -1,34 +1,52 @@
 package com.ar.mylapp.screens.account
 
+import android.annotation.SuppressLint
 import android.view.Gravity
 import android.widget.Toast
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
+import ar.com.myldtos.users.PlayerDTO
+import ar.com.myldtos.users.StoreDTO
+import com.ar.mylapp.R
 import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button4
+import com.ar.mylapp.components.buttons.Button6
 import com.ar.mylapp.components.dialog.ConfirmDeleteDialog
+import com.ar.mylapp.components.entryData.InputOne
 import com.ar.mylapp.components.text.Text4
 import com.ar.mylapp.navigation.Screens
+import com.ar.mylapp.navigation.prepareUrl
 import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.TopBarViewModel
-import androidx.compose.ui.window.Dialog
-import ar.com.myldtos.users.PlayerDTO
-import ar.com.myldtos.users.StoreDTO
-import com.ar.mylapp.components.entryData.InputOne
-import com.ar.mylapp.R
-import com.ar.mylapp.components.buttons.Button6
-import com.ar.mylapp.navigation.prepareUrl
 
+@SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun AccountScreen(
     navController: NavController,
@@ -36,7 +54,7 @@ fun AccountScreen(
     topBarViewModel: TopBarViewModel,
     accountViewModel: AccountViewModel
 ) {
-    var title = stringResource(R.string.topbar_account_title)
+    val title = stringResource(R.string.topbar_account_title)
     LaunchedEffect(Unit) {
         topBarViewModel.setTopBar(title)
         userAuthenticationViewModel.token?.let { token ->
@@ -57,6 +75,10 @@ fun AccountScreen(
     var address by rememberSaveable { mutableStateOf("") }
     var phone by rememberSaveable { mutableStateOf("") }
     var url by rememberSaveable { mutableStateOf("") }
+
+    val configuration = LocalConfiguration.current
+    val screenHeightDp = configuration.screenHeightDp
+    val buttonWidth = if (screenHeightDp < 700) 150.dp else 180.dp
 
     fun initializeUserFieldsIfEmpty(store: StoreDTO?, player: PlayerDTO?) {
         if (name.isBlank()) name = store?.name ?: player?.name ?: ""
@@ -156,6 +178,7 @@ fun AccountScreen(
                 Button6(
                     text = stringResource(R.string.update_account),
                     icon = painterResource(id = R.drawable.account_edit_icon),
+                    modifier = Modifier.width(buttonWidth),
                     onClick = {
                         userAuthenticationViewModel.token?.let { token ->
                             val bearerToken = token
@@ -197,6 +220,7 @@ fun AccountScreen(
                 )
                 Button6(
                     text = stringResource(R.string.sign_out),
+                    modifier = Modifier.width(buttonWidth),
                     icon = painterResource(id = R.drawable.logout_icon),
                     onClick = {
                         FirebaseAuthManager.logout()

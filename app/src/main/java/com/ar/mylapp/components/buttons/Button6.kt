@@ -36,7 +36,8 @@ fun Button6(
     onClick: () -> Unit,
     text: String,
     icon: Painter,
-    enabled: Boolean = true
+    enabled: Boolean = true,
+    modifier: Modifier = Modifier
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val textStartPadding = (screenWidth * 0.05).dp
@@ -58,7 +59,7 @@ fun Button6(
     Button(
         onClick = onClick,
         enabled = enabled,
-        modifier = Modifier
+        modifier = modifier
             .width(buttonWidth)
             .height(56.dp)
             .border(

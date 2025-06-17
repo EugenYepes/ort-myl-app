@@ -29,7 +29,7 @@ fun StoresScreen(
     storeViewModel: StoreViewModel
 ){
     val stores by storeViewModel.stores.collectAsState()
-    var title = stringResource(R.string.topbar_stores_title)
+    val title = stringResource(R.string.topbar_stores_title)
     LaunchedEffect(Unit) {
         storeViewModel.loadStores()
         topBarViewModel.setTopBar(title)
@@ -38,7 +38,7 @@ fun StoresScreen(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .padding(vertical = 12.dp),
+            .padding(12.dp),
     ) {
         items(stores) { store ->
             Box(

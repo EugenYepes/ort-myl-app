@@ -1,10 +1,6 @@
 package com.ar.mylapp.components.popup
 
-import android.annotation.SuppressLint
 import android.util.Log
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -24,8 +20,7 @@ import androidx.compose.ui.window.Dialog
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
-import com.ar.mylapp.components.number_picker.NumberPicker
-import com.ar.mylapp.components.text.Text5
+import com.ar.mylapp.components.card.DeckQuantityRow
 import com.ar.mylapp.components.title.Title1
 import com.ar.mylapp.models.cardProperties.DeckCardProperties
 import com.ar.mylapp.ui.theme.BlackLight
@@ -33,7 +28,6 @@ import com.ar.mylapp.ui.theme.GoldDark
 import com.ar.mylapp.ui.theme.White
 import com.ar.mylapp.viewmodel.DecksViewModel
 
-@SuppressLint("UnrememberedMutableState")
 @Composable
 fun AddToDeckPopup(
     onDismiss: () -> Unit,
@@ -91,26 +85,11 @@ fun AddToDeckPopup(
             ) {
                 items(decksViewModel.decks.value.size) { index ->
                     val deck = decksViewModel.decks.value[index]
-                    val number = numbers[deck.id] ?: 0
-                    Row(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 8.dp),
-                        horizontalArrangement = Arrangement.SpaceBetween,
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Text5(
-                            text = deck.name,
-                            modifier = Modifier.weight(1f)
-                        )
-                        NumberPicker(
-                            modifier = Modifier.width(120.dp),
-                            number = number,
-                            onValueChange = { newValue ->
-                                numbers[deck.id] = newValue
-                            }
-                        )
-                    }
+                    DeckQuantityRow(
+                        deckName = deck.name,
+                        quantity = numbers[deck.id] ?: 0,
+                        onQuantityChange = { newValue -> numbers[deck.id] = newValue }
+                    )
                 }
             }
 

@@ -15,8 +15,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.ar.mylapp.components.title.Title2
 import com.ar.mylapp.components.title.Title3
 import com.ar.mylapp.ui.theme.GoldDark
@@ -26,7 +27,8 @@ import com.ar.mylapp.ui.theme.BlackLight
 fun DeckNameCard(
     title2: String,
     title3: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    titleSize: TextUnit = 32.sp
 ) {
     Card(
         modifier = modifier
@@ -50,10 +52,12 @@ fun DeckNameCard(
         ) {
             Title2(
                 title = title2,
-                modifier = Modifier.widthIn(max = 250.dp)
+                modifier = Modifier.widthIn(max = 250.dp),
+                titleSize = titleSize
             )
             Title3(
-                title = "$title3/50"
+                title = "$title3/50",
+                titleSize = titleSize
             )
         }
     }

@@ -59,7 +59,7 @@ fun InputOne(
         },
         modifier = Modifier
             .width(326.dp)
-            .height(60.dp),
+            .height(62.dp),
         textStyle = inputOneStyle,
         shape = RoundedCornerShape(15.dp),
         colors = outlinedTextFieldOneStyle(),

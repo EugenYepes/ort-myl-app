@@ -61,6 +61,8 @@ fun AuthGate(
     }
 }
 
+
+
 fun prepareUrl(rawUrl: String): String? {
     val trimmed = rawUrl.trim()
     if (trimmed.isBlank()) return null

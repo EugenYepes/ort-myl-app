@@ -1,6 +1,7 @@
 package com.ar.mylapp.components.card
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,13 +14,14 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
@@ -61,16 +63,19 @@ fun CardCarousel(
                 AsyncImage(
                     model = item.imageUrl,
                     contentDescription = item.name,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier
                         .fillMaxWidth(0.9f)
+                        .aspectRatio(8f / 9f)
+                        .align(Alignment.CenterHorizontally)
+                        .clip(shape = RoundedCornerShape(10.dp))
+                        .background(color = Color.Transparent, shape = RoundedCornerShape(15.dp))
                         .clickable {
                             navController.navigate(
                                 Screens.CardDetail.withArgs(item.id)
                             )
-                        }
-                        .aspectRatio(8f / 9f)
-                        .clip(MaterialTheme.shapes.extraLarge),
-                    contentScale = ContentScale.Fit
+                        },
+                        //.clip(MaterialTheme.shapes.extraLarge),
                 )
             }
 

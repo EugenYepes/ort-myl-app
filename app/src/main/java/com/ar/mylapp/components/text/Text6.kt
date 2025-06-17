@@ -9,6 +9,7 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
 import com.ar.mylapp.ui.theme.GoldDark
@@ -25,14 +26,15 @@ fun Text6Preview(){
 @Composable
 fun Text6(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    buttonTextSize: TextUnit = 20.sp
 ) {
     Text(
         text = text,
         modifier = Modifier,
         style = TextStyle(
-            fontSize = 20.sp,
-            lineHeight = 18.sp,
+            fontSize = buttonTextSize,
+            lineHeight = buttonTextSize * 1.25,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
             color = GoldDark,

@@ -17,6 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.ar.mylapp.R
@@ -36,7 +37,8 @@ fun Button8Preview() {
 fun Button8(
     onClick: () -> Unit,
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    buttonTextSize: TextUnit = 14.sp,
 ) {
     Button(
         onClick = onClick,
@@ -53,7 +55,7 @@ fun Button8(
         Text(
             text = text,
             style = TextStyle(
-                fontSize = 14.sp,
+                fontSize = buttonTextSize,
                 fontFamily = FontFamily(Font(R.font.patua_one_regular)),
                 fontWeight = FontWeight(400),
                 color = Black,
