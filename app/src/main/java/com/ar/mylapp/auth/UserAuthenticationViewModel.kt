@@ -33,6 +33,7 @@ class UserAuthenticationViewModel @Inject constructor(
     var error by mutableStateOf<String?>(null)
     var token by mutableStateOf<String?>(null)
     var navigateToConfirmScreen by mutableStateOf(false)
+    var isAdmin by mutableStateOf(false)
 
     fun onLoginClicked(
         navController: NavController,
@@ -50,6 +51,8 @@ class UserAuthenticationViewModel @Inject constructor(
                 viewModelScope.launch {
                     val response = authRepository.login("Bearer $idToken")
                     if (response.isSuccessful) {
+                        val user = response.body()
+                        isAdmin = if (user is PlayerDTO) user.isAdmin else false
                         decksViewModel.loadDecks(idToken)
                         navController.navigate(Screens.Home.screen) {
                             popUpTo(0) { inclusive = true }
@@ -208,4 +211,20 @@ class UserAuthenticationViewModel @Inject constructor(
         return password.length >= minLength && hasDigit && hasSymbol && hasUpperCase
     }
 
+    fun invalidateStore(storeUid: String, onSuccess: () -> Unit, onError: (String) -> Unit) {
+        viewModelScope.launch {
+            try {
+                val response = authRepository.invalidateStore("Bearer $token", storeUid)
+                if (response.isSuccessful) {
+                    onSuccess()
+                } else {
+                    val errorBody = response.errorBody()?.string()
+                    val message = extractErrorMessage(errorBody)
+                    onError(message)
+                }
+            } catch (e: Exception) {
+                onError("Error inesperado: ${e.message}")
+            }
+        }
+    }
 }

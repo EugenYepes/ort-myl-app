@@ -33,4 +33,8 @@ class AuthRetrofit @Inject constructor(
     suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> {
         return service.updateStore("Bearer $token", store)
     }
+
+    suspend fun invalidateStore(token: String, storeUid: String): Response<Unit> {
+        return service.invalidateStore(token, storeUid)
+    }
 }

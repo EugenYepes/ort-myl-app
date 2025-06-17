@@ -322,4 +322,9 @@
     <string name="add_to_deck_error_msg">No se pudo agregar esta carta a tu/s mazo/s</string>
     <string name="delete_card_from_deck_error_msg">No se pudo eliminar esta carta de tu/s mazo/s</string>
     <string name="user_cards">Mis Cartas</string>
+    <string name="wpp_desc">WhatsApp Logo</string>
+    <string name="delete_store">Deshabilitar</string>
+    <string name="unvalidate_store_title">¿Deshabilitar tienda?</string>
+    <string name="unvalidate_store_subtitle">Esta acción deshabilitará la tienda de forma permanente.</string>
+    <string name="unvalidate_store_button_text">Deshabilitar</string>
 </resources>

@@ -20,10 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
@@ -64,10 +62,6 @@ fun CardDetail(
     LaunchedEffect(card?.name) {
         card?.let { topBarViewModel.setTopBar(title, capitalizeTitle(it.name)) }
     }
-
-    val configuration = LocalConfiguration.current
-    val screenHeightDp = configuration.screenHeightDp
-    val buttonTextSize = if (screenHeightDp < 700) 12.sp else 14.sp
 
     Box(modifier = Modifier.fillMaxSize()) {
         when {

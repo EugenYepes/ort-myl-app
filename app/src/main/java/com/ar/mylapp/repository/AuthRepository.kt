@@ -36,4 +36,8 @@ class AuthRepository @Inject constructor(
     suspend fun updateStore(token: String, store: StoreDTO): Response<Unit> = withContext(Dispatchers.IO) {
         authRetrofit.updateStore(token, store)
     }
+
+    suspend fun invalidateStore(token: String, storeUid: String): Response<Unit> = withContext(Dispatchers.IO) {
+        authRetrofit.invalidateStore(token, storeUid)
+    }
 }

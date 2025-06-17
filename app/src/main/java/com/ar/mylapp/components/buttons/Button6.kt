@@ -33,11 +33,11 @@ import com.ar.mylapp.ui.theme.White
 @SuppressLint("ConfigurationScreenWidthHeight")
 @Composable
 fun Button6(
+    modifier: Modifier = Modifier,
     onClick: () -> Unit,
     text: String,
     icon: Painter,
-    enabled: Boolean = true,
-    modifier: Modifier = Modifier
+    enabled: Boolean = true
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp
     val textStartPadding = (screenWidth * 0.05).dp

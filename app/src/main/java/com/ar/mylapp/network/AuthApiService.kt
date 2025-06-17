@@ -10,6 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
 import retrofit2.http.PUT
+import retrofit2.http.Path
 
 interface AuthApiService {
     @POST("/api/players/register")
@@ -30,5 +31,11 @@ interface AuthApiService {
 
     @PUT("/api/stores")
     suspend fun updateStore(@Header("Authorization") token: String, @Body store: StoreDTO
+    ): Response<Unit>
+
+    @PUT("/api/admin/stores/invalidate/{storeUid}")
+    suspend fun invalidateStore(
+        @Header("Authorization") token: String,
+        @Path("storeUid") storeUid: String
     ): Response<Unit>
 }
