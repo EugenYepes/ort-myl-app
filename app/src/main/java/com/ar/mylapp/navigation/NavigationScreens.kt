@@ -94,7 +94,7 @@ fun NavigationScreens(
 
         //* Stores
         composable(Screens.Stores.screen) {
-            StoresScreen(navController, topBarViewModel, storeViewModel)
+            StoresScreen(navController, topBarViewModel, storeViewModel, userAuthenticationViewModel)
         }
         composable(
             route = "${Screens.StoreDetail.screen}/{storeUuid}",

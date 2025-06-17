@@ -19,6 +19,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.store.StoreInfoCard
 import com.ar.mylapp.navigation.Screens
 
@@ -26,7 +27,8 @@ import com.ar.mylapp.navigation.Screens
 fun StoresScreen(
     navController: NavController,
     topBarViewModel: TopBarViewModel,
-    storeViewModel: StoreViewModel
+    storeViewModel: StoreViewModel,
+    userAuthenticationViewModel: UserAuthenticationViewModel
 ){
     val stores by storeViewModel.stores.collectAsState()
     val title = stringResource(R.string.topbar_stores_title)
@@ -49,13 +51,16 @@ fun StoresScreen(
                 StoreInfoCard(
                     title = store.name,
                     text = store.address,
+                    storeUid = store.uuid,
                     phoneNumber = store.phoneNumber,
                     modifier = Modifier
                         .align(Alignment.Center)
                         .width(366.dp),
                     onCardClick = {
                         navController.navigate("${Screens.StoreDetail.screen}/${store.uuid}")
-                    }
+                    },
+                    userAuthenticationViewModel = userAuthenticationViewModel,
+                    navController = navController
                 )
             }
         }
