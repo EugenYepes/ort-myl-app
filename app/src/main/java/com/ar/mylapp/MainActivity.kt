@@ -1,6 +1,7 @@
 package com.ar.mylapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -8,7 +9,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -25,7 +25,6 @@ import com.ar.mylapp.components.topBar.MyTopBar
 import com.ar.mylapp.navigation.NavigationScreens
 import com.ar.mylapp.viewmodel.TopBarViewModel
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import com.ar.mylapp.navigation.showTopBar
 import com.ar.mylapp.viewmodel.AccountViewModel
@@ -60,7 +59,19 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val accountViewModel: AccountViewModel = viewModel()
-                val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
+                //val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
+                LaunchedEffect(Unit) {
+                    userAuthenticationViewModel.loadToken()
+                }
+
+                val token = userAuthenticationViewModel.token
+                val isLoggedIn = token != null
+                Log.d("isLoggedIn token MainAct","Token: $token")
+                /*val isLoggedIn by produceState(initialValue = false) {
+                    val token = accountViewModel.getToken()
+                    Log.d("isLoggedIn token MainAct","Token: $token")
+                    value = token != null
+                }*/
 
                 // Ruta actual
                 val navBackStackEntry by navController.currentBackStackEntryAsState()

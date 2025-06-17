@@ -10,6 +10,7 @@ import androidx.lifecycle.viewModelScope
 import ar.com.myldtos.users.PlayerDTO
 import ar.com.myldtos.users.StoreDTO
 import androidx.navigation.NavController
+import com.ar.mylapp.data.dataStore.UserDataStoreManager
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.repository.AuthRepository
 import com.ar.mylapp.viewmodel.DecksViewModel
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class UserAuthenticationViewModel @Inject constructor(
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val userDataStoreManager: UserDataStoreManager
 ) : ViewModel() {
 
     var email by mutableStateOf("")
@@ -32,8 +34,15 @@ class UserAuthenticationViewModel @Inject constructor(
     var registrationSuccess by mutableStateOf(false)
     var error by mutableStateOf<String?>(null)
     var token by mutableStateOf<String?>(null)
+        private set
     var navigateToConfirmScreen by mutableStateOf(false)
     var isAdmin by mutableStateOf(false)
+
+    fun loadToken() {
+        viewModelScope.launch {
+            token = userDataStoreManager.getToken()
+        }
+    }
 
     fun onLoginClicked(
         navController: NavController,
@@ -54,6 +63,7 @@ class UserAuthenticationViewModel @Inject constructor(
                         val user = response.body()
                         isAdmin = if (user is PlayerDTO) user.isAdmin else false
                         decksViewModel.loadDecks(idToken)
+                        userDataStoreManager.saveToken(idToken)
                         navController.navigate(Screens.Home.screen) {
                             popUpTo(0) { inclusive = true }
                         }
@@ -164,6 +174,10 @@ class UserAuthenticationViewModel @Inject constructor(
         password = ""
         token = null
         error = null
+
+        viewModelScope.launch {
+            userDataStoreManager.clearAll()
+        }
     }
 
     fun isLoggedIn(): Boolean {
