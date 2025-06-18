@@ -189,12 +189,14 @@ fun AccountScreen(
                                     context.getString(R.string.update_error_adress)
                                 return@Button6
                             }
-
-                            val preparedUrl = prepareUrl(url)
-                            if (preparedUrl == null) {
-                                accountViewModel.updateError =
-                                    context.getString(R.string.update_error_url)
-                                return@Button6
+                            var preparedUrl = ""
+                            if (!url.isBlank()) {
+                                val preparedUrl = prepareUrl(url)
+                                if (preparedUrl == null) {
+                                    accountViewModel.updateError =
+                                        context.getString(R.string.update_error_url)
+                                    return@Button6
+                                }
                             }
 
                             val store = accountViewModel.storeDTO!!
