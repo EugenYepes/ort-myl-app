@@ -1,0 +1,40 @@
+package com.ar.mylapp.screens.guidebook
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.ar.mylapp.R
+import com.ar.mylapp.components.accordion.GuidebookAccordion
+import com.ar.mylapp.viewmodel.TopBarViewModel
+
+@Composable
+fun GuidebookScreen(
+    topBarViewModel: TopBarViewModel
+){
+    val title = stringResource(R.string.topbar_guidebook_title)
+    LaunchedEffect(Unit) {
+        topBarViewModel.setTopBar(title)
+    }
+
+    Box(
+        modifier = Modifier.fillMaxSize()
+    ){
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .align(Alignment.Center),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            GuidebookAccordion()
+        }
+    }
+}

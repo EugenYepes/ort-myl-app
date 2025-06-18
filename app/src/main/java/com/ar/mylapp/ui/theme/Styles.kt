@@ -1,0 +1,103 @@
+package com.ar.mylapp.ui.theme
+
+import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.TextFieldDefaults
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
+import com.ar.mylapp.R
+
+//TextStyle
+val searchBarStyle = TextStyle(
+    fontSize = 20.sp,
+    lineHeight = 18.sp,
+    fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+    fontWeight = FontWeight(400),
+    color = Gray,
+    background = Color.Transparent
+)
+
+val labelStyle = TextStyle(
+    fontSize = 15.sp,
+    lineHeight = 18.sp,
+    fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+    fontWeight = FontWeight(400),
+    color = GoldDark,
+    background = Color.Transparent
+)
+
+val inputOneStyle = TextStyle(
+    fontSize = 15.sp,
+    lineHeight = 18.sp,
+    fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+    fontWeight = FontWeight(400),
+    color = White
+)
+
+val inputTwoThreeStyle = TextStyle(
+    fontSize = 15.sp,
+    lineHeight = 18.sp,
+    fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+    fontWeight = FontWeight(400),
+    background = Color.Transparent
+)
+
+val textDropdownMenuStyle = TextStyle(
+    fontSize = 14.sp,
+    lineHeight = 16.sp,
+    fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+    fontWeight = FontWeight(400),
+    color = White
+)
+
+val labelDropdownMenuStyle = TextStyle(
+    fontSize = 12.sp,
+    lineHeight = 10.sp,
+    fontFamily = FontFamily(Font(R.font.patua_one_regular)),
+    fontWeight = FontWeight(400),
+    color = White
+)
+
+
+//OutlinedTexStyle
+
+@Composable
+fun outlinedTextFieldOneStyle() = OutlinedTextFieldDefaults.colors(
+    focusedBorderColor = GoldDark,
+    unfocusedBorderColor = GoldDark,
+    focusedContainerColor = Color.Transparent,
+    unfocusedContainerColor = Color.Transparent,
+    disabledContainerColor = Color.Transparent,
+    focusedLabelColor = GoldDark,
+    unfocusedLabelColor = Black,
+    cursorColor = GoldDark
+)
+
+@Composable
+fun outlinedTextFieldTwoThreeStyle() = OutlinedTextFieldDefaults.colors(
+    focusedContainerColor = Gray,
+    unfocusedContainerColor = Gray,
+    disabledContainerColor = Gray,
+    focusedBorderColor = GoldDark,
+    unfocusedBorderColor = Black,
+    focusedLabelColor = GoldDark,
+    unfocusedLabelColor = Gray,
+    cursorColor = GoldDark
+)
+
+//ExposedDropdownMenu
+@Composable
+fun exposedDropdownStyle() = TextFieldDefaults.colors(
+    focusedTextColor = White,
+    unfocusedTextColor = White,
+    focusedContainerColor = Black,
+    unfocusedContainerColor = Black,
+    focusedIndicatorColor = Color.Transparent,
+    unfocusedIndicatorColor = Color.Transparent
+)
+
+
