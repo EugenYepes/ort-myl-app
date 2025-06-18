@@ -267,7 +267,7 @@
     <string name="register_mayus">REGISTRARSE</string>
     <string name="login_mayus">INICIAR SESIÓN</string>
     <string name="no_account">¿No tienes una cuenta?</string>
-    <string name="verify_email_title">Su Correo Electrónico ha sido verificado</string>
+    <string name="verify_email_title">Verificar su Correo Electrónico</string>
     <string name="verify_email_subtitle">Gracias por unirte a Mitos y Leyendas Companion!\nA continuacion se le ha enviado un correo electronico a su mail.\nPor favor confirme su registro para poder ingresar</string>
     <string name="user_mayus">USUARIO</string>
     <string name="store_mayus">TIENDA</string>
@@ -288,8 +288,8 @@
     <string name="no_cards">Todavía no hay cartas.</string>
     <string name="whatsapp_not_installed">WhatsApp no está instalado</string>
     <string name="delete_account_toast">Cuenta eliminada. Hasta la próxima!</string>
-    <string name="edit_deck">Editar Mazo</string>
-    <string name="delete_deck">Eliminar Mazo</string>
+    <string name="edit_deck">Editar</string>
+    <string name="delete_deck">Eliminar</string>
     <string name="edit_success_title">Se ha editado el mazo</string>
     <string name="edit_success_button">Volver</string>
     <string name="delete_deck_title">Confirmar eliminación</string>
@@ -317,7 +317,7 @@
     <string name="success">¡Éxito!</string>
     <string name="add_to_deck_success_msg">La carta se ha agregado correctamente a tu mazo</string>
     <string name="delete_card_from_deck_success_msg">La carta se ha eliminado correctamente de tu mazo</string>
-    <string name="go_to_decks">Ir a mazos</string>
+    <string name="go_to_decks">Mazos</string>
     <string name="fail">¡Error!</string>
     <string name="add_to_deck_error_msg">No se pudo agregar esta carta a tu/s mazo/s</string>
     <string name="delete_card_from_deck_error_msg">No se pudo eliminar esta carta de tu/s mazo/s</string>

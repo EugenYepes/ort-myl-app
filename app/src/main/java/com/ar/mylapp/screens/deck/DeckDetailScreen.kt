@@ -2,6 +2,7 @@ package com.ar.mylapp.screens.deck
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -123,7 +124,8 @@ fun DeckDetailScreen(
         }
 
         Row(
-            horizontalArrangement = Arrangement.spacedBy(20.dp)
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button3(
                 onClick = { showDialog = true },
