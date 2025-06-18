@@ -30,6 +30,7 @@ class DecksViewModel @Inject constructor(
                 val result = repository.getDecks("Bearer $token")
                 _decks.value = result
             } catch (e: Exception) {
+                _decks.value = listOf<DeckDTO>()
                 Log.e("DecksViewModel", "Error cargando decks: ${e.message}")
             }
         }
