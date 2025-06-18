@@ -72,6 +72,11 @@ class MainActivity : ComponentActivity() {
                     Log.d("isLoggedIn token MainAct","Token: $token")
                     value = token != null
                 }*/
+                if(isLoggedIn){
+                    accountViewModel.getFullUserInfo("Bearer $token")
+                    deckViewModel.loadDecks(token)
+                }
+
 
                 // Ruta actual
                 val navBackStackEntry by navController.currentBackStackEntryAsState()
