@@ -22,13 +22,15 @@ import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.navigation.Screens
+import com.ar.mylapp.viewmodel.AccountViewModel
 import com.ar.mylapp.viewmodel.DecksViewModel
 
 @Composable
 fun LoginScreen(
     navController: NavController,
     userAuthenticationViewModel: UserAuthenticationViewModel,
-    decksViewModel: DecksViewModel
+    decksViewModel: DecksViewModel,
+    accountViewModel: AccountViewModel
 )
 {
     Box(
@@ -73,7 +75,7 @@ fun LoginScreen(
                     text = stringResource(R.string.restore_password)
                 )
                 Button1(
-                    onClick = { userAuthenticationViewModel.onLoginClicked(navController, decksViewModel) },
+                    onClick = { userAuthenticationViewModel.onLoginClicked(navController, decksViewModel, accountViewModel) },
                     text = stringResource(R.string.login_mayus)
                 )
                 Column(
