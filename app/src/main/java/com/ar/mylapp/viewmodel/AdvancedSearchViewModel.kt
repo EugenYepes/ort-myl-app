@@ -38,7 +38,17 @@ class AdvancedSearchViewModel @Inject constructor(
     }
 
     fun toggleOption(label: String, option: CardPropertiesDTO, selected: Boolean) {
-        val current = selectedOptions[label] ?: emptyList()
-        selectedOptions[label] = if (selected) current + option else current - option
+        val current = selectedOptions[label]?.toMutableList() ?: mutableListOf()
+
+        if (selected) {
+            if (current.none { it.id == option.id }) {
+                current.add(option)
+            }
+        } else {
+            current.removeAll { it.id == option.id }
+        }
+
+        // Forzamos el update del mapa completo
+        selectedOptions[label] = current.toList()
     }
 }

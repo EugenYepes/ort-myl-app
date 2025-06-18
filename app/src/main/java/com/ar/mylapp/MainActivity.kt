@@ -1,7 +1,6 @@
 package com.ar.mylapp
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -59,21 +58,14 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val accountViewModel: AccountViewModel = viewModel()
-                //val isLoggedIn by remember { derivedStateOf { userAuthenticationViewModel.token != null } }
                 LaunchedEffect(Unit) {
                     userAuthenticationViewModel.loadToken()
                 }
 
                 val token = userAuthenticationViewModel.token
                 val isLoggedIn = token != null
-                Log.d("isLoggedIn token MainAct","Token: $token")
-                /*val isLoggedIn by produceState(initialValue = false) {
-                    val token = accountViewModel.getToken()
-                    Log.d("isLoggedIn token MainAct","Token: $token")
-                    value = token != null
-                }*/
                 if(isLoggedIn){
-                    accountViewModel.getFullUserInfo("Bearer $token")
+                    accountViewModel.getFullUserInfo()
                     deckViewModel.loadDecks(token)
                 }
 

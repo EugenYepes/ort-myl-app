@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,11 +35,16 @@ import com.ar.mylapp.ui.theme.GoldLight
 fun EditDeckPopup(
     id : Int,
     currentName: String,
+    currentDescription: String = "",
     onDismiss: () -> Unit,
     onConfirm: (Int, String, String) -> Unit
 ) {
     var name by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
+    LaunchedEffect(Unit) {
+        name = currentName
+        description = currentDescription
+    }
 
     Dialog(onDismissRequest = onDismiss) {
         Box(

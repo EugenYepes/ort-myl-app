@@ -67,6 +67,7 @@ fun DeckDetailScreen(
         EditDeckPopup(
             id = deck.id,
             currentName = deck.name,
+            currentDescription = deck.description,
             onDismiss = { showDialog = false },
             onConfirm = { id, name, description ->
                 authViewModel.token?.let { token ->
