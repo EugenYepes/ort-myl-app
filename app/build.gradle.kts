@@ -100,6 +100,8 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.play.services.auth)
 
+    // DataStore
+    implementation(libs.androidx.datastore.preferences)
 
     implementation(platform(libs.firebase.bom))
     implementation(libs.firebase.analytics)

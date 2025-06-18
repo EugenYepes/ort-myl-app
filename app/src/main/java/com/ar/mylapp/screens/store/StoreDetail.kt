@@ -58,14 +58,16 @@ fun StoreDetailScreen(
         }
 
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Image(
-                painter = painterResource(id = R.drawable.phone_icon),
-                contentDescription = null,
-                modifier = Modifier.padding(end = 8.dp)
-            )
-            Text5(
-                text = store.phoneNumber,
-            )
+            if(!store.phoneNumber.isEmpty()){
+                Image(
+                    painter = painterResource(id = R.drawable.phone_icon),
+                    contentDescription = null,
+                    modifier = Modifier.padding(end = 8.dp)
+                )
+                Text5(
+                    text = store.phoneNumber,
+                )
+            }
         }
 
         if (!store.url.isNullOrBlank() && preparedUrl != null) {
