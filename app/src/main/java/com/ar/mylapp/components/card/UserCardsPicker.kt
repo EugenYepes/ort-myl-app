@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -21,6 +22,7 @@ fun UserCardsPicker(
 ) {
     var quantity by remember { mutableIntStateOf(0) }
     var initialQuantity by remember { mutableIntStateOf(0) }
+    var initialized by remember { mutableStateOf(false) }
 
     LaunchedEffect(cardId) {
         quantity = cardViewModel.getQuantityOfObtainedCard(cardId)
@@ -28,10 +30,11 @@ fun UserCardsPicker(
         token?.let {
             cardViewModel.resetAndLoadUserCards(it)
         }
+        initialized = true
     }
 
     LaunchedEffect(quantity) {
-        if (quantity != initialQuantity && token != null) {
+        if (initialized && quantity != initialQuantity && token != null) {
             val diff = quantity - initialQuantity
             if (diff > 0) {
                 cardViewModel.addCardToUserCards(token, cardId, diff)

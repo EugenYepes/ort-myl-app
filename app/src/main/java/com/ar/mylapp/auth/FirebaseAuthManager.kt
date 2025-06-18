@@ -128,4 +128,18 @@ object FirebaseAuthManager {
             else -> message.ifBlank { "Ocurrió un error inesperado" }
         }
     }
+
+    suspend fun reAuthenticateFirebaseSuspend(email: String, password: String): Boolean =
+        kotlinx.coroutines.suspendCancellableCoroutine { cont ->
+            val user = FirebaseAuth.getInstance().currentUser
+            if (user == null) {
+                cont.resume(false, null)
+                return@suspendCancellableCoroutine
+            }
+
+            val credential = com.google.firebase.auth.EmailAuthProvider.getCredential(email, password)
+            user.reauthenticate(credential)
+                .addOnSuccessListener { cont.resume(true, null) }
+                .addOnFailureListener { cont.resume(false, null) }
+        }
 }
