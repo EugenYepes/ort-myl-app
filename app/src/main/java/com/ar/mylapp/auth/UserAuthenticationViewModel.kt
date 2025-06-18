@@ -193,7 +193,7 @@ class UserAuthenticationViewModel @Inject constructor(
         }
 
         if (!isPasswordSecure(password)) {
-            error = "La contraseña debe tener al menos 8 caracteres, un número y un símbolo"
+            error = "La contraseña debe tener al menos 8 caracteres, una mayúscula, un número y un símbolo"
             return false
         }
 

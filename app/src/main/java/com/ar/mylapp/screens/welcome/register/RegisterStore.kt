@@ -110,7 +110,7 @@ fun RegisterStoreScreen(
                 userAuthenticationViewModel.error?.let {
                     Text5(
                         text = it,
-                        modifier = Modifier.padding(top = 4.dp)
+                        modifier = Modifier.padding(4.dp)
                     )
                 }
 
