@@ -37,11 +37,31 @@ class UserAuthenticationViewModel @Inject constructor(
     var navigateToConfirmScreen by mutableStateOf(false)
     var isAdmin by mutableStateOf(false)
 
-    fun loadToken() {
-        viewModelScope.launch {
-            token = userDataStoreManager.getToken()
-        }
+    init {
+        FirebaseAuth.getInstance().addIdTokenListener(FirebaseAuth.IdTokenListener { firebaseAuth ->
+            val user = firebaseAuth.currentUser
+            user?.getIdToken(false)
+                ?.addOnSuccessListener { result ->
+                    val _token = result.token
+                    if (!_token.isNullOrBlank()) {
+                        viewModelScope.launch {
+                            userDataStoreManager.saveToken(_token)
+                            token = _token
+                        }
+                    }
+                }
+        })
     }
+
+    //private fun setToken(_token: String) {
+    //    token = _token
+    //}
+
+//    fun loadToken() {
+//        viewModelScope.launch {
+//            token = userDataStoreManager.getToken()
+//        }
+//    }
 
     fun onLoginClicked(
         navController: NavController,
@@ -54,13 +74,13 @@ class UserAuthenticationViewModel @Inject constructor(
             email,
             password,
             onSuccess = { idToken ->
-                token = idToken
+                //token = idToken
                 viewModelScope.launch {
                     val response = authRepository.login("Bearer $idToken")
                     if (response.isSuccessful) {
                         val user = response.body()
                         isAdmin = if (user is PlayerDTO) user.isAdmin else false
-                        userDataStoreManager.saveToken(idToken)
+                        //userDataStoreManager.saveToken(idToken)
                         navController.navigate(Screens.Home.screen) {
                             popUpTo(0) { inclusive = true }
                         }
@@ -172,9 +192,9 @@ class UserAuthenticationViewModel @Inject constructor(
         token = null
         error = null
 
-        viewModelScope.launch {
-            userDataStoreManager.clearAll()
-        }
+        //viewModelScope.launch {
+        //    userDataStoreManager.clearAll()
+        //}
     }
 
     fun isLoggedIn(): Boolean {
