@@ -51,11 +51,11 @@ class UserAuthenticationViewModel @Inject constructor(
                     }
                 }
         })
-    }
 
-    //private fun setToken(_token: String) {
-    //    token = _token
-    //}
+        viewModelScope.launch {
+            token = userDataStoreManager.getToken()
+        }
+    }
 
 //    fun loadToken() {
 //        viewModelScope.launch {

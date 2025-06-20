@@ -5,7 +5,7 @@ import android.util.Log
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import androidx.datastore.preferences.core.edit
-//import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.first
 import dagger.hilt.android.qualifiers.ApplicationContext
 import javax.inject.Inject
 
@@ -24,12 +24,12 @@ class UserDataStoreManager @Inject constructor(
         }
     }
 
-    /*suspend fun getToken(): String? {
+    suspend fun getToken(): String? {
         val preferences = dataStore.data.first()
         return preferences[UserDataStoreKeys.TOKEN]
     }
 
-    suspend fun clearAll() {
+    /*suspend fun clearAll() {
         dataStore.edit { prefs -> prefs.remove(UserDataStoreKeys.TOKEN) }
     }*/
 }

@@ -61,7 +61,7 @@ fun AccountScreen(
         topBarViewModel.setTopBar(title)
         userAuthenticationViewModel.token?.let { token ->
             accountViewModel.clearUserData()
-            accountViewModel.getFullUserInfo()
+            accountViewModel.getFullUserInfo("Bearer $token")
         }
     }
 
@@ -116,7 +116,7 @@ fun AccountScreen(
     LaunchedEffect(accountViewModel.updateSuccess) {
         if (accountViewModel.updateSuccess) {
             userAuthenticationViewModel.token?.let { token ->
-                accountViewModel.getFullUserInfo()
+                accountViewModel.getFullUserInfo("Bearer $token")
             }
             Toast.makeText(
                 context,
@@ -183,40 +183,40 @@ fun AccountScreen(
                     icon = painterResource(id = R.drawable.account_edit_icon),
                     modifier = Modifier.width(buttonWidth),
                     onClick = {
-                        if (accountViewModel.isStoreUser()) {
-                            if (address.isBlank()) {
-                                accountViewModel.updateError =
-                                    context.getString(R.string.update_error_adress)
-                                return@Button6
-                            }
-                            var preparedUrl = ""
-                            if (!url.isBlank()) {
+                        userAuthenticationViewModel.token?.let { token ->
+                            val bearerToken = token
+                            if (accountViewModel.isStoreUser()) {
+                                if (address.isBlank()) {
+                                    accountViewModel.updateError =
+                                        context.getString(R.string.update_error_adress)
+                                    return@let
+                                }
                                 val preparedUrl = prepareUrl(url)
                                 if (preparedUrl == null) {
                                     accountViewModel.updateError =
                                         context.getString(R.string.update_error_url)
-                                    return@Button6
+                                    return@let
                                 }
-                            }
 
-                            val store = accountViewModel.storeDTO!!
-                            val updatedStore = StoreDTO().apply {
-                                uuid = store.uuid
-                                email = store.email
-                                setName(name)
-                                this.address = address
-                                this.phoneNumber = phone
-                                this.url = preparedUrl
+                                val store = accountViewModel.storeDTO!!
+                                val updatedStore = StoreDTO().apply {
+                                    uuid = store.uuid
+                                    email = store.email
+                                    setName(name)
+                                    this.address = address
+                                    this.phoneNumber = phone
+                                    this.url = preparedUrl
+                                }
+                                accountViewModel.updateStore(bearerToken, updatedStore)
+                            } else if (accountViewModel.isPlayerUser()) {
+                                val player = accountViewModel.playerDTO!!
+                                val updatedPlayer = PlayerDTO().apply {
+                                    uuid = player.uuid
+                                    email = player.email
+                                    setName(name)
+                                }
+                                accountViewModel.updatePlayer(bearerToken, updatedPlayer)
                             }
-                            accountViewModel.updateStore(updatedStore)
-                        } else if (accountViewModel.isPlayerUser()) {
-                            val player = accountViewModel.playerDTO!!
-                            val updatedPlayer = PlayerDTO().apply {
-                                uuid = player.uuid
-                                email = player.email
-                                setName(name)
-                            }
-                            accountViewModel.updatePlayer(updatedPlayer)
                         }
                     }
                 )

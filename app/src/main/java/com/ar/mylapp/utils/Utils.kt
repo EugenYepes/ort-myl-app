@@ -1,26 +1,5 @@
 package com.ar.mylapp.utils
 
-import com.google.firebase.auth.FirebaseAuth
-import kotlinx.coroutines.suspendCancellableCoroutine
-
-//? Token
-suspend fun refreshFirebaseToken(): String? {
-    return suspendCancellableCoroutine { cont ->
-        val user = FirebaseAuth.getInstance().currentUser
-        if (user == null) {
-            cont.resume(null, null)
-        } else {
-            user.getIdToken(true)
-                .addOnSuccessListener { result ->
-                    cont.resume(result.token, null)
-                }
-                .addOnFailureListener { e ->
-                    cont.resume(null, null)
-                }
-        }
-    }
-}
-
 //? Card Detail
 fun capitalizeTitle(input: String): String {
     val exceptions = setOf("de", "la", "el", "los", "las", "y", "en", "del")

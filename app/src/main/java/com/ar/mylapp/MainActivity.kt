@@ -58,15 +58,14 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val accountViewModel: AccountViewModel = viewModel()
-                //LaunchedEffect(Unit) {
-                //    userAuthenticationViewModel.loadToken()
-                //}
+//                LaunchedEffect(Unit) {
+//                    userAuthenticationViewModel.loadToken()
+//                }
 
                 val token = userAuthenticationViewModel.token
                 val isLoggedIn = token != null
-                //if(isLoggedIn){
                 if(token != null){
-                    accountViewModel.getFullUserInfo()
+                    accountViewModel.getFullUserInfo("Bearer $token")
                     deckViewModel.loadDecks(token)
                 }
 

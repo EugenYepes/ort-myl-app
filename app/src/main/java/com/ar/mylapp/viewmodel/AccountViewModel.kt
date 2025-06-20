@@ -9,7 +9,7 @@ import ar.com.myldtos.users.PlayerDTO
 import ar.com.myldtos.users.StoreDTO
 import com.ar.mylapp.auth.FirebaseAuthManager
 import com.ar.mylapp.repository.AuthRepository
-import com.ar.mylapp.utils.refreshFirebaseToken
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,18 +26,11 @@ class AccountViewModel @Inject constructor(
     var storeDTO by mutableStateOf<StoreDTO?>(null)
     var playerDTO by mutableStateOf<PlayerDTO?>(null)
 
-    fun getFullUserInfo() {
+    fun getFullUserInfo(token: String) {
         viewModelScope.launch {
             isLoading = true
 
-            val refreshedToken = refreshFirebaseToken()
-            if (refreshedToken == null) {
-                updateError = "No se pudo renovar el token"
-                isLoading = false
-                return@launch
-            }
-
-            val response = authRepository.login("Bearer $refreshedToken")
+            val response = authRepository.login(token)
             if (response.isSuccessful) {
                 playerDTO = null
                 storeDTO = null
@@ -59,59 +52,63 @@ class AccountViewModel @Inject constructor(
     fun isStoreUser(): Boolean = storeDTO != null
     fun isPlayerUser(): Boolean = playerDTO != null
 
-    fun updatePlayer(dto: PlayerDTO) {
+    fun updatePlayer(token: String, dto: PlayerDTO) {
         viewModelScope.launch {
-            val token = refreshFirebaseToken()
-            if (token != null) {
-                val response = authRepository.updatePlayer(token, dto)
-                updateSuccess = response.isSuccessful
-                updateError = if (!response.isSuccessful)
-                    "No se pudo actualizar el jugador: ${response.errorBody()?.string()}"
-                else null
+            val response = authRepository.updatePlayer(token, dto)
+            if (response.isSuccessful) {
+                updateSuccess = true
+                updateError = null
             } else {
                 updateSuccess = false
-                updateError = "No se pudo renovar el token"
+                updateError = "No se pudo actualizar el jugador: ${response.errorBody()?.string()}"
             }
         }
     }
 
-    fun updateStore(dto: StoreDTO) {
+    fun updateStore(token: String, dto: StoreDTO) {
         viewModelScope.launch {
-            val token = refreshFirebaseToken()
-            if (token != null) {
-                val response = authRepository.updateStore(token, dto)
-                updateSuccess = response.isSuccessful
-                updateError = if (!response.isSuccessful)
-                    "No se pudo actualizar la tienda: ${response.errorBody()?.string()}"
-                else null
+            val response = authRepository.updateStore(token, dto)
+            if (response.isSuccessful) {
+                updateSuccess = true
+                updateError = null
             } else {
                 updateSuccess = false
-                updateError = "No se pudo renovar el token"
+                updateError = "No se pudo actualizar la tienda: ${response.errorBody()?.string()}"
             }
         }
     }
 
-    fun deleteAccount() {
+    fun deleteAccount(token: String) {
         viewModelScope.launch {
-            val token = refreshFirebaseToken()
-            if (token != null) {
-                val response = authRepository.deleteAccount("Bearer $token")
-                deleteSuccess = response.isSuccessful
-            } else {
-                deleteSuccess = false
-                updateError = "No se pudo renovar el token para eliminar la cuenta"
-            }
+            val response = authRepository.deleteAccount(token)
+            deleteSuccess = response.isSuccessful
         }
     }
 
     fun deleteAccountWithPassword(email: String, password: String) {
         viewModelScope.launch {
-            val reAuthSuccess = FirebaseAuthManager.reAuthenticateFirebaseSuspend(email, password)
-            if (reAuthSuccess) {
-                deleteAccount()
-            } else {
-                updateError = "No se pudo reautenticar al usuario"
-            }
+            FirebaseAuthManager.reAuthenticateFirebase(
+                email = email,
+                password = password,
+                onSuccess = {
+                    val user = FirebaseAuth.getInstance().currentUser
+                    user?.getIdToken(true)
+                        ?.addOnSuccessListener { tokenResult ->
+                            val token = tokenResult.token
+                            if (!token.isNullOrBlank()) {
+                                deleteAccount("Bearer $token")
+                            } else {
+                                updateError = "No se pudo obtener el token"
+                            }
+                        }
+                        ?.addOnFailureListener {
+                            updateError = "Error al obtener el token: ${it.message}"
+                        }
+                },
+                onError = { errorMsg ->
+                    updateError = errorMsg
+                }
+            )
         }
     }
 
