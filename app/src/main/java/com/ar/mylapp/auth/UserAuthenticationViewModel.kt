@@ -57,12 +57,6 @@ class UserAuthenticationViewModel @Inject constructor(
         }
     }
 
-//    fun loadToken() {
-//        viewModelScope.launch {
-//            token = userDataStoreManager.getToken()
-//        }
-//    }
-
     fun onLoginClicked(
         navController: NavController,
     ) {
