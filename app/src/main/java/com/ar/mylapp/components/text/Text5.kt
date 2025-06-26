@@ -1,5 +1,6 @@
 package com.ar.mylapp.components.text
 
+import androidx.compose.ui.graphics.Color
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,7 +25,8 @@ fun Text5Preview(){
 @Composable
 fun Text5(
     text: String,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    color: Color = GoldBeige
 ){
     Text(
         text = text,
@@ -34,7 +36,7 @@ fun Text5(
             lineHeight = 18.sp,
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
-            color = GoldBeige,
+            color = color,
             textAlign = TextAlign.Center,
         )
     )
