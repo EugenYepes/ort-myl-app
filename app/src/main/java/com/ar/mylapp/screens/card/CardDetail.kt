@@ -31,6 +31,7 @@ import com.ar.mylapp.components.card.UserCardsPicker
 import com.ar.mylapp.components.dialog.ShowDialogCard
 import com.ar.mylapp.components.popup.AddToDeckPopup
 import com.ar.mylapp.components.popup.CardDetailPopup
+import com.ar.mylapp.components.popup.ZoomableImagePopupDialog
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.utils.DialogType
 import com.ar.mylapp.utils.capitalizeTitle
@@ -57,6 +58,7 @@ fun CardDetail(
     var showAddToDeckPopup by remember { mutableStateOf(false) }
     var showDialog by remember { mutableStateOf(false) }
     var dialogType by remember { mutableStateOf<DialogType?>(null) }
+    var showImageZoom by remember { mutableStateOf(false) }
 
     LaunchedEffect(id) { cardViewModel.loadCardById(id) }
 
@@ -84,10 +86,7 @@ fun CardDetail(
                     verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    CardDetailImage(
-                        card,
-                        Alignment.Center
-                    )
+                    CardDetailImage(card, Alignment.Center, onClick = { showImageZoom = true })
                     Spacer(modifier = Modifier.size(22.dp))
                     ShowButtons(
                         onClickShowInfo = { showCardDetailPopup = true },
@@ -106,7 +105,9 @@ fun CardDetail(
                             token = userAuthenticationViewModel.token
                         )
                     }
-
+                    if (showImageZoom) {
+                        ZoomableImagePopupDialog(imageUrl = card.imageUrl, onDismiss = { showImageZoom = false })
+                    }
                     if (showCardDetailPopup) {
                         CardDetailPopup(onDismiss = { showCardDetailPopup = false }, card)
                     }
