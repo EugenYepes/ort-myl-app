@@ -8,21 +8,27 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button6
+import com.ar.mylapp.components.buttons.ToggleViewButton
 import com.ar.mylapp.components.card.CardGrid
+import com.ar.mylapp.components.card.CardList
 import com.ar.mylapp.components.entryData.MySearchBar
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.ui.theme.Red
@@ -34,34 +40,46 @@ import com.ar.mylapp.viewmodel.TopBarViewModel
 @Composable
 fun CardsScreen(
     navController: NavController,
-    viewModel: CardViewModel = viewModel(),
+    cardViewModel: CardViewModel,
     topBarViewModel: TopBarViewModel,
     userAuthenticationViewModel: UserAuthenticationViewModel,
     accountViewModel: AccountViewModel
 ) {
     val title = stringResource(R.string.topbar_cards_title)
     LaunchedEffect(Unit) { topBarViewModel.setTopBar(title) }
-
+    var isGridView by rememberSaveable { mutableStateOf(true) }
     val searchCardViewModel: SearchCardViewModel = hiltViewModel()
     val searchQuery = searchCardViewModel.searchQuery
     val foundCards = searchCardViewModel.foundCards
-
-    val cards = viewModel.cards
-    val isLoading = viewModel.isLoading
-    val error = viewModel.errorMessage
+    val cards = cardViewModel.cards
+    val isLoading = cardViewModel.isLoading
+    val error = cardViewModel.errorMessage
 
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
         Column(
-            modifier = Modifier
-                .padding(start = 16.dp, end = 16.dp)
+            modifier = Modifier.padding(start = 16.dp, end = 16.dp)
         ) {
-            MySearchBar(
-                placeholder = stringResource(R.string.searchbar_placeholder),
-                searchQuery = searchCardViewModel.searchQuery,
-                onValueChange = { searchCardViewModel.updateQuery(it) }
-            )
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                MySearchBar(
+                    placeholder = stringResource(R.string.searchbar_placeholder),
+                    searchQuery = searchQuery,
+                    onValueChange = { searchCardViewModel.updateQuery(it) },
+                    modifier = Modifier.weight(1f)
+                )
+
+                Spacer(modifier = Modifier.width(8.dp))
+
+                ToggleViewButton(
+                    isGridView = isGridView,
+                    onClick = { isGridView = !isGridView }
+                )
+            }
             Spacer(modifier = Modifier.size(10.dp))
 
             Row(
@@ -86,7 +104,7 @@ fun CardsScreen(
 
         if (error != null) {
             Text(
-                text = "Error: $error",
+                text = error,
                 color = Red,
                 modifier = Modifier.padding(16.dp)
             )
@@ -102,11 +120,20 @@ fun CardsScreen(
 
         val cardsToDisplay = if (searchQuery.isBlank()) cards else foundCards
 
-        CardGrid(
-            navController = navController,
-            cards = cardsToDisplay,
-            isLoading = if (searchQuery.isBlank()) isLoading else searchCardViewModel.isLoading,
-            onLoadMore = { if (searchQuery.isBlank()) viewModel.loadMoreCards() }
-        )
+        if(isGridView){
+            CardGrid(
+                navController = navController,
+                cards = cardsToDisplay,
+                isLoading = if (searchQuery.isBlank()) isLoading else searchCardViewModel.isLoading,
+                onLoadMore = { if (searchQuery.isBlank()) cardViewModel.loadMoreCards() }
+            )
+        } else {
+            CardList(
+                navController = navController,
+                cards = cardsToDisplay,
+                isLoading = if (searchQuery.isBlank()) isLoading else searchCardViewModel.isLoading,
+                onLoadMore = { if (searchQuery.isBlank()) cardViewModel.loadMoreCards() }
+            )
+        }
     }
 }
