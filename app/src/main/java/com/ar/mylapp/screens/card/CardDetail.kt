@@ -4,8 +4,10 @@ import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
@@ -21,7 +23,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
@@ -32,6 +36,7 @@ import com.ar.mylapp.components.dialog.ShowDialogCard
 import com.ar.mylapp.components.popup.AddToDeckPopup
 import com.ar.mylapp.components.popup.CardDetailPopup
 import com.ar.mylapp.components.popup.ZoomableImagePopupDialog
+import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.utils.DialogType
 import com.ar.mylapp.utils.capitalizeTitle
@@ -99,11 +104,22 @@ fun CardDetail(
                         userAuthenticationViewModel = userAuthenticationViewModel
                     )
                     if(userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()){
-                        UserCardsPicker(
-                            cardId = card.id,
-                            cardViewModel = cardViewModel,
-                            token = userAuthenticationViewModel.token
-                        )
+                        Row(
+                            modifier = Modifier.fillMaxWidth().padding(8.dp),
+                            horizontalArrangement = Arrangement.SpaceEvenly,
+                            verticalAlignment = Alignment.CenterVertically
+                        ){
+                            Text3(
+                                text = "Agregar a Mis Cartas",
+                                textAlign = TextAlign.Start,
+                                fontSize = 15.sp
+                            )
+                            UserCardsPicker(
+                                cardId = card.id,
+                                cardViewModel = cardViewModel,
+                                token = userAuthenticationViewModel.token
+                            )
+                        }
                     }
                     if (showImageZoom) {
                         ZoomableImagePopupDialog(imageUrl = card.imageUrl, onDismiss = { showImageZoom = false })

@@ -30,7 +30,7 @@ fun Text3(
             fontFamily = FontFamily(Font(R.font.patua_one_regular)),
             fontWeight = FontWeight(400),
             color = GoldBeige,
-            textAlign = TextAlign.Center,
+            textAlign = textAlign,
         )
     )
 }

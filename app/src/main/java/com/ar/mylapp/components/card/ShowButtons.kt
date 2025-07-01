@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.components.buttons.ButtonIcon
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.buttons.Button6
 
 @Composable
 fun ShowButtons(
@@ -20,19 +21,19 @@ fun ShowButtons(
     userAuthenticationViewModel: UserAuthenticationViewModel
 ) {
     Row(
-        modifier = Modifier
-            .fillMaxWidth(0.6f)
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+        modifier = Modifier.fillMaxWidth().padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ButtonIcon(
+        Button6(
             onClick = onClickShowInfo,
-            image = painterResource(id = R.drawable.search)
+            text = "Ver mas Info.",
+            icon = painterResource(id = R.drawable.search),
         )
-        ButtonIcon(
-            onClick = onClickAddToDeck, 
-            image = painterResource(id = R.drawable.folder_plus),
+        Button6(
+            onClick = onClickAddToDeck,
+            text = "Agregar a Mazos",
+            icon = painterResource(id = R.drawable.folder_plus),
             enabled = userAuthenticationViewModel.isLoggedIn()
         )
     }
