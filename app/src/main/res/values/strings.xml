@@ -335,4 +335,7 @@
     <string name="card_type_weapon">Arma</string>
     <string name="card_type_totem">Tótem</string>
     <string name="card_type_unknown">Tipo desconocido</string>
+    <string name="add_to_my_cards">Agregar a Mis Cartas</string>
+    <string name="more_info">Ver mas Info.</string>
+    <string name="add_to_decks">Mazos</string>
 </resources>

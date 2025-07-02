@@ -105,12 +105,14 @@ fun CardDetail(
                     )
                     if(userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()){
                         Row(
-                            modifier = Modifier.fillMaxWidth().padding(8.dp),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(8.dp),
                             horizontalArrangement = Arrangement.SpaceEvenly,
                             verticalAlignment = Alignment.CenterVertically
                         ){
                             Text3(
-                                text = "Agregar a Mis Cartas",
+                                text = stringResource(R.string.add_to_my_cards),
                                 textAlign = TextAlign.Start,
                                 fontSize = 15.sp
                             )
