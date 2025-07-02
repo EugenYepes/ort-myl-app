@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -22,6 +23,7 @@ import com.ar.mylapp.components.image.ImageLogoMyl
 import com.ar.mylapp.components.text.Text3
 import com.ar.mylapp.components.text.Text5
 import com.ar.mylapp.navigation.Screens
+import com.ar.mylapp.ui.theme.Red
 
 @Composable
 fun LoginScreen(
@@ -29,6 +31,9 @@ fun LoginScreen(
     userAuthenticationViewModel: UserAuthenticationViewModel,
 )
 {
+    LaunchedEffect(Unit) {
+        userAuthenticationViewModel.error = null
+    }
     Box(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -63,7 +68,8 @@ fun LoginScreen(
                 userAuthenticationViewModel.error?.let {
                     Text5(
                         text = it,
-                        modifier = Modifier.padding(top = 4.dp)
+                        modifier = Modifier.padding(top = 4.dp, start = 4.dp, end = 4.dp),
+                        color = Red
                     )
                 }
                 Button5(

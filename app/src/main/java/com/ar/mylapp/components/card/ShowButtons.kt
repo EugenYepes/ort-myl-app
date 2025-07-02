@@ -8,10 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.ar.mylapp.components.buttons.ButtonIcon
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
+import com.ar.mylapp.components.buttons.Button6
 
 @Composable
 fun ShowButtons(
@@ -21,18 +22,20 @@ fun ShowButtons(
 ) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(0.6f)
-            .padding(horizontal = 16.dp),
-        horizontalArrangement = Arrangement.SpaceBetween,
+            .fillMaxWidth()
+            .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        ButtonIcon(
+        Button6(
             onClick = onClickShowInfo,
-            image = painterResource(id = R.drawable.search)
+            text = stringResource(R.string.more_info),
+            icon = painterResource(id = R.drawable.search),
         )
-        ButtonIcon(
-            onClick = onClickAddToDeck, 
-            image = painterResource(id = R.drawable.folder_plus),
+        Button6(
+            onClick = onClickAddToDeck,
+            text = stringResource(R.string.add_to_decks),
+            icon = painterResource(id = R.drawable.folder_plus),
             enabled = userAuthenticationViewModel.isLoggedIn()
         )
     }

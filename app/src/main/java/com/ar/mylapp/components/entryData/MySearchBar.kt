@@ -46,14 +46,15 @@ fun MySearchBarPreview() {
 fun MySearchBar(
     placeholder: String,
     searchQuery: String,
-    onValueChange: (String) -> Unit
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     Box(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
             .background(Black, shape = RoundedCornerShape(50.dp))
-            .clip(RoundedCornerShape(50.dp)) // Asegura que el contenido quede dentro
+            .clip(RoundedCornerShape(50.dp))
             .border(
                 width = 4.dp,
                 color = GoldDark,

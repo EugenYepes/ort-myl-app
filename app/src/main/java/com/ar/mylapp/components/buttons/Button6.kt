@@ -1,6 +1,7 @@
 package com.ar.mylapp.components.buttons
 
 import android.annotation.SuppressLint
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
@@ -37,6 +38,7 @@ fun Button6(
     onClick: () -> Unit,
     text: String,
     icon: Painter,
+    iconColor: Color = White,
     enabled: Boolean = true
 ) {
     val screenWidth = LocalConfiguration.current.screenWidthDp
@@ -78,7 +80,7 @@ fun Button6(
         Box(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = icon,
-                colorFilter = if (!enabled) ColorFilter.tint(Gray) else null,
+                colorFilter = if (!enabled) ColorFilter.tint(Gray) else ColorFilter.tint(iconColor),
                 contentDescription = null,
                 contentScale = ContentScale.Fit,
                 modifier = Modifier
