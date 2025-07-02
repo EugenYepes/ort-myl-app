@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -30,6 +31,7 @@ import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button1
 import com.ar.mylapp.components.deck.DeckNameCard
+import com.ar.mylapp.components.entryData.MySearchBar
 import com.ar.mylapp.components.popup.CreateDeckPopup
 import com.ar.mylapp.navigation.Screens
 import com.ar.mylapp.viewmodel.AccountViewModel
@@ -44,13 +46,13 @@ fun DecksScreen(
     decksViewModel: DecksViewModel,
     authViewModel: UserAuthenticationViewModel,
     accountViewModel: AccountViewModel
-){
+) {
     var showDialog by remember { mutableStateOf(false) }
+    var searchQuery by remember { mutableStateOf("") }
     val decks by decksViewModel.decks
 
     val configuration = LocalConfiguration.current
     val screenHeightDp = configuration.screenHeightDp
-
     val titleSize = if (screenHeightDp < 700) 26.sp else 32.sp
 
     val title = stringResource(R.string.topbar_decks_title)
@@ -58,19 +60,33 @@ fun DecksScreen(
         topBarViewModel.setTopBar(title)
     }
 
+    val filteredDecks = if (searchQuery.isBlank()) {
+        decks
+    } else {
+        decks.filter { it.name.contains(searchQuery, ignoreCase = true) }
+    }
+
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(8.dp)
             .verticalScroll(rememberScrollState()),
     ) {
+        MySearchBar(
+            placeholder = stringResource(R.string.searchbar_placeholder),
+            searchQuery = searchQuery,
+            onValueChange = { searchQuery = it },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(12.dp))
+
         LazyColumn(
-            modifier = Modifier
-                .weight(1f),
+            modifier = Modifier.weight(1f),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(decks) { deck ->
+            items(filteredDecks) { deck ->
                 DeckNameCard(
                     title2 = deck.name,
                     title3 = calculateTotalCards(deck),
@@ -91,7 +107,6 @@ fun DecksScreen(
             modifier = Modifier.align(Alignment.CenterHorizontally)
         )
     }
-
 
     if (showDialog) {
         CreateDeckPopup(

@@ -1,6 +1,8 @@
 package com.ar.mylapp.components.card
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -17,17 +19,18 @@ import androidx.compose.ui.unit.dp
 import ar.com.myldtos.cards.CardDTO
 import coil3.compose.AsyncImage
 
+@SuppressLint("UnusedBoxWithConstraintsScope")
 @Composable
 fun CardDetailImage(
     card: CardDTO,
-    alignment: Alignment) {
+    alignment: Alignment,
+    onClick: () -> Unit
+) {
     BoxWithConstraints(
-        modifier = Modifier
-            .fillMaxSize(),
+        modifier = Modifier.fillMaxSize(),
         contentAlignment = alignment
     ) {
         val screenWidth = maxWidth
-
         val imageWidth = screenWidth * 0.8f
         val imageHeight = imageWidth * 1.43f
 
@@ -42,8 +45,7 @@ fun CardDetailImage(
                 .height(imageHeight)
                 .clip(shape = RoundedCornerShape(10.dp))
                 .background(color = Color.Transparent, shape = RoundedCornerShape(15.dp))
-
+                .clickable { onClick() }
         )
     }
 }
-

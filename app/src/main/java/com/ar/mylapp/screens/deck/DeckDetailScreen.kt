@@ -119,7 +119,7 @@ fun DeckDetailScreen(
             Text3(
                 text = deck.description,
                 fontSize = 14.sp,
-                textAlign = TextAlign.Justify,
+                textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
         }

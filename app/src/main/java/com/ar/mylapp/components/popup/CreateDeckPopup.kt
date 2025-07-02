@@ -40,7 +40,7 @@ fun CreateDeckPopup(
 
     Dialog(onDismissRequest = onDismiss) {
         Box(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .width(400.dp)
                 .height(600.dp)
                 .padding(16.dp)
@@ -53,14 +53,11 @@ fun CreateDeckPopup(
                     disabledContentColor = GoldDark,
                     disabledContainerColor = BlackLight
                 ),
-                modifier = Modifier.Companion
-                    .fillMaxSize(),
-                shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                modifier = Modifier.fillMaxSize(),
+                shape = RoundedCornerShape(12.dp)
             ) {
                 Column(
-                    modifier = Modifier.Companion
-                        .padding(24.dp)
-                        .fillMaxSize(),
+                    modifier = Modifier.padding(24.dp).fillMaxSize(),
                     verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
                     Title1(title = stringResource(R.string.new_deck))
@@ -77,7 +74,7 @@ fun CreateDeckPopup(
                         onValueChange = { description = it }
                     )
 
-                    Spacer(modifier = Modifier.Companion.weight(1f))
+                    Spacer(modifier = Modifier.weight(1f))
 
                     Button1(
                         onClick = {
