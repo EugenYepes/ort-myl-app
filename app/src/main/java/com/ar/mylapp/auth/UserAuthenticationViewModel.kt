@@ -43,7 +43,7 @@ class UserAuthenticationViewModel @Inject constructor(
             user?.getIdToken(false)
                 ?.addOnSuccessListener { result ->
                     val _token = result.token
-                    if (!_token.isNullOrBlank()) {
+                    if (!_token.isNullOrBlank() && FirebaseAuth.getInstance().currentUser?.isEmailVerified == true) {
                         viewModelScope.launch {
                             userDataStoreManager.saveToken(_token)
                             token = _token
