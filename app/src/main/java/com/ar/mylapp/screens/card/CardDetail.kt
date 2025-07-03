@@ -101,7 +101,8 @@ fun CardDetail(
                                 showAddToDeckPopup = true
                             }
                         },
-                        userAuthenticationViewModel = userAuthenticationViewModel
+                        userAuthenticationViewModel = userAuthenticationViewModel,
+                        accountViewModel = accountViewModel
                     )
                     if(userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()){
                         Row(

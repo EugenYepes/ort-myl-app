@@ -42,11 +42,7 @@ fun MyBottomAppBar(
         Row(modifier = Modifier.fillMaxWidth()) {
             navItems.forEach { item ->
                 IconButton(
-                    onClick = {
-                        navController.navigate(item.route) {
-                            launchSingleTop = true
-                        }
-                    },
+                    onClick = { navController.navigate(item.route) { launchSingleTop = true } },
                     modifier = Modifier.weight(1f)
                 ) {
                     Column(

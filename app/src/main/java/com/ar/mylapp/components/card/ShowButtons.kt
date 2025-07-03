@@ -13,12 +13,14 @@ import androidx.compose.ui.unit.dp
 import com.ar.mylapp.R
 import com.ar.mylapp.auth.UserAuthenticationViewModel
 import com.ar.mylapp.components.buttons.Button6
+import com.ar.mylapp.viewmodel.AccountViewModel
 
 @Composable
 fun ShowButtons(
     onClickShowInfo: () -> Unit,
     onClickAddToDeck: () -> Unit,
-    userAuthenticationViewModel: UserAuthenticationViewModel
+    userAuthenticationViewModel: UserAuthenticationViewModel,
+    accountViewModel: AccountViewModel
 ) {
     Row(
         modifier = Modifier
@@ -36,7 +38,7 @@ fun ShowButtons(
             onClick = onClickAddToDeck,
             text = stringResource(R.string.add_to_decks),
             icon = painterResource(id = R.drawable.folder_plus),
-            enabled = userAuthenticationViewModel.isLoggedIn()
+            enabled = userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()
         )
     }
 }
