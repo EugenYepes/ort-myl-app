@@ -58,18 +58,14 @@ class MainActivity : ComponentActivity() {
                 val storeViewModel: StoreViewModel = viewModel()
                 val bottomBarViewModel: BottomBarViewModel = viewModel()
                 val accountViewModel: AccountViewModel = viewModel()
-
+                val navBackStackEntry by navController.currentBackStackEntryAsState()
+                val currentRoute = navBackStackEntry?.destination?.route
                 val token = userAuthenticationViewModel.token
                 val isLoggedIn = token != null
                 if(token != null){
                     accountViewModel.getFullUserInfo("Bearer $token")
                     deckViewModel.loadDecks(token)
                 }
-
-
-                // Ruta actual
-                val navBackStackEntry by navController.currentBackStackEntryAsState()
-                val currentRoute = navBackStackEntry?.destination?.route
 
                 LaunchedEffect(navController) {
                     navController.currentBackStackEntryFlow.collect { entry ->

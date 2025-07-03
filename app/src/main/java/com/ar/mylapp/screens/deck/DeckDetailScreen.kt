@@ -47,9 +47,7 @@ fun DeckDetailScreen(
     val deck = decksViewModel.decks.value.find { it.id == deckId }
 
     val title = stringResource(R.string.topbar_deck_details)
-    LaunchedEffect(Unit) {
-        topBarViewModel.setTopBar(title, deck?.name)
-    }
+    LaunchedEffect(Unit) { topBarViewModel.setTopBar(title, deck?.name) }
 
     if (deck == null) {
         Text5(
@@ -110,9 +108,7 @@ fun DeckDetailScreen(
     }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         if(deck.description.isNotBlank()){
@@ -120,7 +116,7 @@ fun DeckDetailScreen(
                 text = deck.description,
                 fontSize = 14.sp,
                 textAlign = TextAlign.Center,
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(12.dp),
             )
         }
 
@@ -145,9 +141,7 @@ fun DeckDetailScreen(
             modifier = Modifier.fillMaxSize(),
         ) {
             Box(
-                modifier = Modifier
-                    .weight(1f)
-                    .fillMaxWidth()
+                modifier = Modifier.weight(1f).fillMaxWidth()
             ) {
                 if (deck.cards.isNotEmpty()) {
                     CardGrid(
@@ -166,9 +160,7 @@ fun DeckDetailScreen(
             }
 
             Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(top = 8.dp),
+                modifier = Modifier.fillMaxWidth().padding(top = 8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Button2(

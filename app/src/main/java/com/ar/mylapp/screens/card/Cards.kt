@@ -98,7 +98,6 @@ fun CardsScreen(
                     enabled = userAuthenticationViewModel.isLoggedIn() && accountViewModel.isPlayerUser()
                 )
             }
-
             Spacer(modifier = Modifier.size(10.dp))
         }
 
